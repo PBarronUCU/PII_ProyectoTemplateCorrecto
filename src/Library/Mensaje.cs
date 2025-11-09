@@ -3,7 +3,7 @@ using System;
 namespace Library
 
 {
-    public class Mensaje : IInteracion
+    public class Mensaje : IInteracionDialogo
     {
         public DateTime Fecha { get; set; }
         public string Tema { get; set; }
