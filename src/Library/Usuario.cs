@@ -184,7 +184,16 @@ namespace Library
 
         public List<IInteracionDialogo> IntreaSinResponder()
         {
-            return ListaInteracciones.FindAll(i => i.Remitente(Cliente));//terminar esto
+            List<IInteracionDialogo> resultado = new List<IInteracionDialogo>();
+            foreach (var interacion in ListaInteracciones  )
+            {
+                IInteracionDialogo dialogo = interacion as IInteracionDialogo;
+                if (dialogo.Remitente == UsuarioOCliente.Cliente)
+                {
+                    resultado.Add(dialogo);
+                }
+            }
+            return resultado;//Verificar
             
         }
 
