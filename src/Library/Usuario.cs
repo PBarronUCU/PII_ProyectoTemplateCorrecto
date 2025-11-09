@@ -182,7 +182,7 @@ namespace Library
         }
 
 
-        public List<IInteracion> IntreaSinResponder()
+        public List<IInteracionDialogo> IntreaSinResponder()
         {
             return ListaInteracciones.FindAll(i => i.Remitente(Cliente));//terminar esto
             
