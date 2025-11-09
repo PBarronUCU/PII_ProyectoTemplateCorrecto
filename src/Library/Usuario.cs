@@ -135,6 +135,68 @@ namespace Library
         {
             ListaInteracciones.Add(interacion);
         }
-        
+        public List<Cliente> FiltrarClienteNom(string name, string apellido)
+        {
+            return Cartera.FindAll(c => c.Nombre == name && c.Apellido == apellido);
+        }
+
+        public Cliente FiltrarClienteTel(int telefono)
+        {
+            return Cartera.Find(c => c.Tel == telefono);
+        }
+
+        public Cliente FiltrarClienteCorreo(string correo)
+        {
+            return Cartera.Find(c => c.Correo == correo);
+        }
+
+        public void AgregarNota(int telcliente, DateTime fecha, string tipo, string nota)
+        {
+            Cliente cliente = FiltrarClienteTel(telcliente);
+            if (cliente != null)
+            {
+                Console.WriteLine($"Nota agregada a {cliente.Nombre}: {nota} ({tipo}) en {fecha}");
+            }
+        }
+        public List<IInteracion> InteracionClienteSinFiltro(int telcliente)
+        {
+            return ListaInteracciones.FindAll(i => i.TelCliente == telcliente);
+        }
+
+        public List<IInteracion> InteracionClienteFiltroFecha(int telcliente, DateTime fecha)
+        {
+            return ListaInteracciones.FindAll(i => i.TelCliente == telcliente && i.Fecha.Date == fecha.Date);
+        }
+
+        public List<IInteracion> InteracionClienteFiltroTipo(int telcliente, string tipo)
+        {
+            return ListaInteracciones.FindAll(i => i.TelCliente == telcliente && i.GetType().Name == tipo);
+        }
+        public List<IInteracion> InteracionClienteFiltroTipoFecha(int telcliente, string tipo, DateTime fecha)
+        {
+            return ListaInteracciones.FindAll(i =>
+                i.TelCliente == telcliente &&
+                i.GetType().Name == tipo &&
+                i.Fecha.Date == fecha.Date);
+        }
+
+
+        public List<IInteracion> IntreaSinResponder()
+        {
+            return ListaInteracciones.FindAll(i => i.Remitente(Cliente));//terminar esto
+            
+        }
+
+        public List<IInteracion> InteraViejas()
+        {
+           DateTime Fecha_Limite= DateTime.Now.AddDays(-30);
+           return ListaInteracciones.FindAll(i => i.Fecha < Fecha_Limite);
+        }
+
+        public void PanelCliente()
+        {
+            // tiene que mostrar todos los clientes del usuario con sus respectivas interacciones tanto pasadas como futuras
+        }
+
     }
-} 
+}

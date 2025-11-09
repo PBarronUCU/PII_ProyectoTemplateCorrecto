@@ -7,5 +7,6 @@ namespace Library
         String Tema { get; set; }
         String Notas { get; set; }
         int TelCliente { get; }
+        UsuarioOCliente Remitente {get; set;}
     }
 }
