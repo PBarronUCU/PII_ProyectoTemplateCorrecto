@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Library
 
@@ -196,7 +197,24 @@ namespace Library
 
         public void PanelCliente()
         {
-            // tiene que mostrar todos los clientes del usuario con sus respectivas interacciones tanto pasadas como futuras
+            List<string> mostrar = new List<string>();
+            foreach (Cliente client in Cartera)
+            {
+                string stringcliente = $"{client.Nombre} {client.Apellido}:";
+                List<IInteracion> listinte = InteracionClienteSinFiltro(client.Tel);
+                List<string> listintestring = new List<string>();
+                foreach (IInteracion inte in listinte)
+                {
+                    listintestring.Add($"{inte.GetType()},{inte.Fecha},Tema:{inte.Tema},Notas:{inte.Notas}");
+                }
+                stringcliente += string.Join(Environment.NewLine, listintestring);
+                mostrar.Add(stringcliente);
+
+            }
+
+            string resultado = string.Join(Environment.NewLine, mostrar);
+            resultado = resultado.TrimEnd();
+
         }
 
     }
