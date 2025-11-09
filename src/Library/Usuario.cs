@@ -154,12 +154,18 @@ namespace Library
 
         public void AgregarNota(int telcliente, DateTime fecha, string tipo, string nota)
         {
-            Cliente cliente = FiltrarClienteTel(telcliente);
-            if (cliente != null)
+            // Buscar una interacción del cliente correspondiente
+            IInteracion interaccion = ListaInteracciones
+                .Find(i => i.TelCliente == telcliente && i.GetType().Name == tipo && i.Fecha.Date == fecha.Date);
+
+            if (interaccion != null)
             {
-                Console.WriteLine($"Nota agregada a {cliente.Nombre}: {nota} ({tipo}) en {fecha}");
+                // Si la interacción existe, agregar la nota
+                interaccion.Notas += $"\n{nota}";
             }
         }
+
+
         public List<IInteracion> InteracionClienteSinFiltro(int telcliente)
         {
             return ListaInteracciones.FindAll(i => i.TelCliente == telcliente);
