@@ -62,7 +62,7 @@ namespace Library
             {
                 if (VerificarTelCartera(tel))
                 {
-                    Ventas instancia3 = new Ventas(this,client,prod,precio,fecha);
+                    Venta instancia3 = new Venta(this,client,prod,precio,fecha);
                     bd1.AgregarVenta(instancia3);
                 }
                 else

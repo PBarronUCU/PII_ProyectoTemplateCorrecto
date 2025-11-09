@@ -6,7 +6,7 @@ using Microsoft.VisualBasic;
 
 namespace Library
 {
-    public class Ventas
+    public class Venta
     {
         public DateTime FechaVenta {get;}
         public Usuario Usuario { get; }
@@ -14,7 +14,7 @@ namespace Library
         public string Producto { get;}
         public double Precio { get;}
 
-        public Ventas(Usuario usuario, Cliente cliente, string producto, double precio, DateTime diaVenta)
+        public Venta(Usuario usuario, Cliente cliente, string producto, double precio, DateTime diaVenta)
         {
             Usuario = usuario;
             Cliente = cliente;

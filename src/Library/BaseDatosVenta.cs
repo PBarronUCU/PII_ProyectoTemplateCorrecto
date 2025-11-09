@@ -7,7 +7,7 @@ namespace Library
     public sealed class BaseDatosVenta
     {
         private static readonly BaseDatosVenta _instance = new BaseDatosVenta();
-        public List<Ventas> ListaVentas = new List<Ventas>();
+        public List<Venta> ListaVentas = new List<Venta>();
         
         private BaseDatosVenta()
         {
@@ -21,7 +21,7 @@ namespace Library
         public bool ExisteVenta(Usuario user, Cliente cliente, string producto, double precio, DateTime fecha)
         {
             bool resultado = false;
-            foreach (Ventas venta in ListaVentas)
+            foreach (Venta venta in ListaVentas)
             {
                 if (venta.Usuario==user & venta.Cliente==cliente & venta.Producto==producto & venta.Precio==precio & venta.FechaVenta==fecha)
                 {
@@ -31,7 +31,7 @@ namespace Library
             return resultado;
         }
         
-        public void AgregarVenta(Ventas venta)
+        public void AgregarVenta(Venta venta)
         {
             Usuario usu = venta.Usuario;
             DateTime fecha = venta.FechaVenta;
