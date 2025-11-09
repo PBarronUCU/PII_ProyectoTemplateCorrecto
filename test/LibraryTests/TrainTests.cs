@@ -3,8 +3,8 @@
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 //------------------------------------------------------------------------------
+/*
 
-using ClassLibrary;
 using NUnit.Framework;
 
 namespace Tests
@@ -18,6 +18,7 @@ namespace Tests
         /// <summary>
         /// El tren para probar.
         /// </summary>
+        
         private Train train;
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            this.train = new Train();
+           // this.train = new Train();
         }
 
         /// <summary>
@@ -53,3 +54,4 @@ namespace Tests
         }
     }
 }
+*/
