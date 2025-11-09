@@ -15,7 +15,7 @@ namespace Library
 
         public void AgregarUsuario(string name, string apell, string correo)
         {
-            BaseDatos bd2 = BaseDatos.Instance;
+            BaseDatosUsuario bd2 = BaseDatosUsuario.Instance;
             if (!bd2.ExisteCorreo(correo))
             {
                 Usuario instanca2 = new Usuario(name, apell, correo);
@@ -28,9 +28,9 @@ namespace Library
 
         public void SuspenderUsuario(string correo)
         {
-            BaseDatos bd1 = BaseDatos.Instance;
-
-            foreach (Usuario usuario in bd1.ListaUsuario)
+        
+            BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
+            foreach (Usuario usuario in bd1.ListaUsuario) //Habria que usar el metodo que ya tiene la clase
             {
                 if (usuario.Correo == correo) // buscamos el correo del usuario a suspender
                 {

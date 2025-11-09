@@ -17,7 +17,7 @@ namespace Library
 
         public Usuario(string nombre, string apellido, string correo)
         {
-            BaseDatos bd1 = BaseDatos.Instance;
+            BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
             if (!bd1.ExisteCorreo(correo))
             {
                 Nombre = nombre;
@@ -34,7 +34,7 @@ namespace Library
 
         public void CrearCliente(String name, String apell, int tel, String correo)
         {
-            BaseDatos bd1 = BaseDatos.Instance; 
+            BaseDatosCliente bd1 = BaseDatosCliente.Instance; 
             //Inecesario, pero por si acaso para no encontrarme errores al agregarlo a la cartera
             if (!bd1.ExisteCorreo(correo) & !bd1.ExisteTel(tel))
             {
@@ -55,8 +55,9 @@ namespace Library
         public void CrearVentas(int tel,string prod,Double precio,DateTime fecha)
 
         {
-            BaseDatos bd1 = BaseDatos.Instance;
-            Cliente client = bd1.ClienteSegunTelefono(tel);
+            BaseDatosVenta bd1 = BaseDatosVenta.Instance;
+            BaseDatosCliente bd2 = BaseDatosCliente.Instance;
+            Cliente client = bd2.ClienteSegunTelefono(tel);
             if (!bd1.ExisteVenta(this,client, prod, precio, fecha))
             {
                 if (VerificarTelCartera(tel))
@@ -104,7 +105,7 @@ namespace Library
 
         public void CrearCoti(int telcliente, DateTime fecha, Double valor, String imp)
         {
-            BaseDatos bd1 = BaseDatos.Instance;
+            BaseDatosCliente bd1 = BaseDatosCliente.Instance;
             Cliente cliente = bd1.ClienteSegunTelefono(telcliente);
             if (VerificarTelCartera(telcliente))
             {
@@ -122,7 +123,7 @@ namespace Library
         /// </summary>
         public void ModificarCliente(string nombre,string apell, int tel, Genero genero,DateTime fecha )
         {
-            BaseDatos bd1 = BaseDatos.Instance;
+            BaseDatosCliente bd1 = BaseDatosCliente.Instance;
             Cliente client =  bd1.ClienteSegunTelefono(tel);
             client.Nombre = nombre;
             client.Apellido = apell;

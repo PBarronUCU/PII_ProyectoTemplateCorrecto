@@ -17,7 +17,7 @@ namespace Library
 
         public Cliente(string nombre, string apellido, string correo, int tel)
         {
-            BaseDatos bd1 = BaseDatos.Instance;
+            BaseDatosCliente bd1 = BaseDatosCliente.Instance;
             if (!bd1.ExisteCorreo(correo) & !bd1.ExisteTel(tel))
             {
                 Nombre = nombre;
