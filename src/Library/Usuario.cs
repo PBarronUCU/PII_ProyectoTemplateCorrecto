@@ -204,7 +204,7 @@ namespace Library
            return ListaInteracciones.FindAll(i => i.Fecha < Fecha_Limite);
         }
 
-        public void PanelCliente()
+        public string PanelCliente()
         {
             List<string> mostrar = new List<string>();
             foreach (Cliente client in Cartera)
@@ -222,7 +222,7 @@ namespace Library
             }
 
             string resultado = string.Join(Environment.NewLine, mostrar);
-            resultado = resultado.TrimEnd();
+            return resultado;
 
         }
 
