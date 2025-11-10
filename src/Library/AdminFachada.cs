@@ -3,37 +3,50 @@ using System;
 namespace Library
 {
     public class AdminFachada
-    {
-        private static Admin adminActual; // Guarda la instancia del administrador que está usando el sistema.
+    {/// <summary>
+     ///Guarda la instancia del administrador que está usando el sistema.
+     /// </summary>
+        private static Admin _adminActual; 
 
-        // Inicializa el administrador con el nombre indicado.
+        /// <summary>
+        /// Inicializa el administrador con el nombre indicado.
+        /// </summary>
+        /// <param name="name"></param>
         public static void InicializarAdmin(string name)
         {
-            adminActual = new Admin(name);
+            _adminActual = new Admin(name);
             
         }
 
-        // Crea un nuevo usuario a través del administrador actual.
+        /// <summary>
+        /// Crea un nuevo usuario a través del administrador actual. 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="apellido"></param>
+        /// <param name="correo"></param>
         public static void CrearUsuario(string name, string apellido, string correo)
         {
-            if (adminActual == null)
+            if (_adminActual == null)
             {
                 Console.WriteLine("Debe inicializar un administrador antes de crear usuarios.");
                 
             }
-            adminActual.AgregarUsuario(name, apellido, correo);
+            _adminActual.AgregarUsuario(name, apellido, correo);
             
         }
 
-        // Suspende un usuario existente a través del administrador actual.
+        /// <summary>
+        /// Suspende un usuario existente a través del administrador actual.
+        /// </summary>
+        /// <param name="correo"></param>
         public static void SuspenderUsuario(string correo)
         {
-            if (adminActual == null)
+            if (_adminActual == null)
             {
                 Console.WriteLine("Debe inicializar un administrador antes de suspender usuarios.");
                 return;
             }
-            adminActual.SuspenderUsuario(correo);
+            _adminActual.SuspenderUsuario(correo);
         }
     }
 }
