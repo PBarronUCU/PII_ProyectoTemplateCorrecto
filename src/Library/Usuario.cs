@@ -262,7 +262,7 @@ namespace Library
                     }
                 }
                 usuario.Cartera.Add(cliente);
-                Cartera.Remove(cliente);
+                EliminarTelCartera(cliente.Tel);
             }
         }
 
