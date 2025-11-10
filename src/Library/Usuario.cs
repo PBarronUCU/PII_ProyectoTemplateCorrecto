@@ -5,17 +5,45 @@ using System.Linq;
 namespace Library
 
 
-{
+{/// <summary>
+ /// Clase Usuario
+ /// </summary>
     public class Usuario
     {
+        /// <summary>
+        /// ingresa el Nombre de pila del Usuario
+        /// </summary>
         public string Nombre { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Apellido { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Correo { get; }
+        /// <summary>
+        /// Lista de Clientes Guardados 
+        /// </summary>
         public List<Cliente> Cartera = new List<Cliente>();
+        /// <summary>
+        /// Guarda las Oportunidades de Venta que realisa el Usuario
+        /// </summary>
         public List<Cotizacion> OportunidadesVentas = new List<Cotizacion>();
+        /// <summary>
+        /// Guarda las Interacioones del Usuario
+        /// </summary>
         public List<IInteracion> ListaInteracciones = new List<IInteracion>();//Leimos la Letra siempre desde el punto de vista del Usuario=Vendedor.
+        /// <summary>
+        /// Metodo para suspender a un Usuario
+        /// </summary>
         public bool Suspendido { get; private set; }                        
-
+        /// <summary>
+        /// Verifica si el correo que quiere usar el Usuario esta ocupado o no 
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="correo"></param>
         public Usuario(string nombre, string apellido, string correo)
         {
             BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
@@ -33,6 +61,13 @@ namespace Library
             }
         }
 
+       /// <summary>
+       /// El Usuario cera el registro de un Clienete para guardar la informacion con el cliente en la Base de Datos
+       /// </summary>
+       /// <param name="name"></param>
+       /// <param name="apell"></param>
+       /// <param name="tel"></param>
+       /// <param name="correo"></param>
         public void CrearCliente(String name, String apell, int tel, String correo)
         {
             BaseDatosCliente bd1 = BaseDatosCliente.Instance; 
@@ -48,11 +83,20 @@ namespace Library
             }
         }
         
-
+        /// <summary>
+        /// Metodo para verificar si este usuario esta suspendido o no 
+        /// </summary>
         public void Suspender()
         {
             Suspendido = true;
         }
+        /// <summary>
+        /// Registra una venta hecha entre un Usuario y su Clinte 
+        /// </summary>
+        /// <param name="tel"></param>
+        /// <param name="prod"></param>
+        /// <param name="precio"></param>
+        /// <param name="fecha"></param>
         public void CrearVentas(int tel,string prod,Double precio,DateTime fecha)
 
         {
@@ -77,7 +121,11 @@ namespace Library
                 Console.WriteLine("Venta repetida");
             }
         }
-        
+        /// <summary>
+        /// Verifica si el Cliente esta en la lista a traves de su telefono
+        /// </summary>
+        /// <param name="tel"></param>
+        /// <returns></returns>
         public bool VerificarTelCartera(int tel)
         {
             bool resultado = false;
@@ -90,7 +138,10 @@ namespace Library
             }
             return resultado;
         }
-
+        /// <summary>
+        /// Elimina a un Cliente de la lista a traves de su telefono
+        /// </summary>
+        /// <param name="tel"></param>
         public void EliminarTelCartera(int tel)
         {
             foreach (Cliente cliente in Cartera)
@@ -103,7 +154,13 @@ namespace Library
         }
         
         
-
+        /// <summary>
+        /// Crea una Cotizaciun para una futura venta entre Usuario y cliente 
+        /// </summary>
+        /// <param name="telcliente"></param>
+        /// <param name="fecha"></param>
+        /// <param name="valor"></param>
+        /// <param name="imp"></param>
         public void CrearCoti(int telcliente, DateTime fecha, Double valor, String imp)
         {
             BaseDatosCliente bd1 = BaseDatosCliente.Instance;
@@ -132,29 +189,51 @@ namespace Library
             client.FechaNac =  fecha;
             
         }
-
+        /// <summary>
+        /// Registra las interacciones tenidas entre Usuario y Cliente 
+        /// </summary>
+        /// <param name="interacion"></param>
         public void AgregarInteracion(IInteracion interacion)
         {
             ListaInteracciones.Add(interacion);
         }
+       /// <summary>
+       /// Busca los clientes por su Nombre y Apellido devolviendo todos los que tengan ese Nombre y Apelledo
+       /// </summary>
+       /// <param name="name"></param>
+       /// <param name="apellido"></param>
+       /// <returns></returns>
         public List<Cliente> FiltrarClienteNom(string name, string apellido)
         {
             return Cartera.FindAll(c => c.Nombre == name && c.Apellido == apellido);
         }
-
+        /// <summary>
+        /// Filtra a los clientes por su numero de Telefono por lo que devolvera el cliente que tenga ese Telefono
+        /// </summary>
+        /// <param name="telefono"></param>
+        /// <returns></returns>
         public Cliente FiltrarClienteTel(int telefono)
         {
             return Cartera.Find(c => c.Tel == telefono);
         }
-
+        /// <summary>
+        /// Filtra a los clientes por medio del Correo Electronico devolviendo quien tenga ese Correo 
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <returns></returns>
         public Cliente FiltrarClienteCorreo(string correo)
         {
             return Cartera.Find(c => c.Correo == correo);
         }
-
+        /// <summary>
+        /// Busca una interaccion con un Cliente en esoecifico a traves del Telefono , fecha y tipo de imnteraccion para implementarle una nota a la interaccion buscada
+        /// </summary>
+        /// <param name="telcliente"></param>
+        /// <param name="fecha"></param>
+        /// <param name="tipo"></param>
+        /// <param name="nota"></param>
         public void AgregarNota(int telcliente, DateTime fecha, string tipo, string nota)
         {
-            // Buscar una interacción del cliente correspondiente
             IInteracion interaccion = ListaInteracciones
                 .Find(i => i.TelCliente == telcliente && i.GetType().Name == tipo && i.Fecha.Date == fecha.Date);
 
@@ -165,21 +244,42 @@ namespace Library
             }
         }
 
-
+        /// <summary>
+        /// Devuelve una lista con todas las interacciones con un cliente 
+        /// </summary>
+        /// <param name="telcliente"></param>
+        /// <returns></returns>
         public List<IInteracion> InteracionClienteSinFiltro(int telcliente)
         {
             return ListaInteracciones.FindAll(i => i.TelCliente == telcliente);
         }
-
+        /// <summary>
+        /// De todas las interacciones filtra las que son con un cliente y en la fecha indicada para devolvera en una lista 
+        /// </summary>
+        /// <param name="telcliente"></param>
+        /// <param name="fecha"></param>
+        /// <returns></returns>
         public List<IInteracion> InteracionClienteFiltroFecha(int telcliente, DateTime fecha)
         {
             return ListaInteracciones.FindAll(i => i.TelCliente == telcliente && i.Fecha.Date == fecha.Date);
         }
-
+        /// <summary>
+        /// Filtra las interacciones por el tipo que quiere el usuario y esas interacciones las devuelve a traves de una lista 
+        /// </summary>
+        /// <param name="telcliente"></param>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
         public List<IInteracion> InteracionClienteFiltroTipo(int telcliente, string tipo)
         {
             return ListaInteracciones.FindAll(i => i.TelCliente == telcliente && i.GetType().Name == tipo);
         }
+        /// <summary>
+        /// Filtra todas las interacciones por una fecha y tipo de interacion , devolviendolas a traves de una lista 
+        /// </summary>
+        /// <param name="telcliente"></param>
+        /// <param name="tipo"></param>
+        /// <param name="fecha"></param>
+        /// <returns></returns>
         public List<IInteracion> InteracionClienteFiltroTipoFecha(int telcliente, string tipo, DateTime fecha)
         {
             return ListaInteracciones.FindAll(i =>
@@ -189,6 +289,10 @@ namespace Library
         }
 
 
+        /// <summary>
+        /// Busca todas las interacciones que tengan un remitente y no fueron contestadas por el usuario
+        /// </summary>
+        /// <returns></returns>
         public List<IInteracionDialogo> IntreaSinResponder()
         {
             List<IInteracionDialogo> resultado = new List<IInteracionDialogo>();
@@ -204,13 +308,21 @@ namespace Library
             
         }
 
+       /// <summary>
+       /// Busca las interacciones con un cliente y revisa en que fecha fueron realisada y las compara un limite de x tiempo para devolver las que esten cerca o pasaron de ese tiempo 
+       /// </summary>
+       /// <returns></returns>
         public List<IInteracion> InteraViejas()
         {
            DateTime Fecha_Limite= DateTime.Now.AddDays(-30);
            return ListaInteracciones.FindAll(i => i.Fecha < Fecha_Limite);
         }
 
-        public string PanelCliente()
+       /// <summary>
+       /// Le muestra a un Usuario una lista con todos sus Clientes 
+       /// </summary>
+       /// <returns></returns>
+       public string PanelCliente()
         {
             List<string> mostrar = new List<string>();
             foreach (Cliente client in Cartera)
@@ -234,6 +346,11 @@ namespace Library
             
             
         }
+       /// <summary>
+       /// Asigna o Cambia a un Cliente con Usuario determinado 
+       /// </summary>
+       /// <param name="telcliente"></param>
+       /// <param name="correouser"></param>
         
         public void AsignarCliente(int telcliente, string correouser)
         {
@@ -265,7 +382,13 @@ namespace Library
                 EliminarTelCartera(cliente.Tel);
             }
         }
-        public List<Venta> VentasPeriodo(DateTime fechabaja,DateTime fechaalta)//fecha_inicio a fecha_final
+       /// <summary>
+       /// Crea una lista donde guarda las ventas que realisa el usuario en las fechas que él quiere revisar para ver la rentavilidad del negocio 
+       /// </summary>
+       /// <param name="fechabaja"></param>
+       /// <param name="fechaalta"></param>
+       /// <returns></returns>
+        public List<Venta> VentasPeriodo(DateTime fechabaja,DateTime fechaalta)
         { BaseDatosVenta bd1 = BaseDatosVenta.Instance;
             List<Venta> ventas = bd1.ListaVentas;
             return ventas.FindAll(i => i.FechaVenta>= fechabaja && i.FechaVenta <= fechaalta);
