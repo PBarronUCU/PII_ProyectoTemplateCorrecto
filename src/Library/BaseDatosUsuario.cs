@@ -4,21 +4,33 @@ using System.Collections.Generic;
 namespace Library
 
 {
+    /// <summary>
+    /// Base de datos para los Usuarios
+    /// </summary>
     public sealed class BaseDatosUsuario
     {
         private static readonly BaseDatosUsuario _instance = new BaseDatosUsuario();
+        /// <summary>
+        /// Donde se guardan los Usuarios
+        /// </summary>
         public List<Usuario> ListaUsuario = new List<Usuario>();
         
         
         private BaseDatosUsuario()
         {
         }
-        
+        /// <summary>        /// Usar este metodo para referirse siempre a la misma instancia de esta clase
+
+        /// </summary>
         public static BaseDatosUsuario Instance
         {
             get { return _instance; }
         }
-        
+        /// <summary>
+        /// Recorre todos los clientes guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <returns></returns>
         public bool ExisteCorreoUser(string correo)
         {
             bool result = false;
@@ -31,7 +43,11 @@ namespace Library
             }
             return result;
         }
-        
+        /// <summary>
+        /// Recorre todos los CLIENTES y USUARIOS guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <returns></returns>
         public bool ExisteCorreo(string correo)
         {
             BaseDatosCliente bd1 = BaseDatosCliente.Instance;
@@ -40,9 +56,10 @@ namespace Library
             return resultusuario | resultcliente;
         }
         
-        
-        
-        
+        /// <summary>
+        /// Agrega un Usuario a la lista. Solo lo agrega si no existe ya el correo.
+        /// </summary>
+        /// <param name="user"></param>
         public void AgregarUsuario(Usuario user)
         {
             string correo = user.Correo;
@@ -52,13 +69,20 @@ namespace Library
             }
             
         }
-        
+        /// <summary>
+        /// Toma el correo y devuelve una instancia de Usuario
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <returns></returns>
         public Usuario UsuarioSegunCorreo(string correo)
         {
             Usuario usu = ListaUsuario.Find(x => x.Correo == correo);
             return usu;
         }
-        
+        /// <summary>
+        /// Elimina un Usuario de la lista
+        /// </summary>
+        /// <param name="correo"></param>
         public void EliminarUsuario(string correo)
         {
             Usuario usu = UsuarioSegunCorreo(correo);
