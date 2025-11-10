@@ -10,8 +10,10 @@ namespace Library
         public string Notas { get; set; }
         public int TelCliente { get; }
         public UsuarioOCliente Remitente {get; set;}
-        public Mensaje (UsuarioOCliente remitente, string tema, string notas, DateTime fecha, int telCliente)
+        public bool Respondida { get; set; } = false;
+        public Mensaje (UsuarioOCliente remitente, string tema, string notas, DateTime fecha, int telCliente ,bool respondida)
         {
+            Respondida = respondida;
             Remitente = remitente;
             Tema = tema;
             Notas = notas;

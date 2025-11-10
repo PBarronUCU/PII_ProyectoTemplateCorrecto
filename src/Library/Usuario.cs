@@ -195,12 +195,12 @@ namespace Library
             foreach (var interacion in ListaInteracciones  )
             {
                 IInteracionDialogo dialogo = interacion as IInteracionDialogo;
-                if (dialogo.Remitente == UsuarioOCliente.Cliente)
+                if (dialogo != null && !dialogo.Respondida)
                 {
                     resultado.Add(dialogo);
                 }
             }
-            return resultado;//Verificar
+            return resultado;
             
         }
 
@@ -264,6 +264,12 @@ namespace Library
                 usuario.Cartera.Add(cliente);
                 EliminarTelCartera(cliente.Tel);
             }
+        }
+        public List<Venta> VentasPeriodo(DateTime fechabaja,DateTime fechaalta)//fecha_inicio a fecha_final
+        { BaseDatosVenta bd1 = BaseDatosVenta.Instance;
+            List<Venta> ventas = bd1.ListaVentas;
+            return ventas.FindAll(i => i.FechaVenta>= fechabaja && i.FechaVenta <= fechaalta);
+
         }
 
     }
