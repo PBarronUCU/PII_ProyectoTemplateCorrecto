@@ -8,12 +8,14 @@ namespace LibraryTests
         [SetUp]
         public void Setup()
         {
-            // Si tus bases son singleton, podés limpiar datos previos
-            // BaseDatosUsuario.Instance.Reset();
+        
         }
-
+        
+        /// <summary>
+        /// Crea un usuario lo arega a la base de datosy revisa si el usuario se creo exitosamente
+        /// </summary>
         [Test]
-        public void CrearUsuario_DeberiaAgregarUsuarioEnBaseDatos()
+        public void CrearUsuariyAgregarUsuarioEnBaseDatos()
         {
             AdminFachada.CrearUsuario("Juan", "Pérez", "juan@ucu.edu.uy");
 
@@ -23,8 +25,11 @@ namespace LibraryTests
             Assert.That(usuario.Nombre, Is.EqualTo("Juan"));
         }
 
+        /// <summary>
+        /// Suspende a un usuario x y verifica si esta suspendido 
+        /// </summary>
         [Test]
-        public void SuspenderUsuario_DeberiaMarcarUsuarioComoSuspendido()
+        public void SuspenderUsuarioyDeberiaMarcarUsuarioComoSuspendido()
         {
     
             var usuario = new Usuario("Ana", "López", "ana@ucu.edu.uy");
