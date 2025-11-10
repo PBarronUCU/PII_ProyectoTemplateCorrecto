@@ -8,7 +8,7 @@ namespace Library
         public Reunion CrearReunion(string fecha, string tema, string notas, int telcliente, string lugar)
         {
             DateTime f = DateTime.Parse(fecha);
-            Reunion reunion = new Reunion(f, tema, notas, telcliente, lugar);
+            Reunion reunion = new Reunion(tema,notas,f,telcliente,lugar);
             return reunion;
         }
 
@@ -17,7 +17,7 @@ namespace Library
         {
             DateTime f = DateTime.Parse(fecha);
             UsuarioOCliente rem = Enum.Parse<UsuarioOCliente>(remitente);
-            CorreoElectronico correo = new CorreoElectronico(rem, f, tema, telcliente, notas, respondido);
+            CorreoElectronico correo = new CorreoElectronico(rem,tema,notas,f,telcliente,respondido);
             return correo;
         }
 
@@ -26,7 +26,7 @@ namespace Library
         {
             DateTime f = DateTime.Parse(fecha);
             UsuarioOCliente rem = Enum.Parse<UsuarioOCliente>(remitente);
-            Llamada llamada = new Llamada(rem, f, tema, telcliente, notas, respondido);
+            Llamada llamada = new Llamada(rem, tema, notas, f, telcliente,respondido);
             return llamada;
         }
 
@@ -35,13 +35,10 @@ namespace Library
         {
             DateTime f = DateTime.Parse(fecha);
             UsuarioOCliente rem = Enum.Parse<UsuarioOCliente>(remitente);
-            Mensaje mensaje = new Mensaje(rem, f, tema, telcliente, notas, respondido);
+            Mensaje mensaje = new Mensaje(rem, tema, notas, f, telcliente,respondido);
             return mensaje;
         }
     }
 
-    // Clase vacía temporal, solo para evitar errores de compilación
-    public class Llamada
-    {
-    }
+    
 }

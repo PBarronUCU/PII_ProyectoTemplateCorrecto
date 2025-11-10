@@ -3,7 +3,7 @@ using System;
 namespace Library
 
 {
-    public class Llamadas : IInteracionDialogo
+    public class Llamada : IInteracionDialogo
     {
         public DateTime Fecha { get; set; }
         public string Tema { get; set; }
@@ -11,7 +11,7 @@ namespace Library
         public int TelCliente { get; }
         public UsuarioOCliente Remitente {get; set;}
         public bool Respondida { get; set; } = false;
-        public Llamadas(UsuarioOCliente remitente, string tema, string notas, DateTime fecha, int telCliente, bool respondida)
+        public Llamada(UsuarioOCliente remitente, string tema, string notas, DateTime fecha, int telCliente, bool respondida)
         {
             Respondida = respondida;
             Remitente = remitente;
