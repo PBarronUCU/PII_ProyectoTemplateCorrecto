@@ -230,7 +230,42 @@ namespace Library
             string resultado = string.Join(Environment.NewLine, mostrar);
             return resultado;
 
+            
+            
+            
+        }
+        
+        public void AsignarCliente(int telcliente, string correouser)
+        {
+            BaseDatosCliente bdcliente = BaseDatosCliente.Instance;
+            BaseDatosUsuario bdusuario = BaseDatosUsuario.Instance;
+            if (bdusuario.ExisteCorreoUser(correouser) & bdcliente.ExisteTel(telcliente))
+            {
+                Cliente cliente = bdcliente.ClienteSegunTelefono(telcliente);
+                Usuario usuario = bdusuario.UsuarioSegunCorreo(correouser);
+                foreach (var coti in OportunidadesVentas)
+                {
+                    if (coti.Cliente == cliente)
+                    {
+                        coti.Usuario = usuario;
+                        usuario.OportunidadesVentas.Add(coti);
+                        OportunidadesVentas.Remove(coti);
+                    }
+                }
+
+                foreach (var interaccion in ListaInteracciones)
+                {
+                    if (interaccion.TelCliente == cliente.Tel)
+                    {
+                        usuario.ListaInteracciones.Add(interaccion);
+                        ListaInteracciones.Remove(interaccion);
+                    }
+                }
+                usuario.Cartera.Add(cliente);
+                Cartera.Remove(cliente);
+            }
         }
 
     }
 }
+

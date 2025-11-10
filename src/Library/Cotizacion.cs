@@ -5,8 +5,8 @@ namespace Library
 {
     public class Cotizacion
     {
-        public Usuario Usuario { get;}
-        public Cliente Cliente { get; }
+        public Usuario Usuario { get; set; }
+        public Cliente Cliente { get; set; }
         public DateTime Fecha { get; set; }
         public Double Valor { get; set; }
         public String Importancia { get; set; }
