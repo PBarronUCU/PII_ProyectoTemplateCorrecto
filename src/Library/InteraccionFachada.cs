@@ -2,9 +2,20 @@ using System;
 
 namespace Library
 {
+    /// <summary>
+    /// Fachada para los constructores de las interacciones
+    /// </summary>
     public class InteraccionFachada
     {
-        // Crea una nueva reunión con los datos proporcionados
+        /// <summary>
+        ///  Crea una nueva reunión con los datos proporcionados
+        /// </summary>
+        /// <param name="fecha"></param>
+        /// <param name="tema"></param>
+        /// <param name="notas"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="lugar"></param>
+        /// <returns></returns>
         public Reunion CrearReunion(string fecha, string tema, string notas, int telcliente, string lugar)
         {
             DateTime f = DateTime.Parse(fecha);
@@ -12,7 +23,16 @@ namespace Library
             return reunion;
         }
 
-        // Crea un nuevo correo electrónico con los datos especificados
+        /// <summary>
+        /// Crea un nuevo correo electrónico con los datos especificados
+        /// </summary>
+        /// <param name="remitente"></param>
+        /// <param name="fecha"></param>
+        /// <param name="tema"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="notas"></param>
+        /// <param name="respondido"></param>
+        /// <returns></returns>
         public CorreoElectronico CrearCorreo(string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
         {
             DateTime f = DateTime.Parse(fecha);
@@ -21,7 +41,16 @@ namespace Library
             return correo;
         }
 
-        // Crea una nueva llamada con la información proporcionada
+        /// <summary>
+        /// Crea una nueva llamada con la información proporcionada
+        /// </summary>
+        /// <param name="remitente"></param>
+        /// <param name="fecha"></param>
+        /// <param name="tema"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="notas"></param>
+        /// <param name="respondido"></param>
+        /// <returns></returns>
         public Llamada CrearLlamada(string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
         {
             DateTime f = DateTime.Parse(fecha);
@@ -30,7 +59,16 @@ namespace Library
             return llamada;
         }
 
-        // Crea un nuevo mensaje con los datos indicados
+        /// <summary>
+        /// Crea un nuevo mensaje con los datos indicados
+        /// </summary>
+        /// <param name="remitente"></param>
+        /// <param name="fecha"></param>
+        /// <param name="tema"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="notas"></param>
+        /// <param name="respondido"></param>
+        /// <returns></returns>
         public Mensaje CrearMensaje(string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
         {
             DateTime f = DateTime.Parse(fecha);

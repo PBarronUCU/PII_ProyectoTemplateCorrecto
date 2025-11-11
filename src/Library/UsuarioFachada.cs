@@ -5,42 +5,100 @@ namespace Library
 {
     public class UsuarioFachada
     {
-        // Instancia única de la base de datos de usuarios.
+        /// <summary>
+        ///  Instancia única de la base de datos de usuarios.
+        /// </summary>
         BaseDatosUsuario bd = BaseDatosUsuario.Instance;
 
-        // Permite al usuario identificado por su correo crear un nuevo cliente.
+        /// <summary>
+        ///  Permite al usuario identificado por su correo crear un nuevo cliente.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="tel"></param>
+        /// <param name="correo"></param>
         public void CrearCliente(string correoUsuario, string nombre, string apellido, int tel, string correo)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
-            u?.CrearCliente(nombre, apellido, tel, correo);
+            if (!u.Suspendido)
+            {
+                u?.CrearCliente(nombre, apellido, tel, correo);
+            }
+            else
+            {
+                throw new ArgumentException("El usuario esta suspendido");
+            }
+            
         }
 
-        // Permite al usuario crear una venta asociada a un cliente.
+        /// <summary>
+        ///  Permite al usuario crear una venta asociada a un cliente.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="prod"></param>
+        /// <param name="precio"></param>
+        /// <param name="fecha"></param>
+        /// <exception cref="ArgumentException"></exception>
         public void CrearVenta(string correoUsuario, int telcliente, string prod, double precio, string fecha)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
-            if (u != null)
+            if (!u.Suspendido)
             {
-                DateTime f = DateTime.Parse(fecha);
-                u.CrearVentas(telcliente, prod, precio, f);
+                if (u != null)
+                {
+                    DateTime f = DateTime.Parse(fecha);
+                    u.CrearVentas(telcliente, prod, precio, f);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("El usuario esta suspendido");
             }
         }
 
-        // Permite al usuario crear una cotización asociada a un cliente.
+        /// <summary>
+        ///  Permite al usuario crear una cotización asociada a un cliente.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="fecha"></param>
+        /// <param name="valor"></param>
+        /// <param name="imp"></param>
+        /// <exception cref="ArgumentException"></exception>
         public void CrearCoti(string correoUsuario, int telcliente, string fecha, double valor, string imp)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             if (u != null)
             {
                 DateTime f = DateTime.Parse(fecha);
                 u.CrearCoti(telcliente, f, valor, imp);
             }
+            
         }
 
-        // Modifica los datos de un cliente existente en la cartera del usuario.
+        /// <summary>
+        ///  Modifica los datos de un cliente existente en la cartera del usuario.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="tel"></param>
+        /// <param name="gen"></param>
+        /// <param name="fechanac"></param>
+        /// <exception cref="ArgumentException"></exception>
         public void ModificarCliente(string correoUsuario, string nombre, string apellido, int tel, string gen, string fechanac)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             if (u != null)
             {
                 Genero genero = Enum.Parse<Genero>(gen);
@@ -49,77 +107,178 @@ namespace Library
             }
         }
 
-        // Devuelve un cliente específico según su correo electrónico.
+        /// <summary>
+        ///  Devuelve un cliente específico según su correo electrónico.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="correoCliente"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public Cliente FiltarClienteCorreo(string correoUsuario, string correoCliente)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             return u?.FiltrarClienteCorreo(correoCliente);
         }
 
-        // Retorna todas las interacciones de un cliente sin aplicar filtros.
+        /// <summary>
+        ///  Retorna todas las interacciones de un cliente sin aplicar filtros.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="telcliente"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<IInteracion> InteracionClienteSinFiltro(string correoUsuario, int telcliente)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             return u?.InteracionClienteSinFiltro(telcliente);
         }
 
-        // Retorna las interacciones de un cliente filtradas por fecha.
+        /// <summary>
+        ///  Retorna las interacciones de un cliente filtradas por fecha.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="fecha"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<IInteracion> InteracionClienteFiltroFecha(string correoUsuario, int telcliente, string fecha)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             DateTime f = DateTime.Parse(fecha);
             return u?.InteracionClienteFiltroFecha(telcliente, f);
         }
 
-        // Retorna las interacciones de un cliente filtradas por tipo.
+        /// <summary>
+        ///  Retorna las interacciones de un cliente filtradas por tipo.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<IInteracion> InteracionClienteFiltroTipo(string correoUsuario, int telcliente, string tipo)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             return u?.InteracionClienteFiltroTipo(telcliente, tipo);
         }
 
-        // Retorna las interacciones de un cliente filtradas por tipo y fecha.
+        /// <summary>
+        ///  Retorna las interacciones de un cliente filtradas por tipo y fecha.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="telcliente"></param>
+        /// <param name="tipo"></param>
+        /// <param name="fecha"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<IInteracion> InteracionClienteFiltroTipoFecha(string correoUsuario, int telcliente, string tipo, string fecha)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             DateTime f = DateTime.Parse(fecha);
             return u?.InteracionClienteFiltroTipoFecha(telcliente, tipo, f);
         }
 
-        // Retorna las interacciones de tipo diálogo que aún no han sido respondidas
+        /// <summary>
+        ///  Retorna las interacciones de tipo diálogo que aún no han sido respondidas
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<IInteracionDialogo> InteraSinResponder(string correoUsuario)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             return u?.IntreaSinResponder();
         }
 
-        // Retorna las interacciones consideradas viejas o inactivas.
+        /// <summary>
+        ///  Retorna las interacciones consideradas viejas o inactivas.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<IInteracion> InteraViejas(string correoUsuario)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             return u?.InteraViejas();
         }
 
-        // Retorna las ventas realizadas en un período determinado.
+        /// <summary>
+        ///  Retorna las ventas realizadas en un período determinado
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="fechabaja"></param>
+        /// <param name="fechaalta"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<Venta> VentasPeriodo(string correoUsuario, string fechabaja, string fechaalta)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             DateTime baja = DateTime.Parse(fechabaja);
             DateTime alta = DateTime.Parse(fechaalta);
             return u?.VentasPeriodo(baja, alta);
         }
 
-        // Agrega una nueva interacción al usuario.
+        /// <summary>
+        /// Agrega una nueva interacción al usuario.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <param name="interacion"></param>
+        /// <exception cref="ArgumentException"></exception>
         public void AgregarInteracion(string correoUsuario, IInteracion interacion)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             u?.AgregarInteracion(interacion);
         }
 
-        // Devuelve la información general del panel del usuario.
+        /// <summary>
+        ///  Devuelve la información general del panel del usuario.
+        /// </summary>
+        /// <param name="correoUsuario"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string PanelCliente(string correoUsuario)
         {
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+            if (u.Suspendido)
+            { 
+                throw new ArgumentException("El usuario esta suspendido");
+            }
             return u != null ? u.PanelCliente() : "Usuario no encontrado";
         }
     }

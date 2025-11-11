@@ -4,6 +4,42 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:Library.Admin">
+            <summary>
+            Se encarga de Agregar usuarios a la base de datos y si es necesario, suspenderlos
+            </summary>
+        </member>
+        <member name="P:Library.Admin.Nombre">
+            <summary>
+            Nombre del Admin
+            </summary>
+        </member>
+        <member name="M:Library.Admin.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="nombre"></param>
+        </member>
+        <member name="M:Library.Admin.AgregarUsuario(System.String,System.String,System.String)">
+            <summary>
+            Agrega usuario a la base de datos. Si el correo ya existe lanza una excepcion
+            </summary>
+            <param name="name"></param>
+            <param name="apell"></param>
+            <param name="correo"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Library.Admin.SuspenderUsuario(System.String)">
+            <summary>
+            Suspende un usuario. Los usuarios suspendido no pueden relizar sus funciones.
+            </summary>
+            <param name="correo"></param>
+        </member>
+        <member name="T:Library.AdminFachada">
+            <summary>
+            Esta clase se encarga de ejecturar los metodos de admin
+            </summary>
+        </member>
         <member name="F:Library.AdminFachada._adminActual">
              <summary>
             Guarda la instancia del administrador que está usando el sistema.
@@ -17,7 +53,7 @@
         </member>
         <member name="M:Library.AdminFachada.CrearUsuario(System.String,System.String,System.String)">
             <summary>
-            Crea un nuevo usuario a través del administrador actual. 
+            Crea un nuevo usuario a través del administrador actual. Si no se inicializa un Admin antes, tira una excepcion
             </summary>
             <param name="name"></param>
             <param name="apellido"></param>
@@ -25,7 +61,7 @@
         </member>
         <member name="M:Library.AdminFachada.SuspenderUsuario(System.String)">
             <summary>
-            Suspende un usuario existente a través del administrador actual.
+            Suspende un usuario existente a través del administrador actual. Si no se inicializa un Admin antes, tira una excepcion
             </summary>
             <param name="correo"></param>
         </member>
@@ -160,6 +196,266 @@
             Agrega una venta a la lista. Solo la agrega si el metodo ExisteVenta devuelve false.
             </summary>
             <param name="venta"></param>
+        </member>
+        <member name="T:Library.Cliente">
+            <summary>
+            Clase cliente
+            </summary>
+        </member>
+        <member name="P:Library.Cliente.Nombre">
+            <summary>
+            Nombre del cliente
+            </summary>
+        </member>
+        <member name="P:Library.Cliente.Apellido">
+            <summary>
+            Apellido del cliente
+            </summary>
+        </member>
+        <member name="P:Library.Cliente.Correo">
+            <summary>
+            Correo del cliente. Es unico
+            </summary>
+        </member>
+        <member name="P:Library.Cliente.Tel">
+            <summary>
+            Telefono del cliente. Es unico y se usa para identificar a un cliente en la base de datos
+            </summary>
+        </member>
+        <member name="P:Library.Cliente.Genero">
+            <summary>
+            Puede ser MASCULINO,FEMENINO U OTRO
+            </summary>
+        </member>
+        <member name="P:Library.Cliente.FechaNac">
+            <summary>
+            Fechad de nacimiento del cliente
+            </summary>
+        </member>
+        <member name="M:Library.Cliente.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Constructor de clase cliente. Si el correo o telefono ya existe, tira un excepcion.
+            </summary>
+            <param name="nombre"></param>
+            <param name="apellido"></param>
+            <param name="correo"></param>
+            <param name="tel"></param>
+        </member>
+        <member name="T:Library.CorreoElectronico">
+            <summary>
+            Clase CorreoElectrinico. Hereda de interfaz IInteracionDialogo
+            </summary>
+        </member>
+        <member name="P:Library.CorreoElectronico.Fecha">
+            <summary>
+            Fecha en la que se envio el correo
+            </summary>
+        </member>
+        <member name="P:Library.CorreoElectronico.Tema">
+            <summary>
+            Dialogo del Correo
+            </summary>
+        </member>
+        <member name="P:Library.CorreoElectronico.Notas">
+            <summary>
+            Informaicion extra del correo
+            </summary>
+        </member>
+        <member name="P:Library.CorreoElectronico.TelCliente">
+            <summary>
+            Telefono del cliente que fue contactado
+            </summary>
+        </member>
+        <member name="P:Library.CorreoElectronico.Remitente">
+            <summary>
+            Puede ser USUARIO o CLIENTE
+            </summary>
+        </member>
+        <member name="M:Library.CorreoElectronico.#ctor(Library.UsuarioOCliente,System.String,System.String,System.DateTime,System.Int32,System.Boolean)">
+            <summary>
+            Constructor de la Clase. Si no encuentra el telefono del cliente en la base de datos, tira una excepcion
+            </summary>
+            <param name="remitente"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
+            <param name="fecha"></param>
+            <param name="telCliente"></param>
+            <param name="respondida"></param>
+        </member>
+        <member name="T:Library.Cotizacion">
+            <summary>
+            Clase Cotizacion. Representa una oportunidad de venta
+            </summary>
+        </member>
+        <member name="P:Library.Cotizacion.Usuario">
+            <summary>
+            Usuario que esta ofrece la cotizacion
+            </summary>
+        </member>
+        <member name="P:Library.Cotizacion.Cliente">
+            <summary>
+            Cliente que esta ligado a al cotizacion
+            </summary>
+        </member>
+        <member name="P:Library.Cotizacion.Fecha">
+            <summary>
+            Fecha que fue enviada
+            </summary>
+        </member>
+        <member name="P:Library.Cotizacion.Valor">
+            <summary>
+            Valor especulado
+            </summary>
+        </member>
+        <member name="M:Library.Cotizacion.#ctor(Library.Usuario,Library.Cliente,System.DateTime,System.Double,System.String)">
+            <summary>
+            metodo constructor de clase Cotizacion
+            </summary>
+            <param name="usuario"></param>
+            <param name="cliente"></param>
+            <param name="fecha"></param>
+            <param name="valor"></param>
+            <param name="imp"></param>
+        </member>
+        <member name="T:Library.Genero">
+            <summary>
+            Enumerado para el Genero del cliente
+            </summary>
+        </member>
+        <member name="T:Library.IInteracion">
+            <summary>
+            Interfaz para las interacciones
+            </summary>
+        </member>
+        <member name="P:Library.IInteracion.Fecha">
+            <summary>
+            Fecha en la que se dio la interracion
+            </summary>
+        </member>
+        <member name="P:Library.IInteracion.Tema">
+            <summary>
+            Temas tratados en al interracion
+            </summary>
+        </member>
+        <member name="P:Library.IInteracion.Notas">
+            <summary>
+            Informaicion extra
+            </summary>
+        </member>
+        <member name="P:Library.IInteracion.TelCliente">
+            <summary>
+            Telefono del cliente que fue contactado
+            </summary>
+        </member>
+        <member name="T:Library.IInteracionDialogo">
+            <summary>
+            Interfaz para las interacciones que representa una forma de dialogo
+            </summary>
+        </member>
+        <member name="T:Library.InteraccionFachada">
+            <summary>
+            Fachada para los constructores de las interacciones
+            </summary>
+        </member>
+        <member name="M:Library.InteraccionFachada.CrearReunion(System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+             Crea una nueva reunión con los datos proporcionados
+            </summary>
+            <param name="fecha"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
+            <param name="telcliente"></param>
+            <param name="lugar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.InteraccionFachada.CrearCorreo(System.String,System.String,System.String,System.Int32,System.String,System.Boolean)">
+            <summary>
+            Crea un nuevo correo electrónico con los datos especificados
+            </summary>
+            <param name="remitente"></param>
+            <param name="fecha"></param>
+            <param name="tema"></param>
+            <param name="telcliente"></param>
+            <param name="notas"></param>
+            <param name="respondido"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.InteraccionFachada.CrearLlamada(System.String,System.String,System.String,System.Int32,System.String,System.Boolean)">
+            <summary>
+            Crea una nueva llamada con la información proporcionada
+            </summary>
+            <param name="remitente"></param>
+            <param name="fecha"></param>
+            <param name="tema"></param>
+            <param name="telcliente"></param>
+            <param name="notas"></param>
+            <param name="respondido"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.InteraccionFachada.CrearMensaje(System.String,System.String,System.String,System.Int32,System.String,System.Boolean)">
+            <summary>
+            Crea un nuevo mensaje con los datos indicados
+            </summary>
+            <param name="remitente"></param>
+            <param name="fecha"></param>
+            <param name="tema"></param>
+            <param name="telcliente"></param>
+            <param name="notas"></param>
+            <param name="respondido"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Library.Llamada">
+            <summary>
+            Clase Llamada. Hereda de interfaz IInteracionDialogo
+            </summary>
+        </member>
+        <member name="P:Library.Llamada.Fecha">
+            <summary>
+            Fecha en la que se realizo la llamada
+            </summary>
+        </member>
+        <member name="P:Library.Llamada.Tema">
+            <summary>
+            Temas tratados en la llamada
+            </summary>
+        </member>
+        <member name="P:Library.Llamada.Notas">
+            <summary>
+             Informaicion extra de la llamada
+            </summary>
+        </member>
+        <member name="P:Library.Llamada.TelCliente">
+            <summary>
+             Telefono del cliente que fue contactado
+            </summary>
+        </member>
+        <member name="P:Library.Llamada.Remitente">
+            <summary>
+            Puede ser USUARIO o CLIENTE
+            </summary>
+        </member>
+        <member name="M:Library.Llamada.#ctor(Library.UsuarioOCliente,System.String,System.String,System.DateTime,System.Int32,System.Boolean)">
+            <summary>
+            Constructor de la Clase. Si no encuentra el telefono del cliente en la base de datos, tira una excepcion
+            </summary>
+            <param name="remitente"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
+            <param name="fecha"></param>
+            <param name="telCliente"></param>
+            <param name="respondida"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.Mensaje.#ctor(Library.UsuarioOCliente,System.String,System.String,System.DateTime,System.Int32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="remitente"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
+            <param name="fecha"></param>
+            <param name="telCliente"></param>
+            <param name="respondida"></param>
         </member>
         <member name="T:Library.Usuario">
             <summary>

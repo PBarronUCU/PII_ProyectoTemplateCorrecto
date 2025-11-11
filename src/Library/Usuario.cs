@@ -39,13 +39,17 @@ namespace Library
         /// </summary>
         public bool Suspendido { get; private set; }                        
         /// <summary>
-        /// Verifica si el correo que quiere usar el Usuario esta ocupado o no 
+        /// Constructor de clase Usuario. Si el correo no contiene una @ o ya esta en uso, tira una excpecion 
         /// </summary>
         /// <param name="nombre"></param>
         /// <param name="apellido"></param>
         /// <param name="correo"></param>
         public Usuario(string nombre, string apellido, string correo)
         {
+            if (!correo.Contains("@"))
+            {
+                throw new ArgumentException("El correo no es valido");
+            }
             BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
             if (!bd1.ExisteCorreo(correo))
             {
@@ -57,7 +61,7 @@ namespace Library
             }
             else
             {
-                Console.WriteLine("El correo ya esta ocupado");
+                throw new ArgumentException("El correo ya esta ocupado");
             }
         }
 
@@ -79,7 +83,7 @@ namespace Library
             }
             else
             {
-                Console.WriteLine("El correo o telefono ya esta ocupado");
+                throw new ArgumentException("El correo o telefono ya esta ocupado");
             }
         }
         
@@ -112,13 +116,13 @@ namespace Library
                 }
                 else
                 {
-                    Console.WriteLine("Telefono no encontrado");
+                    throw new ArgumentException("Telefono no encontrado");
                 }
                 
             }
             else
             {
-                Console.WriteLine("Venta repetida");
+                throw new ArgumentException("Venta repetida");
             }
         }
         /// <summary>
@@ -172,7 +176,7 @@ namespace Library
             }
             else
             {
-                Console.WriteLine("Telefono no encontrado");
+                throw new ArgumentException("Telefono no encontrado");
             }
         }
 

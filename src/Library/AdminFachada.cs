@@ -1,8 +1,12 @@
 using System;
 
 namespace Library
+
 {
-    public class AdminFachada
+    /// <summary>
+    /// Esta clase se encarga de ejecturar los metodos de admin
+    /// </summary>
+    public static class AdminFachada
     {/// <summary>
      ///Guarda la instancia del administrador que está usando el sistema.
      /// </summary>
@@ -19,7 +23,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Crea un nuevo usuario a través del administrador actual. 
+        /// Crea un nuevo usuario a través del administrador actual. Si no se inicializa un Admin antes, tira una excepcion
         /// </summary>
         /// <param name="name"></param>
         /// <param name="apellido"></param>
@@ -28,7 +32,7 @@ namespace Library
         {
             if (_adminActual == null)
             {
-                Console.WriteLine("Debe inicializar un administrador antes de crear usuarios.");
+                throw new Exception("Debe inicializar un administrador antes de crear usuarios.");
                 
             }
             _adminActual.AgregarUsuario(name, apellido, correo);
@@ -36,15 +40,15 @@ namespace Library
         }
 
         /// <summary>
-        /// Suspende un usuario existente a través del administrador actual.
+        /// Suspende un usuario existente a través del administrador actual. Si no se inicializa un Admin antes, tira una excepcion
         /// </summary>
         /// <param name="correo"></param>
         public static void SuspenderUsuario(string correo)
         {
             if (_adminActual == null)
             {
-                Console.WriteLine("Debe inicializar un administrador antes de suspender usuarios.");
-                return;
+                throw new Exception("Debe inicializar un administrador antes de suspender usuarios.");
+               
             }
             _adminActual.SuspenderUsuario(correo);
         }
