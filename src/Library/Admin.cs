@@ -4,15 +4,24 @@ using System.Collections.ObjectModel;
 
 namespace Library
 {
+    /// <summary>
+    /// Se encarga de Agregar usuarios a la base de datos y si es necesario, suspenderlos
+    /// </summary>
     public class Admin
     {
+        /// <summary>
+        /// Nombre del Admin
+        /// </summary>
         public string Nombre { get; set; }
-        
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="nombre"></param>
         public Admin(string nombre)
         {
             Nombre = nombre;
         }
-
+        
         public void AgregarUsuario(string name, string apell, string correo)
         {
             BaseDatosUsuario bd2 = BaseDatosUsuario.Instance;
@@ -22,7 +31,7 @@ namespace Library
             }
             else
             {
-                Console.WriteLine("El correo ya esta ocupado");
+                throw new Exception("Este correo ya esta en uso");
             }
         }
 
