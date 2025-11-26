@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <UserSecretsId>PII_DiscordBot_Demo</UserSecretsId>
+    <UserSecretsId>PII_ProyectoTemplateCorrecto</UserSecretsId>
     <RootNamespace>Ucu.Poo.DiscordDemo.DiscordBot</RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
