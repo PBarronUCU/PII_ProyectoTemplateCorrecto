@@ -448,7 +448,7 @@
         </member>
         <member name="M:Library.Mensaje.#ctor(Library.UsuarioOCliente,System.String,System.String,System.DateTime,System.Int32,System.Boolean)">
             <summary>
-            
+            Constructor de la Clase. Si no encuentra el telefono del cliente en la base de datos, tira una excepcion
             </summary>
             <param name="remitente"></param>
             <param name="tema"></param>
@@ -456,6 +456,16 @@
             <param name="fecha"></param>
             <param name="telCliente"></param>
             <param name="respondida"></param>
+        </member>
+        <member name="M:Library.Reunion.#ctor(System.String,System.String,System.DateTime,System.Int32,System.String)">
+             <summary>
+            Constructor de la Clase. Si no encuentra el telefono del cliente en la base de datos, tira una excepcion
+             </summary>
+             <param name="tema"></param>
+             <param name="notas"></param>
+             <param name="fecha"></param>
+             <param name="telCliente"></param>
+             <param name="lugar"></param>
         </member>
         <member name="T:Library.Usuario">
             <summary>
@@ -499,7 +509,7 @@
         </member>
         <member name="M:Library.Usuario.#ctor(System.String,System.String,System.String)">
             <summary>
-            Verifica si el correo que quiere usar el Usuario esta ocupado o no 
+            Constructor de clase Usuario. Si el correo no contiene una @ o ya esta en uso, tira una excpecion 
             </summary>
             <param name="nombre"></param>
             <param name="apellido"></param>
@@ -656,6 +666,146 @@
             <param name="fechabaja"></param>
             <param name="fechaalta"></param>
             <returns></returns>
+        </member>
+        <member name="F:Library.UsuarioFachada.bd">
+            <summary>
+             Instancia única de la base de datos de usuarios.
+            </summary>
+        </member>
+        <member name="M:Library.UsuarioFachada.CrearCliente(System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+             Permite al usuario identificado por su correo crear un nuevo cliente.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="nombre"></param>
+            <param name="apellido"></param>
+            <param name="tel"></param>
+            <param name="correo"></param>
+        </member>
+        <member name="M:Library.UsuarioFachada.CrearVenta(System.String,System.Int32,System.String,System.Double,System.String)">
+            <summary>
+             Permite al usuario crear una venta asociada a un cliente.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="telcliente"></param>
+            <param name="prod"></param>
+            <param name="precio"></param>
+            <param name="fecha"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.CrearCoti(System.String,System.Int32,System.String,System.Double,System.String)">
+            <summary>
+             Permite al usuario crear una cotización asociada a un cliente.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="telcliente"></param>
+            <param name="fecha"></param>
+            <param name="valor"></param>
+            <param name="imp"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.ModificarCliente(System.String,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+             Modifica los datos de un cliente existente en la cartera del usuario.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="nombre"></param>
+            <param name="apellido"></param>
+            <param name="tel"></param>
+            <param name="gen"></param>
+            <param name="fechanac"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.FiltarClienteCorreo(System.String,System.String)">
+            <summary>
+             Devuelve un cliente específico según su correo electrónico.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="correoCliente"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.InteracionClienteSinFiltro(System.String,System.Int32)">
+            <summary>
+             Retorna todas las interacciones de un cliente sin aplicar filtros.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="telcliente"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.InteracionClienteFiltroFecha(System.String,System.Int32,System.String)">
+            <summary>
+             Retorna las interacciones de un cliente filtradas por fecha.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="telcliente"></param>
+            <param name="fecha"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.InteracionClienteFiltroTipo(System.String,System.Int32,System.String)">
+            <summary>
+             Retorna las interacciones de un cliente filtradas por tipo.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="telcliente"></param>
+            <param name="tipo"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.InteracionClienteFiltroTipoFecha(System.String,System.Int32,System.String,System.String)">
+            <summary>
+             Retorna las interacciones de un cliente filtradas por tipo y fecha.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="telcliente"></param>
+            <param name="tipo"></param>
+            <param name="fecha"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.InteraSinResponder(System.String)">
+            <summary>
+             Retorna las interacciones de tipo diálogo que aún no han sido respondidas
+            </summary>
+            <param name="correoUsuario"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.InteraViejas(System.String)">
+            <summary>
+             Retorna las interacciones consideradas viejas o inactivas.
+            </summary>
+            <param name="correoUsuario"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.VentasPeriodo(System.String,System.String,System.String)">
+            <summary>
+             Retorna las ventas realizadas en un período determinado
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="fechabaja"></param>
+            <param name="fechaalta"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.AgregarInteracion(System.String,Library.IInteracion)">
+            <summary>
+            Agrega una nueva interacción al usuario.
+            </summary>
+            <param name="correoUsuario"></param>
+            <param name="interacion"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.PanelCliente(System.String)">
+            <summary>
+             Devuelve la información general del panel del usuario.
+            </summary>
+            <param name="correoUsuario"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
     </members>
 </doc>
