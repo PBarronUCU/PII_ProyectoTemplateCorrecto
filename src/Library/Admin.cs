@@ -33,8 +33,8 @@ namespace Library
             BaseDatosUsuario bd2 = BaseDatosUsuario.Instance;
             if (!bd2.ExisteCorreo(correo))
             {
-                    Usuario instancia2 = new Usuario(name, apell, correo);
-                    bd2.AgregarUsuario(instancia2);
+                    new Usuario(name, apell, correo);
+                    
             }
             else
             {

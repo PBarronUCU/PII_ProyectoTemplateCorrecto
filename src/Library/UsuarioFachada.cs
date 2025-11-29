@@ -3,13 +3,27 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public class UsuarioFachada
+    /// <summary>
+    /// Esta clase se encarga de ejecturar los metodos de admin
+    /// </summary>
+    public sealed class UsuarioFachada
     {
-        /// <summary>
-        ///  Instancia única de la base de datos de usuarios.
-        /// </summary>
+        private static readonly UsuarioFachada _instance = new UsuarioFachada();
         BaseDatosUsuario bd = BaseDatosUsuario.Instance;
 
+        private UsuarioFachada()
+        {
+            
+        }
+        
+        /// <summary>
+        /// Usar este metodo para referirse siempre a la misma instancia de esta clase
+        /// </summary>
+        public static UsuarioFachada Instance
+        {
+            get { return _instance; }
+        }
+        
         /// <summary>
         ///  Permite al usuario identificado por su correo crear un nuevo cliente.
         /// </summary>

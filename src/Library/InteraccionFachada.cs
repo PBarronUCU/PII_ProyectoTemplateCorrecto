@@ -5,8 +5,23 @@ namespace Library
     /// <summary>
     /// Fachada para los constructores de las interacciones
     /// </summary>
-    public class InteraccionFachada
+    public sealed class InteraccionFachada
     {
+        private static readonly InteraccionFachada _instance = new InteraccionFachada();
+        
+        private InteraccionFachada()
+        {
+            
+        }
+        /// <summary>
+        /// Usar este metodo para referirse siempre a la misma instancia de esta clase
+        /// </summary>
+        public static InteraccionFachada Instance
+        {
+            get { return _instance; }
+        }
+        
+        
         /// <summary>
         ///  Crea una nueva reunión con los datos proporcionados
         /// </summary>

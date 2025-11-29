@@ -6,14 +6,26 @@ namespace Library
     /// <summary>
     /// Esta clase se encarga de ejecturar los metodos de admin
     /// </summary>
-    public class AdminFachada
-    { /// <summary>
-     ///Guarda la instancia del administrador que está usando el sistema.
-     /// </summary>
+    public sealed class AdminFachada
+    {
+        private static readonly AdminFachada _instance = new AdminFachada();
         BaseDatosAdmin _bd = BaseDatosAdmin.Instance;
-
+        
+        private AdminFachada()
+        {
+            
+        }
         /// <summary>
-        /// Inicializa el administrador con el nombre indicado.
+        /// Usar este metodo para referirse siempre a la misma instancia de esta clase
+        /// </summary>
+        public static AdminFachada Instance
+        {
+            get { return _instance; }
+        }
+        
+        
+        /// <summary>
+        /// Crea el administrador con el nombre indicado. Si ya existe un admin con ese nombre, tira una excepcion.
         /// </summary>
         /// <param name="name"></param>
         public void CrearAdmin(string name)
@@ -30,7 +42,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Crea un nuevo usuario a través del administrador actual. Si no se inicializa un Admin antes, tira una excepcion
+        /// Crea un nuevo usuario a través del administrador indicado. Si no se encuentra al Administrador, tira una excepcion
         /// </summary>
         /// <param name="name"></param>
         /// <param name="apellido"></param>
@@ -41,7 +53,7 @@ namespace Library
             Admin admin =_bd.AdminSegunNombre(nombreAdmin);
             if (admin == null)
             {
-                throw new Exception("Debe inicializar un administrador antes de crear usuarios.");
+                throw new Exception("Admin no encontrado.");
                 
             }
             admin.AgregarUsuario(name, apellido, correo);
@@ -49,7 +61,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Suspende un usuario existente a través del administrador actual. Si no se inicializa un Admin antes, tira una excepcion
+        /// Suspende un usuario existente a través del administrador indicado.  Si no se encuentra al Administrador, tira una excepcion
         /// </summary>
         /// <param name="correo"></param>
         public void SuspenderUsuario(string nombreAdmin,string correo)
@@ -57,7 +69,7 @@ namespace Library
             Admin admin =_bd.AdminSegunNombre(nombreAdmin);
             if (admin == null)
             {
-                throw new Exception("Debe inicializar un administrador antes de suspender usuarios.");
+                throw new Exception("Admin no encontrado.");
                
             }
             admin.SuspenderUsuario(correo);
