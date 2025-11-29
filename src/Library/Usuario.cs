@@ -64,28 +64,8 @@ namespace Library
                 throw new ArgumentException("El correo ya esta ocupado");
             }
         }
-
-       /// <summary>
-       /// El Usuario cera el registro de un Clienete para guardar la informacion con el cliente en la Base de Datos
-       /// </summary>
-       /// <param name="name"></param>
-       /// <param name="apell"></param>
-       /// <param name="tel"></param>
-       /// <param name="correo"></param>
-        public void CrearCliente(String name, String apell, int tel, String correo)
-        {
-            BaseDatosCliente bd1 = BaseDatosCliente.Instance; 
-            //Inecesario, pero por si acaso para no encontrarme errores al agregarlo a la cartera
-            if (!bd1.ExisteCorreo(correo) & !bd1.ExisteTel(tel))
-            {
-                Cliente instancia1 = new Cliente(name, apell, correo, tel);
-                Cartera.Add(instancia1);
-            }
-            else
-            {
-                throw new ArgumentException("El correo o telefono ya esta ocupado");
-            }
-        }
+        
+        
         
         /// <summary>
         /// Metodo para verificar si este usuario esta suspendido o no 
@@ -180,19 +160,7 @@ namespace Library
             }
         }
 
-        /// <summary>
-        /// El telefono es para identificar el Cliente, NO para cambiarlo.
-        /// </summary>
-        public void ModificarCliente(string nombre,string apell, int tel, Genero genero,DateTime fecha )
-        {
-            BaseDatosCliente bd1 = BaseDatosCliente.Instance;
-            Cliente client =  bd1.ClienteSegunTelefono(tel);
-            client.Nombre = nombre;
-            client.Apellido = apell;
-            client.Genero = genero;
-            client.FechaNac =  fecha;
-            
-        }
+        
         /// <summary>
         /// Registra las interacciones tenidas entre Usuario y Cliente 
         /// </summary>
@@ -386,18 +354,13 @@ namespace Library
                 EliminarTelCartera(cliente.Tel);
             }
         }
-       /// <summary>
-       /// Crea una lista donde guarda las ventas que realisa el usuario en las fechas que él quiere revisar para ver la rentavilidad del negocio 
-       /// </summary>
-       /// <param name="fechabaja"></param>
-       /// <param name="fechaalta"></param>
-       /// <returns></returns>
-        public List<Venta> VentasPeriodo(DateTime fechabaja,DateTime fechaalta)
-        { BaseDatosVenta bd1 = BaseDatosVenta.Instance;
-            List<Venta> ventas = bd1.ListaVentas;
-            return ventas.FindAll(i => i.FechaVenta>= fechabaja && i.FechaVenta <= fechaalta);
-
+        /// <summary>
+        /// Metodo para que la fachada pueda agregar un cliente a la Cartera del usuario.
+        /// </summary>
+        /// <param name="cliente"></param>
+        public void AgregarClienteACartera(Cliente cliente)
+        {
+            Cartera.Add(cliente);
         }
-
     }
 }

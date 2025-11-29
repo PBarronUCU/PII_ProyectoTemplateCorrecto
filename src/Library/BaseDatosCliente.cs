@@ -115,5 +115,17 @@ namespace Library
             }
         }
         
+        /// <summary>
+        /// El telefono es para identificar el Cliente, NO para cambiarlo.
+        /// </summary>
+        public void ModificarCliente(string nombre,string apell, int tel, Genero genero,DateTime fecha )
+        {
+            Cliente client = ClienteSegunTelefono(tel);
+            client.Nombre = nombre;
+            client.Apellido = apell;
+            client.Genero = genero;
+            client.FechaNac =  fecha;
+            
+        }
     }
 }

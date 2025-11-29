@@ -10,6 +10,8 @@ namespace Library
     {
         private static readonly UsuarioFachada _instance = new UsuarioFachada();
         BaseDatosUsuario bd = BaseDatosUsuario.Instance;
+        BaseDatosVenta bdventa = BaseDatosVenta.Instance;
+        BaseDatosCliente bdcliente = BaseDatosCliente.Instance;
 
         private UsuarioFachada()
         {
@@ -37,7 +39,8 @@ namespace Library
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
             if (!u.Suspendido)
             {
-                u?.CrearCliente(nombre, apellido, tel, correo);
+                Cliente client = new Cliente(nombre, apellido,correo, tel);
+                u.AgregarClienteACartera(client);
             }
             else
             {
@@ -108,6 +111,7 @@ namespace Library
         /// <exception cref="ArgumentException"></exception>
         public void ModificarCliente(string correoUsuario, string nombre, string apellido, int tel, string gen, string fechanac)
         {
+            
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
             if (u.Suspendido)
             { 
@@ -117,7 +121,7 @@ namespace Library
             {
                 Genero genero = Enum.Parse<Genero>(gen);
                 DateTime fecha = DateTime.Parse(fechanac);
-                u.ModificarCliente(nombre, apellido, tel, genero, fecha);
+                bdcliente.ModificarCliente(nombre, apellido, tel, genero, fecha);
             }
         }
 
@@ -254,6 +258,7 @@ namespace Library
         /// <exception cref="ArgumentException"></exception>
         public List<Venta> VentasPeriodo(string correoUsuario, string fechabaja, string fechaalta)
         {
+            
             Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
             if (u.Suspendido)
             { 
@@ -261,7 +266,7 @@ namespace Library
             }
             DateTime baja = DateTime.Parse(fechabaja);
             DateTime alta = DateTime.Parse(fechaalta);
-            return u?.VentasPeriodo(baja, alta);
+            return bdventa.VentasPeriodo(u,baja, alta);
         }
 
         /// <summary>
