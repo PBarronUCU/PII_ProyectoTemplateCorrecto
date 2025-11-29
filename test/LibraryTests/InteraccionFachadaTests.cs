@@ -19,7 +19,7 @@ namespace LibraryTests
         [SetUp]
         public void SetUp()
         {
-            fachada = new InteraccionFachada();
+            fachada = InteraccionFachada.Instance;
         }
 
 
