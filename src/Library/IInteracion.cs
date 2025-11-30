@@ -22,6 +22,6 @@ namespace Library
         /// Telefono del cliente que fue contactado
         /// </summary>
         int TelCliente { get; }
-
+        //quiero verificar algo?
     }
 }
