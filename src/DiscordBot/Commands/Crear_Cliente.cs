@@ -16,11 +16,9 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
             string nombre = null,
             string apellido = null,
             string correo = null,
-            int telefono = 0,
-            Genero genero = false,
-            DateTime fechanac= null ,)
+            int telefono = 0)
         {
-            if (correoUsuario == null || nombre == null || apellido == null || correo == null || telefono == 0|| genero == || fechanac==)
+            if (correoUsuario == null || nombre == null || apellido == null || correo == null || telefono == 0)
             {
                 await ReplyAsync("Uso correcto: !CrearCliente <correousuario> <nombre> <apellido> <correo> <telefono> <genero> <fechanac>");
                 return;
