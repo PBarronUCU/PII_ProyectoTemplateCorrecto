@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Library
 {
     public class UsuarioFachada
-    {
+    {   
         // Instancia única de la base de datos de usuarios.
         BaseDatosUsuario bd = BaseDatosUsuario.Instance;
 
