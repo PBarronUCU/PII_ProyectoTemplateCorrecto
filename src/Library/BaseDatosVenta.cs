@@ -62,6 +62,19 @@ namespace Library
                 ListaVentas.Add(venta);
             }
         }
+        /// <summary>
+        /// Crea una lista donde guarda las ventas que realisa el usuario en las fechas que él quiere revisar para ver la rentavilidad del negocio 
+        /// </summary>
+        /// <param name="fechabaja"></param>
+        /// <param name="fechaalta"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public List<Venta> VentasPeriodo(Usuario user,DateTime fechabaja,DateTime fechaalta)
+        { 
+            List<Venta> ventasUser = ListaVentas.FindAll(x => x.Usuario == user);
+            return ventasUser.FindAll(i => i.FechaVenta>= fechabaja && i.FechaVenta <= fechaalta);
+
+        }
         
         
     }

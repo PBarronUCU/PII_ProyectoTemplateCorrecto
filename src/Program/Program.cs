@@ -5,6 +5,7 @@
 //--------------------------------------------------------------------------------
 
 using System;
+using Ucu.Poo.DiscordDemo.DiscordBot.Services;
 
 namespace ConsoleApplication
 {
@@ -18,7 +19,7 @@ namespace ConsoleApplication
         /// </summary>
         public static void Main()
         {
-            
+            BotLoader.LoadAsync().GetAwaiter().GetResult();
         }
     }
 }

@@ -5,10 +5,11 @@ namespace LibraryTests
 {
     public class Adminfachada_test
     {
+        private AdminFachada fachada;   
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-        
+            fachada =  AdminFachada.Instance;
         }
         
         /// <summary>
@@ -17,9 +18,11 @@ namespace LibraryTests
         [Test]
         public void CrearUsuariyAgregarUsuarioEnBaseDatos()
         {
-            AdminFachada.CrearUsuario("Juan", "Pérez", "juan@ucu.edu.uy");
+            fachada.CrearAdmin("Admin1");
+            BaseDatosUsuario bdUser = BaseDatosUsuario.Instance;
+            fachada.CrearUsuario("Admin1","Juan", "Pérez", "juan@ucu.edu.uy");
 
-            var usuario = BaseDatosUsuario.Instance.UsuarioSegunCorreo("juan@ucu.edu.uy");
+            Usuario usuario = bdUser.UsuarioSegunCorreo("juan@ucu.edu.uy");
 
             Assert.That(usuario, Is.Not.Null);
             Assert.That(usuario.Nombre, Is.EqualTo("Juan"));
@@ -31,9 +34,10 @@ namespace LibraryTests
         [Test]
         public void SuspenderUsuarioyDeberiaMarcarUsuarioComoSuspendido()
         {
-    
+            
+            fachada.CrearAdmin("Admin1");
             var usuario = new Usuario("Ana", "López", "ana@ucu.edu.uy");
-            AdminFachada.SuspenderUsuario("ana@ucu.edu.uy");
+            fachada.SuspenderUsuario("Admin1", "ana@ucu.edu.uy");
 
             Assert.That(usuario.Suspendido, Is.True);
         }
