@@ -206,16 +206,16 @@ namespace Library
             return Cartera.Find(c => c.Correo == correo);
         }
         /// <summary>
-        /// Busca una interaccion con un Cliente en esoecifico a traves del Telefono , fecha y tipo de imnteraccion para implementarle una nota a la interaccion buscada
+        /// Busca una interaccion con un Cliente, fecha y tipo de imnteraccion en especifico  para implementarle una nota a la interaccion buscada
         /// </summary>
-        /// <param name="telcliente"></param>
+        /// <param name="cliente"></param>
         /// <param name="fecha"></param>
         /// <param name="tipo"></param>
         /// <param name="nota"></param>
-        public void AgregarNota(int telcliente, DateTime fecha, string tipo, string nota)
+        public void AgregarNota(Cliente cliente, DateTime fecha, string tipo, string nota)
         {
             IInteracion interaccion = ListaInteracciones
-                .Find(i => i.TelCliente == telcliente && i.GetType().Name == tipo && i.Fecha.Date == fecha.Date);
+                .Find(i => i.Cliente == cliente && i.GetType().Name == tipo && i.Fecha.Date == fecha.Date);
 
             if (interaccion != null)
             {
@@ -227,43 +227,43 @@ namespace Library
         /// <summary>
         /// Devuelve una lista con todas las interacciones con un cliente 
         /// </summary>
-        /// <param name="telcliente"></param>
+        /// <param name="cliente"></param>
         /// <returns></returns>
-        public List<IInteracion> InteracionClienteSinFiltro(int telcliente)
+        public List<IInteracion> InteracionClienteSinFiltro(Cliente cliente)
         {
-            return ListaInteracciones.FindAll(i => i.TelCliente == telcliente);
+            return ListaInteracciones.FindAll(i => i.Cliente == cliente);
         }
         /// <summary>
         /// De todas las interacciones filtra las que son con un cliente y en la fecha indicada para devolvera en una lista 
         /// </summary>
-        /// <param name="telcliente"></param>
+        /// <param name="cliente"></param>
         /// <param name="fecha"></param>
         /// <returns></returns>
-        public List<IInteracion> InteracionClienteFiltroFecha(int telcliente, DateTime fecha)
+        public List<IInteracion> InteracionClienteFiltroFecha(Cliente cliente, DateTime fecha)
         {
-            return ListaInteracciones.FindAll(i => i.TelCliente == telcliente && i.Fecha.Date == fecha.Date);
+            return ListaInteracciones.FindAll(i => i.Cliente == cliente && i.Fecha.Date == fecha.Date);
         }
         /// <summary>
         /// Filtra las interacciones por el tipo que quiere el usuario y esas interacciones las devuelve a traves de una lista 
         /// </summary>
-        /// <param name="telcliente"></param>
+        /// <param name="cliente"></param>
         /// <param name="tipo"></param>
         /// <returns></returns>
-        public List<IInteracion> InteracionClienteFiltroTipo(int telcliente, string tipo)
+        public List<IInteracion> InteracionClienteFiltroTipo(Cliente cliente, string tipo)
         {
-            return ListaInteracciones.FindAll(i => i.TelCliente == telcliente && i.GetType().Name == tipo);
+            return ListaInteracciones.FindAll(i => i.Cliente == cliente && i.GetType().Name == tipo);
         }
         /// <summary>
         /// Filtra todas las interacciones por una fecha y tipo de interacion , devolviendolas a traves de una lista 
         /// </summary>
-        /// <param name="telcliente"></param>
+        /// <param name="cliente"></param>
         /// <param name="tipo"></param>
         /// <param name="fecha"></param>
         /// <returns></returns>
-        public List<IInteracion> InteracionClienteFiltroTipoFecha(int telcliente, string tipo, DateTime fecha)
+        public List<IInteracion> InteracionClienteFiltroTipoFecha(Cliente cliente, string tipo, DateTime fecha)
         {
             return ListaInteracciones.FindAll(i =>
-                i.TelCliente == telcliente &&
+                i.Cliente == cliente &&
                 i.GetType().Name == tipo &&
                 i.Fecha.Date == fecha.Date);
         }
@@ -308,7 +308,7 @@ namespace Library
             foreach (Cliente client in Cartera)
             {
                 string stringcliente = $"{client.Nombre} {client.Apellido}:";
-                List<IInteracion> listinte = InteracionClienteSinFiltro(client.Tel);
+                List<IInteracion> listinte = InteracionClienteSinFiltro(client);
                 List<string> listintestring = new List<string>();
                 foreach (IInteracion inte in listinte)
                 {
@@ -352,7 +352,7 @@ namespace Library
 
                 foreach (var interaccion in ListaInteracciones)
                 {
-                    if (interaccion.TelCliente == cliente.Tel)
+                    if (interaccion.Cliente == cliente)
                     {
                         usuario.ListaInteracciones.Add(interaccion);
                         ListaInteracciones.Remove(interaccion);

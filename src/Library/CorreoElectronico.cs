@@ -21,9 +21,9 @@ namespace Library
         /// </summary>
         public string Notas { get; set; }
         /// <summary>
-        /// Telefono del cliente que fue contactado
+        /// Cliente que fue contactado
         /// </summary>
-        public int TelCliente { get; }
+        public Cliente Cliente { get; }
         /// <summary>
         /// Puede ser USUARIO o CLIENTE
         /// </summary>
@@ -31,30 +31,23 @@ namespace Library
         
         public bool Respondida { get; set; } = false;
         /// <summary>
-        /// Constructor de la Clase. Si no encuentra el telefono del cliente en la base de datos, tira una excepcion
+        /// Constructor de la Clase. Si el cliente es null, tira una exepcion
         /// </summary>
         /// <param name="remitente"></param>
         /// <param name="tema"></param>
         /// <param name="notas"></param>
         /// <param name="fecha"></param>
-        /// <param name="telCliente"></param>
+        /// <param name="cliente"></param>
         /// <param name="respondida"></param>
-        public CorreoElectronico(UsuarioOCliente remitente, string tema, string notas, DateTime fecha, int telCliente, bool respondida)
+        public CorreoElectronico(UsuarioOCliente remitente, string tema, string notas, DateTime fecha, Cliente cliente, bool respondida)
         {
-            BaseDatosCliente bd1 = BaseDatosCliente.Instance;
-            if (bd1.ExisteTel(telCliente))
-            {
+            ArgumentNullException.ThrowIfNull(cliente);
                 Respondida = respondida;
                 Remitente = remitente;
                 Tema = tema;
                 Notas = notas;
                 Fecha = fecha;
-                TelCliente = telCliente;
-            }
-            else
-            {
-                throw new ArgumentException("Telefono no encontrado");
-            }
+                Cliente = cliente;
             
         }
     }
