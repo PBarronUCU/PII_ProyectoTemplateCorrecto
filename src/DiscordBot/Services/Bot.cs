@@ -52,11 +52,10 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Services
 
             await commands.AddModulesAsync(Assembly.GetExecutingAssembly(),
                 serviceProvider);
-
             await client.LoginAsync(TokenType.Bot, discordToken);
             await client.StartAsync();
-
             client.MessageReceived += HandleCommandAsync;
+            commands.CommandExecuted += CommandExecutedAsync;
         }
 
         public async Task StopAsync()
@@ -85,5 +84,18 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Services
                     serviceProvider);
             }
         }
+        
+        private async Task CommandExecutedAsync(
+            Optional<CommandInfo> command,
+            ICommandContext context,
+            IResult result)
+        {
+            if (!command.IsSpecified)
+            {
+                await context.Channel.SendMessageAsync("❓ No reconozco ese comando.");
+                return;
+            }
+        }
+
     }
 }

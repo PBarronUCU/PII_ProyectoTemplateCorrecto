@@ -55,15 +55,16 @@
             <summary>
             Crea un nuevo usuario a través del administrador indicado. Si no se encuentra al Administrador, tira una excepcion
             </summary>
+            <param name="nombreAdmin"></param>
             <param name="name"></param>
             <param name="apellido"></param>
             <param name="correo"></param>
-            <param name="nombreAdmin"></param>
         </member>
         <member name="M:Library.AdminFachada.SuspenderUsuario(System.String,System.String)">
             <summary>
             Suspende un usuario existente a través del administrador indicado.  Si no se encuentra al Administrador, tira una excepcion
             </summary>
+            <param name="nombreAdmin"></param>
             <param name="correo"></param>
         </member>
         <member name="T:Library.BaseDatosAdmin">
@@ -572,7 +573,7 @@
         </member>
         <member name="M:Library.Usuario.Suspender">
             <summary>
-            Metodo para verificar si este usuario esta suspendido o no 
+            Metodo para suspender al usuario. Si el usuario ya esta suspendido tira una exepcion
             </summary>
         </member>
         <member name="M:Library.Usuario.CrearVentas(System.Int32,System.String,System.Double,System.DateTime)">

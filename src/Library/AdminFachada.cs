@@ -44,10 +44,11 @@ namespace Library
         /// <summary>
         /// Crea un nuevo usuario a través del administrador indicado. Si no se encuentra al Administrador, tira una excepcion
         /// </summary>
+        /// <param name="nombreAdmin"></param>
         /// <param name="name"></param>
         /// <param name="apellido"></param>
         /// <param name="correo"></param>
-        /// <param name="nombreAdmin"></param>
+        
         public void CrearUsuario(string nombreAdmin,string name, string apellido, string correo)
         {
             Admin admin =_bd.AdminSegunNombre(nombreAdmin);
@@ -63,6 +64,7 @@ namespace Library
         /// <summary>
         /// Suspende un usuario existente a través del administrador indicado.  Si no se encuentra al Administrador, tira una excepcion
         /// </summary>
+        /// <param name="nombreAdmin"></param>
         /// <param name="correo"></param>
         public void SuspenderUsuario(string nombreAdmin,string correo)
         {

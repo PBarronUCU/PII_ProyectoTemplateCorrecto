@@ -68,11 +68,19 @@ namespace Library
         
         
         /// <summary>
-        /// Metodo para verificar si este usuario esta suspendido o no 
+        /// Metodo para suspender al usuario. Si el usuario ya esta suspendido tira una exepcion
         /// </summary>
         public void Suspender()
         {
-            Suspendido = true;
+            if (!Suspendido)
+            {
+                Suspendido = true;
+            }
+            else
+            {
+                throw new Exception("Este usuario ya esta suspendido");
+            }
+            
         }
         /// <summary>
         /// Registra una venta hecha entre un Usuario y su Clinte 

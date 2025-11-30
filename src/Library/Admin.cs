@@ -51,13 +51,14 @@ namespace Library
         {
         
             BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
-            foreach (Usuario usuario in bd1.ListaUsuario) //Habria que usar el metodo que ya tiene la clase
+            Usuario u = bd1.UsuarioSegunCorreo(correo);
+            if (bd1.ExisteCorreoUser(correo))
             {
-                if (usuario.Correo == correo) // buscamos el correo del usuario a suspender
-                {
-                    usuario.Suspender();
-                    break; // salimos del bucle cuando lo encontramos
-                }
+                u.Suspender();
+            }
+            else
+            {
+                throw new Exception("No se ha encontrado el usuario");
             }
         }
     }
