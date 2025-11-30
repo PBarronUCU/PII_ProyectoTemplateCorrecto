@@ -320,6 +320,12 @@ namespace Library
 
                 return u != null ? u.PanelCliente() : "Usuario no encontrado";
             }
+
+            public void EliminarCliente(int telefono)
+            {
+                BaseDatosCliente bd = BaseDatosCliente.Instance;
+                bd.EliminarCliente(telefono);
+            }
         }
     }
 
