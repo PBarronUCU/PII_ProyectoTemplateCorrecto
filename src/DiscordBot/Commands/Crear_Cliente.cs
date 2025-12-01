@@ -16,9 +16,11 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
             string nombre = null,
             string apellido = null,
             string correo = null,
-            int telefono = 0)
+            string telefono = null)
         {
-            if (correoUsuario == null || nombre == null || apellido == null || correo == null || telefono == 0)
+            int telCliente;
+            bool convercionexitosa = int.TryParse(telefono, out telCliente);
+            if (correoUsuario == null || nombre == null || apellido == null || correo == null || convercionexitosa == false)
             {
                 await ReplyAsync("Uso correcto: !CrearCliente <correousuario> <nombre> <apellido> <correo> <telefono> <genero> <fechanac>");
                 return;
@@ -26,7 +28,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
 
             try
             {
-                UsuarioFachada.Instance.CrearCliente(correoUsuario, nombre, apellido, telefono, correo);
+                UsuarioFachada.Instance.CrearCliente(correoUsuario, nombre, apellido, telCliente, correo);
                 await ReplyAsync(
                     $"Cliente **{nombre}{apellido}{telefono}**Creado exitosamente por el Usuario**{correoUsuario}");
             }
