@@ -22,7 +22,7 @@
         </member>
         <member name="M:Library.Admin.AgregarUsuario(System.String,System.String,System.String)">
             <summary>
-            Agrega usuario a la base de datos. Si el correo ya existe lanza una excepcion
+            Agrega usuario a la base de datos. 
             </summary>
             <param name="name"></param>
             <param name="apell"></param>
@@ -139,6 +139,15 @@
             <param name="tel"></param>
             <returns></returns>
         </member>
+        <member name="M:Library.BaseDatosCliente.CrearCliente(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Metodo para crear el Cliente, Si ya esixte el correo o telefono salta exepcion.
+            </summary>
+            <param name="nombre"></param>
+            <param name="apellido"></param>
+            <param name="correo"></param>
+            <param name="tel"></param>
+        </member>
         <member name="M:Library.BaseDatosCliente.ExisteCorreoCliente(System.String)">
             <summary>
             Recorre todos los clientes guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.
@@ -231,6 +240,14 @@
             </summary>
             <param name="correo"></param>
         </member>
+        <member name="M:Library.BaseDatosUsuario.CrearUsuario(System.String,System.String,System.String)">
+            <summary>
+            Metodo para crear usuario. Si ya existe el correo salta exepcion
+            </summary>
+            <param name="nombre"></param>
+            <param name="apellido"></param>
+            <param name="correo"></param>
+        </member>
         <member name="T:Library.BaseDatosVenta">
             <summary>
             Base de datos para las Ventas
@@ -316,7 +333,7 @@
         </member>
         <member name="M:Library.Cliente.#ctor(System.String,System.String,System.String,System.Int32)">
             <summary>
-            Constructor de clase cliente. Si el correo o telefono ya existe, tira un excepcion.
+            Constructor de clase cliente.
             </summary>
             <param name="nombre"></param>
             <param name="apellido"></param>

@@ -27,20 +27,17 @@ namespace LibraryTests
         [Test]
         public void CrearCliente_Success_AddsClientToBaseAndUserCartera()
         {
-            // Arrange
-            Usuario user = new Usuario("N", "A", "c@");
-            
-            fachada.CrearCliente("c@","Nom","Ape",12,"corre@");
 
-            Cliente clientedeBd = bdcliente.ClienteSegunTelefono(12);
-            Assert.That(clientedeBd, Is.Not.Null);
-            /*
-            var clientFromBd = BaseDatosCliente.Instance.ClienteSegunTelefono(12345);
+            string correoUser = "a@a";
+            AdminFachada.Instance.CrearAdmin("Admin1");
+            AdminFachada.Instance.CrearUsuario("Admin1","Name","SSur",correoUser);
+            fachada.CrearCliente(correoUser,"Nom","Ape",12,"correcliente@");
+            var clientFromBd = BaseDatosCliente.Instance.ClienteSegunTelefono(12);
             Assert.That(clientFromBd, Is.Not.Null);
-            Assert.That(clientFromBd.Correo, Is.EqualTo("carlos@cliente.com"));
+            Assert.That(clientFromBd.Correo, Is.EqualTo("correcliente@"));
 
             var userFromBd = BaseDatosUsuario.Instance.UsuarioSegunCorreo(correoUser);
-            Assert.That(userFromBd.Cartera.Any(c => c.Tel == 12345), Is.True);*/
+            Assert.That(userFromBd.Cartera.Any(c => c.Tel == 12), Is.True);
         }
 
         [Test]
@@ -58,16 +55,18 @@ namespace LibraryTests
         [Test]
         public void CrearCliente_UsuarioSuspendido_ThrowsArgumentException()
         {
-            var correoUser = "user2@ucu.edu.uy";
-            var user = new Usuario("User", "Dos", correoUser);
+            AdminFachada.Instance.CrearAdmin("Admin1");
+            string correoUser = "user2@ucu.edu.uy";
+            AdminFachada.Instance.CrearUsuario("Admin1","Patri","Barr",correoUser);
+            Usuario user =BaseDatosUsuario.Instance.UsuarioSegunCorreo(correoUser);
             user.Suspender();
 
-            var ex = Assert.Throws<Exception>(() =>
+            Exception ex = Assert.Throws<ArgumentException>(() =>
             {
-                fachada.CrearCliente(correoUser, "María", "González", 22222, "user2@ucu.edu.uy");
+                fachada.CrearCliente(correoUser, "María", "González", 22222, "Client@ucu.edu.uy");
             });
 
-            Assert.That(ex.Message, Is.EqualTo("El usuario esta suspendido"));
+            Assert.That("El usuario esta suspendido",Is.EqualTo(ex.Message));
         }
 
         [Test]
