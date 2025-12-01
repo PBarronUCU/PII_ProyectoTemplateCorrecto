@@ -6,12 +6,9 @@ namespace Library
     /// <summary>
     /// Clase Cotizacion. Representa una oportunidad de venta
     /// </summary>
-    public class Cotizacion
+    public class Cotizacion : IInteracion
     {
-        /// <summary>
-        /// Usuario que esta ofrece la cotizacion
-        /// </summary>
-        public Usuario Usuario { get; set; }
+        
         /// <summary>
         /// Cliente que esta ligado a al cotizacion
         /// </summary>
@@ -24,26 +21,36 @@ namespace Library
         /// Valor especulado
         /// </summary>
         public Double Valor { get; set; }
-        
-        public String Importancia { get; set; }
+        /// <summary>
+        ///  Informaicion extra de la llamada
+        /// </summary>
+        public String Notas { get; set; }
+        /// <summary>
+        /// Temas tratados en la cotizacion,por ejemplo el producto a cotizar
+        /// </summary>
+        public string Tema { get; set; } 
         
         /// <summary>
-        /// metodo constructor de clase Cotizacion
+        /// Constructor de la Clase. Si el cliente es null, tira una exepcion
         /// </summary>
-        /// <param name="usuario"></param>
-        /// <param name="cliente"></param>
+        /// <param name="tema"></param>
+        /// <param name="notas"></param>
         /// <param name="fecha"></param>
+        /// <param name="cliente"></param>
         /// <param name="valor"></param>
-        /// <param name="imp"></param>
-        public Cotizacion(Usuario usuario, Cliente cliente, DateTime fecha, Double valor, String imp)
+        /// <exception cref="ArgumentNullException"></exception>
+        public Cotizacion(string tema, string notas, DateTime fecha, Cliente cliente, Double valor)
         {
-            Usuario = usuario;
+            if (cliente == null)
+            {
+                throw new ArgumentNullException(nameof(cliente),"Cliente no encontrado");
+            }     
             Cliente = cliente;
             Fecha = fecha;
+            Notas = notas;
+            Tema = tema;
             Valor = valor;
-            Importancia = imp;
             
         }
-        
     }
 }

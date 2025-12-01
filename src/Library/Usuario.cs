@@ -145,22 +145,26 @@ namespace Library
             }
         }
         
-        
         /// <summary>
         /// Crea una Cotizaciun para una futura venta entre Usuario y cliente 
         /// </summary>
-        /// <param name="telcliente"></param>
+        /// <param name="tema"></param>
+        /// <param name="notas"></param>
         /// <param name="fecha"></param>
+        /// <param name="telcliente"></param>
         /// <param name="valor"></param>
-        /// <param name="imp"></param>
-        public void CrearCoti(int telcliente, DateTime fecha, Double valor, String imp)
+        /// <exception cref="ArgumentException"></exception>
+
+        
+        public void CrearCoti(string tema,string notas, DateTime fecha, int telcliente,double valor)
         {
             BaseDatosCliente bd1 = BaseDatosCliente.Instance;
             Cliente cliente = bd1.ClienteSegunTelefono(telcliente);
             if (VerificarTelCartera(telcliente))
             {
-                Cotizacion instancia2 = new Cotizacion(this,cliente,fecha, valor, imp);
+                Cotizacion instancia2 = new Cotizacion(tema,notas,fecha,cliente,valor);
                 OportunidadesVentas.Add(instancia2);
+                ListaInteracciones.Add(instancia2);
             }
             else
             {
@@ -344,7 +348,6 @@ namespace Library
                 {
                     if (coti.Cliente == cliente)
                     {
-                        coti.Usuario = usuario;
                         usuario.OportunidadesVentas.Add(coti);
                         OportunidadesVentas.Remove(coti);
                     }

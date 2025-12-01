@@ -787,6 +787,13 @@
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
+        <member name="M:Library.UsuarioFachada.EliminarCliente(System.Int32)">
+            <summary>
+            Elimina un cliente de la lista. Tambien busca en la base de datos de usuario
+            para eliminar al cliente de la cartera del usuario que lo tenga guardado
+            </summary>
+            <param name="telefono"></param>
+        </member>
         <member name="M:Library.UsuarioFachada.CrearReunion(System.String,System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
             Crea un reunion y la agrega al usuario indicado por el correo.
