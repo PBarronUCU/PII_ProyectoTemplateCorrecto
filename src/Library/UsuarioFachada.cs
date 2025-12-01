@@ -13,7 +13,7 @@ namespace Library
         /// </summary>
         
         
-            private static readonly UsuarioFachada _instance = new UsuarioFachada();
+            private static UsuarioFachada _instance = new UsuarioFachada();
 
             BaseDatosUsuario bd = BaseDatosUsuario.Instance;
             BaseDatosVenta bdventa = BaseDatosVenta.Instance;
@@ -32,6 +32,14 @@ namespace Library
                 get { return _instance; }
             }
 
+            /// <summary>
+            /// Metodo para poder reiniciar mis singletons despues de cada test
+            /// </summary>
+            public static void ResetInstance()
+            {
+                _instance = new UsuarioFachada();
+            }
+            
             /// <summary>
             ///  Permite al usuario identificado por su correo crear un nuevo cliente.
             /// </summary>

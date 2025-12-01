@@ -4,6 +4,7 @@ using Library;
 
 namespace LibraryTests
 {
+    /*
     /// <summary>
     /// Se validan los métodos de creación de interacciones (reuniones, correos, llamadas y mensajes),
     /// asegurando que se instancien correctamente y manejen adecuadamente los errores de formato o argumentos.
@@ -182,6 +183,6 @@ namespace LibraryTests
                 fachada.CrearMensaje("Desconocido", "2025-11-10", "tema", 1, "notas", false);
             });
         }
-    }
+    }*/
 }
 

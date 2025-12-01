@@ -45,6 +45,11 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
+        <member name="M:Library.AdminFachada.ResetInstance">
+            <summary>
+            Metodo para poder reiniciar mis singletons despues de cada test
+            </summary>
+        </member>
         <member name="M:Library.AdminFachada.CrearAdmin(System.String)">
             <summary>
             Crea el administrador con el nombre indicado. Si ya existe un admin con ese nombre, tira una excepcion.
@@ -82,6 +87,11 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
+        <member name="M:Library.BaseDatosAdmin.ResetInstance">
+            <summary>
+            Metodo para poder reiniciar mis singletons despues de cada test
+            </summary>
+        </member>
         <member name="M:Library.BaseDatosAdmin.ExisteNombre(System.String)">
             <summary>
             Recorre todos los admins guardados. Compara el nombre de cada uno con el parametro, devuelve true si uno coincide.
@@ -115,6 +125,11 @@
         <member name="P:Library.BaseDatosCliente.Instance">
             <summary>
             Usar este metodo para referirse siempre a la misma instancia de esta clase
+            </summary>
+        </member>
+        <member name="M:Library.BaseDatosCliente.ResetInstance">
+            <summary>
+            Metodo para poder reiniciar mis singletons despues de cada test
             </summary>
         </member>
         <member name="M:Library.BaseDatosCliente.ExisteTel(System.Int32)">
@@ -173,7 +188,16 @@
             Donde se guardan los Usuarios
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Library.BaseDatosUsuario.Instance" -->
+        <member name="P:Library.BaseDatosUsuario.Instance">
+            <summary>
+            Usar este metodo para referirse siempre a la misma instancia de esta clase
+            </summary>
+        </member>
+        <member name="M:Library.BaseDatosUsuario.ResetInstance">
+            <summary>
+            Metodo para poder reiniciar mis singletons despues de cada test
+            </summary>
+        </member>
         <member name="M:Library.BaseDatosUsuario.ExisteCorreoUser(System.String)">
             <summary>
             Recorre todos los clientes guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.
@@ -220,6 +244,11 @@
         <member name="P:Library.BaseDatosVenta.Instance">
             <summary>
             Usar este metodo para referirse siempre a la misma instancia de esta clase
+            </summary>
+        </member>
+        <member name="M:Library.BaseDatosVenta.ResetInstance">
+            <summary>
+            Metodo para poder reiniciar mis singletons despues de cada test
             </summary>
         </member>
         <member name="M:Library.BaseDatosVenta.ExisteVenta(Library.Usuario,System.String,System.String,System.DateTime,Library.Cliente,System.Double,System.String)">
@@ -660,6 +689,11 @@
         <member name="P:Library.UsuarioFachada.Instance">
             <summary>
             Usar este metodo para referirse siempre a la misma instancia de esta clase
+            </summary>
+        </member>
+        <member name="M:Library.UsuarioFachada.ResetInstance">
+            <summary>
+            Metodo para poder reiniciar mis singletons despues de cada test
             </summary>
         </member>
         <member name="M:Library.UsuarioFachada.CrearCliente(System.String,System.String,System.String,System.Int32,System.String)">

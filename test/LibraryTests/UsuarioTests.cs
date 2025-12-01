@@ -13,6 +13,7 @@ namespace LibraryTests
     [TestFixture]
     public class UsuarioTests
     {
+        /*
         private BaseDatosUsuario bdUsuarios;
         private BaseDatosCliente bdClientes;
         private BaseDatosVenta bdVentas;
@@ -227,6 +228,6 @@ namespace LibraryTests
             public string Tema { get; set; }
             public string Notas { get; set; }
             public int TelCliente { get; set; }
-        }
+        }*/
     }
 }

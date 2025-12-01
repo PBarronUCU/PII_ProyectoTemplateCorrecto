@@ -9,7 +9,7 @@ namespace Library
     /// </summary>
     public sealed class BaseDatosVenta
     {
-        private static readonly BaseDatosVenta _instance = new BaseDatosVenta();
+        private static BaseDatosVenta _instance = new BaseDatosVenta();
         /// <summary>
         /// Donde se guardan las Ventas
         /// </summary>
@@ -25,6 +25,15 @@ namespace Library
         {
             get { return _instance; }
         }
+        
+        /// <summary>
+        /// Metodo para poder reiniciar mis singletons despues de cada test
+        /// </summary>
+        public static void ResetInstance()
+        {
+            _instance = new BaseDatosVenta();
+        }
+        
         /// <summary>
         /// Recorre todos las ventas guardadas. Compara todos los atributos con los parametros recibidos, devuelve true si todos coinciden.
         /// </summary>

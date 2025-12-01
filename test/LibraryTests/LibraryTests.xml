@@ -4,148 +4,41 @@
         <name>LibraryTests</name>
     </assembly>
     <members>
-        <?xml version="1.0"?>
-        <doc>
-            <assembly>
-                <name>LibraryTests</name>
-            </assembly>
-            <members>
-                <member name="M:LibraryTests.Adminfachada_test.CrearUsuariyAgregarUsuarioEnBaseDatos">
-                    <summary>
-                        Crea un usuario lo arega a la base de datosy revisa si el usuario se creo exitosamente
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.Adminfachada_test.SuspenderUsuarioyDeberiaMarcarUsuarioComoSuspendido">
-                    <summary>
-                        Suspende a un usuario x y verifica si esta suspendido
-                    </summary>
-                </member>
-                <member name="T:LibraryTests.InteraccionFachadaTests">
-                    <summary>
-                        Se validan los métodos de creación de interacciones (reuniones, correos, llamadas y mensajes),
-                        asegurando que se instancien correctamente y manejen adecuadamente los errores de formato o argumentos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.SetUp">
-                    <summary>
-                        Inicializa una nueva instancia de la fachada antes de cada test.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearReunion_DatosValidos_CreaInstanciaCorrectamente">
-                    <summary>
-                        Verifica que el método cree una instancia válida cuando los datos son correctos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearReunion_FechaInvalida_LanzaExcepcion">
-                    <summary>
-                        Verifica que se lance una excepción de formato si la fecha proporcionada no es válida
-                        al crear una reunión.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearCorreo_DatosValidos_CreaInstanciaCorrectamente">
-                    <summary>
-                        Verifica que el método cree correctamente una instancia de correo con datos válidos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearCorreo_RemitenteInvalido_LanzaExcepcion">
-                    <summary>
-                        Verifica que se lance una excepción si el remitente proporcionado no es válido
-                        al intentar crear un correo.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearLlamada_DatosValidos_CreaInstanciaCorrectamente">
-                    <summary>
-                        Verifica que el método cree correctamente una instancia de llamada con datos válidos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearLlamada_FechaInvalida_LanzaExcepcion">
-                    <summary>
-                        Verifica que se lance una excepción de formato si la fecha proporcionada es inválida
-                        al crear una llamada.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearMensaje_DatosValidos_CreaInstanciaCorrectamente">
-                    <summary>
-                        Verifica que el método cree correctamente una instancia de mensaje cuando los datos son válidos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.InteraccionFachadaTests.CrearMensaje_RemitenteInvalido_LanzaExcepcion">
-                    <summary>
-                        Verifica que se lance una excepción si el remitente es inválido al crear un mensaje.
-                    </summary>
-                </member>
-
-                <member name="T:LibraryTests.UsuarioTests">
-                    <summary>
-                        Se validan los principales comportamientos relacionados con
-                        clientes, cotizaciones, ventas e interacciones.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.CrearUsuario_ConCorreoUnico_CreaUsuarioCorrectamente">
-                    <summary>
-                        Verifica que se cree un usuario correctamente cuando el correo no está ocupado.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.SuspenderUsuario_CambiaEstadoSuspendido">
-                    <summary>
-                        Verifica que el método Suspender cambie el estado del usuario correctamente.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.CrearCliente_AgregaClienteALaCarteraYBase">
-                    <summary>
-                        Verifica que se pueda crear un cliente válido y se agregue tanto a la cartera del usuario
-                        como a la base de datos global de clientes.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.VerificarTelCartera_DevuelveTrueSiClienteExiste">
-                    <summary>
-                        Verifica que el método VerificarTelCartera detecte correctamente si un cliente está en la cartera.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.EliminarTelCartera_EliminaClienteCorrectamente">
-                    <summary>
-                        Verifica que EliminarTelCartera elimine correctamente un cliente de la cartera.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.FiltrarClienteNom_DevuelveClientesCoincidentes">
-                    <summary>
-                        Verifica que el filtrado por nombre y apellido devuelva los clientes correctos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.CrearCoti_AgregaCotizacionALaLista">
-                    <summary>
-                        Verifica que CrearCoti agregue correctamente una cotización en la lista de oportunidades del usuario.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.CrearVentas_AgregaVentaCorrectamente">
-                    <summary>
-                        Verifica que CrearVentas registre correctamente una venta y la agregue a la base de datos.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.AgregarInteracion_AgregaCorrectamente">
-                    <summary>
-                        Verifica que el método AgregarInteracion agregue una interacción a la lista del usuario.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.InteraViejas_DevuelveSoloAntiguas">
-                    <summary>
-                        Verifica que InteraViejas devuelva solo interacciones con más de 30 días de antigüedad.
-                    </summary>
-                </member>
-                <member name="M:LibraryTests.UsuarioTests.VentasPeriodo_DevuelveSoloVentasDentroDelRango">
-                    <summary>
-                        Verifica que VentasPeriodo devuelva solo las ventas que ocurren dentro del rango dado.
-                    </summary>
-                </member>
-                <member name="T:LibraryTests.UsuarioTests.InteraccionPrueba">
-                    <summary>
-                        Clase auxiliar mínima para pruebas de interacciones.
-                    </summary>
-                </member>
-                =======
-                >>>>>>> a6f6a3a82ce5f76c43984f4281688885a16fc915
-            </members>
-        </doc>
-
+        <member name="M:LibraryTests.Adminfachada_test.CrearUsuariyAgregarUsuarioEnBaseDatos">
+            <summary>
+            Crea un usuario lo arega a la base de datosy revisa si el usuario se creo exitosamente
+            </summary>
+        </member>
+        <member name="M:LibraryTests.Adminfachada_test.CrearUsuariRepetido">
+            <summary>
+            Prueba que salte una exepcion al crear dos usuarios con el mismo correo
+            </summary>
+        </member>
+        <member name="M:LibraryTests.Adminfachada_test.CrearAdminRepetido">
+            <summary>
+            Prueba a que salte una exepcion al crear dos admins con el mismo nombre
+            </summary>
+        </member>
+        <member name="M:LibraryTests.Adminfachada_test.CrearUsuarioSinAdministrador">
+            <summary>
+            Prueba a que salte una exepcion al crear un usuario con un amdin que no existe
+            </summary>
+        </member>
+        <member name="M:LibraryTests.Adminfachada_test.SuspenderUsuarioyDeberiaMarcarUsuarioComoSuspendido">
+            <summary>
+            Suspende a un usuario x y verifica si esta suspendido 
+            </summary>
+        </member>
+        <member name="M:LibraryTests.Adminfachada_test.SuspenderUsuarioInexistente">
+            <summary>
+            Prueba que lanze uan exepcion al suspender un usuario inexistente
+            </summary>
+        </member>
+        <member name="T:LibraryTests.UsuarioTests">
+            <summary>
+            Se validan los principales comportamientos relacionados con
+            clientes, cotizaciones, ventas e interacciones.
+            </summary>
+        </member>
     </members>
 </doc>
