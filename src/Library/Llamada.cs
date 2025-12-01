@@ -42,13 +42,16 @@ namespace Library
         public Llamada(UsuarioOCliente remitente, string tema, string notas, DateTime fecha, Cliente cliente, bool respondida)
         {
             
-            ArgumentNullException.ThrowIfNull(cliente);
-                Respondida = respondida;
-                Remitente = remitente;
-                Tema = tema;
-                Notas = notas;
-                Fecha = fecha;
-                Cliente = cliente;
+            if (cliente == null)
+            {
+                throw new ArgumentNullException(nameof(cliente),"Cliente no encontrado");
+            }
+            Respondida = respondida;
+            Remitente = remitente;
+            Tema = tema; 
+            Notas = notas; 
+            Fecha = fecha;
+            Cliente = cliente;
             
             
         }

@@ -22,12 +22,14 @@ namespace Library
         {
             
             
-            ArgumentNullException.ThrowIfNull(cliente);
-                Tema = tema;
-                Notas = notas;
-                Fecha = fecha;
-                Cliente = cliente;
-                Lugar = lugar;
+            if (cliente == null)
+            {
+                throw new ArgumentNullException(nameof(cliente),"Cliente no encontrado");
+            }            Tema = tema;
+            Notas = notas;
+            Fecha = fecha;
+            Cliente = cliente;
+            Lugar = lugar;
         }
     }
 }

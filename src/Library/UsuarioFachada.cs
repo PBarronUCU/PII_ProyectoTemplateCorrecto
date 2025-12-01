@@ -162,12 +162,13 @@ namespace Library
             public List<IInteracion> InteracionClienteSinFiltro(string correoUsuario, int telcliente)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u?.InteracionClienteSinFiltro(telcliente);
+                return u?.InteracionClienteSinFiltro(client);
             }
 
             /// <summary>
@@ -181,13 +182,14 @@ namespace Library
             public List<IInteracion> InteracionClienteFiltroFecha(string correoUsuario, int telcliente, string fecha)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
                 DateTime f = DateTime.Parse(fecha);
-                return u?.InteracionClienteFiltroFecha(telcliente, f);
+                return u?.InteracionClienteFiltroFecha(client, f);
             }
 
             /// <summary>
@@ -201,12 +203,13 @@ namespace Library
             public List<IInteracion> InteracionClienteFiltroTipo(string correoUsuario, int telcliente, string tipo)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u?.InteracionClienteFiltroTipo(telcliente, tipo);
+                return u?.InteracionClienteFiltroTipo(client, tipo);
             }
 
             /// <summary>
@@ -222,13 +225,14 @@ namespace Library
                 string fecha)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
                 DateTime f = DateTime.Parse(fecha);
-                return u?.InteracionClienteFiltroTipoFecha(telcliente, tipo, f);
+                return u?.InteracionClienteFiltroTipoFecha(client, tipo, f);
             }
 
             /// <summary>
@@ -287,22 +291,7 @@ namespace Library
                 return bdventa.VentasPeriodo(u, baja, alta);
             }
 
-            /// <summary>
-            /// Agrega una nueva interacción al usuario.
-            /// </summary>
-            /// <param name="correoUsuario"></param>
-            /// <param name="interacion"></param>
-            /// <exception cref="ArgumentException"></exception>
-            public void AgregarInteracion(string correoUsuario, IInteracion interacion)
-            {
-                Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
-                if (u.Suspendido)
-                {
-                    throw new ArgumentException("El usuario esta suspendido");
-                }
-
-                u?.AgregarInteracion(interacion);
-            }
+        
 
             /// <summary>
             ///  Devuelve la información general del panel del usuario.
@@ -325,6 +314,105 @@ namespace Library
             {
                 BaseDatosCliente bd = BaseDatosCliente.Instance;
                 bd.EliminarCliente(telefono);
+            }
+            /// <summary>
+            /// Crea un reunion y la agrega al usuario indicado por el correo.
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="fecha"></param>
+            /// <param name="tema"></param>
+            /// <param name="notas"></param>
+            /// <param name="telcliente"></param>
+            /// <param name="lugar"></param>
+            public void CrearReunion(string correouser,string fecha, string tema, string notas, int telcliente, string lugar)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                Cliente cliente = bdcliente.ClienteSegunTelefono(telcliente);
+                
+                DateTime f = DateTime.Parse(fecha);
+                Reunion reunion = new Reunion(tema,notas,f,cliente,lugar);
+                user.AgregarInteracion(reunion);
+            }
+            /// <summary>
+            /// Crea un correo y la asigna al usuario inicado por el correo
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="remitente"></param>
+            /// <param name="fecha"></param>
+            /// <param name="tema"></param>
+            /// <param name="telcliente"></param>
+            /// <param name="notas"></param>
+            /// <param name="respondido"></param>
+            /// <returns></returns>
+            /// <exception cref="ArgumentException"></exception>
+            public void CrearCorreo(string correouser,string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                Cliente cliente = bdcliente.ClienteSegunTelefono(telcliente);
+
+                DateTime f = DateTime.Parse(fecha);
+                UsuarioOCliente rem = Enum.Parse<UsuarioOCliente>(remitente);
+                CorreoElectronico correo = new CorreoElectronico(rem,tema,notas,f,cliente,respondido);
+                user.AgregarInteracion(correo);
+
+            }
+            /// <summary>
+            /// Crea una llamada y la asigna al usuario indicado por el correo
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="remitente"></param>
+            /// <param name="fecha"></param>
+            /// <param name="tema"></param>
+            /// <param name="telcliente"></param>
+            /// <param name="notas"></param>
+            /// <param name="respondido"></param>
+            /// <returns></returns>
+            public void CrearLlamada(string correouser,string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                Cliente cliente = bdcliente.ClienteSegunTelefono(telcliente);
+                
+                DateTime f = DateTime.Parse(fecha);
+                UsuarioOCliente rem = Enum.Parse<UsuarioOCliente>(remitente);
+                Llamada llamada = new Llamada(rem, tema, notas, f, cliente,respondido);
+                user.AgregarInteracion(llamada);
+            }
+            /// <summary>
+            /// Crea un mensaje y lo asigna al usuario indicado al correo
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="remitente"></param>
+            /// <param name="fecha"></param>
+            /// <param name="tema"></param>
+            /// <param name="telcliente"></param>
+            /// <param name="notas"></param>
+            /// <param name="respondido"></param>
+            /// <returns></returns>
+            public void CrearMensaje(string correouser,string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                Cliente cliente = bdcliente.ClienteSegunTelefono(telcliente);
+                
+                DateTime f = DateTime.Parse(fecha);
+                UsuarioOCliente rem = Enum.Parse<UsuarioOCliente>(remitente);
+                Mensaje mensaje = new Mensaje(rem, tema, notas, f, cliente,respondido);
+                user.AgregarInteracion(mensaje);
             }
         }
     }
