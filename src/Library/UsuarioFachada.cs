@@ -94,9 +94,9 @@ namespace Library
             /// <param name="valor"></param>
             /// <param name="imp"></param>
             /// <exception cref="ArgumentException"></exception>
-            public void CrearCoti(string correoUsuario, int telcliente, string fecha, double valor, string imp)
+            public void CrearCoti(string correouser,string tema,string notas,string fecha,int telcliente,double valor)
             {
-                Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                Usuario u = bd.UsuarioSegunCorreo(correouser);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -105,7 +105,7 @@ namespace Library
                 if (u != null)
                 {
                     DateTime f = DateTime.Parse(fecha);
-                    u.CrearCoti(telcliente, f, valor, imp);
+                    u.CrearCoti(tema,notas,f,telcliente,valor);
                 }
 
             }

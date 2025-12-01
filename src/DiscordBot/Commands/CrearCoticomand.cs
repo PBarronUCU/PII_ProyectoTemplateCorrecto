@@ -13,7 +13,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
         public async Task ExecuteAsync(
         )
         {
-            if (1==1)
+           /* if ()
             {
                 await ReplyAsync();
                 return;
@@ -27,7 +27,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
             catch (System.Exception ex)
             {
                 await ReplyAsync();
-            }
+            }*/
         }
         
     }
