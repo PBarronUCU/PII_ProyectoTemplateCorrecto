@@ -101,7 +101,7 @@ namespace Library
         /// <param name="tel"></param>
         public void EliminarTelCartera(int tel)
         {
-            foreach (Cliente cliente in Cartera)
+            foreach (Cliente cliente in Cartera.ToList())
             {
                 if (cliente.Tel == tel)
                 {
