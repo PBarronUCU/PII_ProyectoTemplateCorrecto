@@ -222,15 +222,17 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
-        <member name="M:Library.BaseDatosVenta.ExisteVenta(Library.Usuario,Library.Cliente,System.String,System.Double,System.DateTime)">
+        <member name="M:Library.BaseDatosVenta.ExisteVenta(Library.Usuario,System.String,System.String,System.DateTime,Library.Cliente,System.Double,System.String)">
             <summary>
             Recorre todos las ventas guardadas. Compara todos los atributos con los parametros recibidos, devuelve true si todos coinciden.
             </summary>
-            <param name="user"></param>
-            <param name="cliente"></param>
-            <param name="producto"></param>
-            <param name="precio"></param>
+            <param name="usuario"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
             <param name="fecha"></param>
+            <param name="cliente"></param>
+            <param name="valor"></param>
+            <param name="producto"></param>
             <returns></returns>
         </member>
         <member name="M:Library.BaseDatosVenta.AgregarVenta(Library.Venta)">
@@ -338,11 +340,6 @@
             Clase Cotizacion. Representa una oportunidad de venta
             </summary>
         </member>
-        <member name="P:Library.Cotizacion.Usuario">
-            <summary>
-            Usuario que esta ofrece la cotizacion
-            </summary>
-        </member>
         <member name="P:Library.Cotizacion.Cliente">
             <summary>
             Cliente que esta ligado a al cotizacion
@@ -358,15 +355,32 @@
             Valor especulado
             </summary>
         </member>
-        <member name="M:Library.Cotizacion.#ctor(Library.Usuario,Library.Cliente,System.DateTime,System.Double,System.String)">
+        <member name="P:Library.Cotizacion.Notas">
             <summary>
-            metodo constructor de clase Cotizacion
+             Informaicion extra de la llamada
             </summary>
-            <param name="usuario"></param>
-            <param name="cliente"></param>
+        </member>
+        <member name="P:Library.Cotizacion.Tema">
+            <summary>
+            Temas tratados en la cotizacion
+            </summary>
+        </member>
+        <member name="P:Library.Cotizacion.Producto">
+            <summary>
+            Producto Ofrecido
+            </summary>
+        </member>
+        <member name="M:Library.Cotizacion.#ctor(System.String,System.String,System.DateTime,Library.Cliente,System.Double,System.String)">
+            <summary>
+            Constructor de la Clase. Si el cliente es null, tira una exepcion
+            </summary>
+            <param name="tema"></param>
+            <param name="notas"></param>
             <param name="fecha"></param>
+            <param name="cliente"></param>
             <param name="valor"></param>
-            <param name="imp"></param>
+            <param name="producto"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="T:Library.Genero">
             <summary>
@@ -519,15 +533,6 @@
             Metodo para suspender al usuario. Si el usuario ya esta suspendido tira una exepcion
             </summary>
         </member>
-        <member name="M:Library.Usuario.CrearVentas(System.Int32,System.String,System.Double,System.DateTime)">
-            <summary>
-            Registra una venta hecha entre un Usuario y su Clinte 
-            </summary>
-            <param name="tel"></param>
-            <param name="prod"></param>
-            <param name="precio"></param>
-            <param name="fecha"></param>
-        </member>
         <member name="M:Library.Usuario.VerificarTelCartera(System.Int32)">
             <summary>
             Verifica si el Cliente esta en la lista a traves de su telefono
@@ -541,18 +546,15 @@
             </summary>
             <param name="tel"></param>
         </member>
-        <member name="M:Library.Usuario.CrearCoti(System.Int32,System.DateTime,System.Double,System.String)">
+        <member name="M:Library.Usuario.AgregarCotizacion(Library.Cotizacion)">
             <summary>
-            Crea una Cotizaciun para una futura venta entre Usuario y cliente 
+            Registra las cotizaciones tenidas entre Usuario y Cliente. La agrega en ListaInteracciones y OportunidadesVenta
             </summary>
-            <param name="telcliente"></param>
-            <param name="fecha"></param>
-            <param name="valor"></param>
-            <param name="imp"></param>
+            <param name="cotizacion"></param>
         </member>
         <member name="M:Library.Usuario.AgregarInteracion(Library.IInteracion)">
             <summary>
-            Registra las interacciones tenidas entre Usuario y Cliente 
+            Registra las interacciones tenidas entre Usuario y Cliente. La agrega en ListaInteraccion
             </summary>
             <param name="interacion"></param>
         </member>
@@ -670,26 +672,30 @@
             <param name="tel"></param>
             <param name="correo"></param>
         </member>
-        <member name="M:Library.UsuarioFachada.CrearVenta(System.String,System.Int32,System.String,System.Double,System.String)">
+        <member name="M:Library.UsuarioFachada.CrearVenta(System.String,System.String,System.String,System.String,System.Int32,System.Double,System.String)">
             <summary>
              Permite al usuario crear una venta asociada a un cliente.
             </summary>
             <param name="correoUsuario"></param>
-            <param name="telcliente"></param>
-            <param name="prod"></param>
-            <param name="precio"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
             <param name="fecha"></param>
+            <param name="telcliente"></param>
+            <param name="precio"></param>
+            <param name="producto"></param>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
-        <member name="M:Library.UsuarioFachada.CrearCoti(System.String,System.Int32,System.String,System.Double,System.String)">
+        <member name="M:Library.UsuarioFachada.CrearCoti(System.String,System.String,System.String,System.String,System.Int32,System.Double,System.String)">
             <summary>
              Permite al usuario crear una cotización asociada a un cliente.
             </summary>
-            <param name="correoUsuario"></param>
-            <param name="telcliente"></param>
+            <param name="correouser"></param>
+            <param name="tema"></param>
+            <param name="notas"></param>
             <param name="fecha"></param>
+            <param name="telcliente"></param>
             <param name="valor"></param>
-            <param name="imp"></param>
+            <param name="producto"></param>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:Library.UsuarioFachada.ModificarCliente(System.String,System.String,System.String,System.Int32,System.String,System.String)">
@@ -781,6 +787,10 @@
         </member>
         <member name="M:Library.UsuarioFachada.PanelCliente(System.String)">
             <summary>
+            Elimina de la base de datos a un cliente ya existente
+            </summary>
+            <param name="telefono"></param>
+            <summary>
              Devuelve la información general del panel del usuario.
             </summary>
             <param name="correoUsuario"></param>
@@ -844,6 +854,47 @@
             <param name="notas"></param>
             <param name="respondido"></param>
             <returns></returns>
+        </member>
+        <member name="M:Library.UsuarioFachada.FiltrarClienteNombre(System.String,System.String,System.String)">
+            <summary>
+            Busca los clientes del Usuario especificado por su Nombre y Apellido devolviendo todos los que tengan ese Nombre y Apelledo
+            </summary>
+            <param name="correouser"></param>
+            <param name="nombre"></param>
+            <param name="apellido"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.FiltrarClienteTelefono(System.String,System.Int32)">
+            <summary>
+            Filtra a los clientes del usuario indicado por su numero de Telefono por lo que devolvera el cliente que tenga ese Telefono
+            </summary>
+            <param name="correouser"></param>
+            <param name="telefono"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.AgregarNota(System.String,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Busca una interaccion con un Cliente, fecha y tipo de imnteraccion en especifico  para implementarle una nota a la interaccion buscada
+            </summary>
+            <param name="correouser"></param>
+            <param name="telefono"></param>
+            <param name="fecha"></param>
+            <param name="tipo"></param>
+            <param name="nota"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Library.UsuarioFachada.AsignarCliente(System.String,System.String,System.Int32)">
+            <summary>
+            Le permite al usuario asignar uno de sus cliente a uno de sus compañeros para que puedo trabajar con el
+            el primer correo es el correo del usuario que quiere asignar a alguien.
+            El segundo es el correo del usuario que va a ser asignado
+            </summary>
+            <param name="correouserpropio"></param>
+            <param name="correouserobjetivo"></param>
+            <param name="telcliente"></param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
     </members>
 </doc>

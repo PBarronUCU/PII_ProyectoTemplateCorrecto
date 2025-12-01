@@ -20,7 +20,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
 
             try
             {
-                UsuarioFachada.Instance.CrearMensaje();
+                //UsuarioFachada.Instance.CrearMensaje();
 
             }
             catch (Exception e)
