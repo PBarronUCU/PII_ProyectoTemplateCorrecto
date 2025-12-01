@@ -256,7 +256,10 @@ namespace Library
            DateTime Fecha_Limite= DateTime.Now.AddDays(-30);
            return ListaInteracciones.FindAll(i => i.Fecha < Fecha_Limite);
         }
-
+ 
+       
+       
+       
        /// <summary>
        /// Le muestra a un Usuario una lista con todos sus Clientes 
        /// </summary>

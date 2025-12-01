@@ -249,6 +249,10 @@ namespace LibraryTests
             var panel = UserFachada.PanelCliente("Panel@");
             Assert.That(panel, Is.Not.Null.And.Not.Empty);
         }
+        
+        
+        
+        
 
         [TearDown]
         public void TearDown()

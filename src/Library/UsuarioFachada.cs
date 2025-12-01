@@ -139,17 +139,20 @@ namespace Library
             {
 
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
-
-                if (u != null)
-                {
+                
+                
                     Genero genero = Enum.Parse<Genero>(gen);
                     DateTime fecha = DateTime.Parse(fechanac);
                     bdcliente.ModificarCliente(nombre, apellido, tel, genero, fecha);
-                }
+                
             }
 
             /// <summary>
@@ -162,12 +165,16 @@ namespace Library
             public Cliente FiltarClienteCorreo(string correoUsuario, string correoCliente)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u?.FiltrarClienteCorreo(correoCliente);
+                return u.FiltrarClienteCorreo(correoCliente);
             }
 
             /// <summary>
@@ -180,13 +187,17 @@ namespace Library
             public List<IInteracion> InteracionClienteSinFiltro(string correoUsuario, int telcliente)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u?.InteracionClienteSinFiltro(client);
+                return u.InteracionClienteSinFiltro(client);
             }
 
             /// <summary>
@@ -200,6 +211,10 @@ namespace Library
             public List<IInteracion> InteracionClienteFiltroFecha(string correoUsuario, int telcliente, string fecha)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
@@ -207,7 +222,7 @@ namespace Library
                 }
 
                 DateTime f = DateTime.Parse(fecha);
-                return u?.InteracionClienteFiltroFecha(client, f);
+                return u.InteracionClienteFiltroFecha(client, f);
             }
 
             /// <summary>
@@ -221,13 +236,17 @@ namespace Library
             public List<IInteracion> InteracionClienteFiltroTipo(string correoUsuario, int telcliente, string tipo)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u?.InteracionClienteFiltroTipo(client, tipo);
+                return u.InteracionClienteFiltroTipo(client, tipo);
             }
 
             /// <summary>
@@ -243,6 +262,10 @@ namespace Library
                 string fecha)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u.Suspendido)
                 {
@@ -250,7 +273,7 @@ namespace Library
                 }
 
                 DateTime f = DateTime.Parse(fecha);
-                return u?.InteracionClienteFiltroTipoFecha(client, tipo, f);
+                return u.InteracionClienteFiltroTipoFecha(client, tipo, f);
             }
 
             /// <summary>
@@ -262,12 +285,16 @@ namespace Library
             public List<IInteracionDialogo> InteraSinResponder(string correoUsuario)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u?.IntreaSinResponder();
+                return u.IntreaSinResponder();
             }
 
             /// <summary>
@@ -279,6 +306,10 @@ namespace Library
             public List<IInteracion> InteraViejas(string correoUsuario)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -299,6 +330,10 @@ namespace Library
             {
 
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -323,12 +358,16 @@ namespace Library
             public string PanelCliente(string correoUsuario)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (u.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
-                return u != null ? u.PanelCliente() : "Usuario no encontrado";
+                return u.PanelCliente();
             }
             
             /// <summary>
@@ -353,6 +392,10 @@ namespace Library
             public void CrearReunion(string correouser,string fecha, string tema, string notas, int telcliente, string lugar)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -378,6 +421,10 @@ namespace Library
             public void CrearCorreo(string correouser,string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -404,6 +451,10 @@ namespace Library
             public void CrearLlamada(string correouser,string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -429,6 +480,10 @@ namespace Library
             public void CrearMensaje(string correouser,string remitente, string fecha, string tema, int telcliente, string notas, bool respondido)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -451,6 +506,10 @@ namespace Library
             public List<Cliente> FiltrarClienteNombre(string correouser,string nombre, string apellido)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -467,6 +526,10 @@ namespace Library
             public Cliente FiltrarClienteTelefono(string correouser, int telefono)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -486,6 +549,10 @@ namespace Library
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouser);
                 Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
@@ -507,6 +574,10 @@ namespace Library
             public void AsignarCliente(string correouserpropio,string correouserobjetivo, int telcliente)
             {
                 Usuario user = bd.UsuarioSegunCorreo(correouserpropio);
+                if (user == null)
+                {
+                    throw new Exception("Usuario origen no encontrado");
+                }
                 if (user.Suspendido)
                 {
                     throw new ArgumentException("El usuario esta suspendido");
