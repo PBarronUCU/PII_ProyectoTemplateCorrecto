@@ -9,7 +9,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
     public class CrearInteraccionconClinete: ModuleBase<SocketCommandContext>
     {
         [Command("Crearinteraciones")]
-        [Discord.Commands.Summary("un usuario crea el registro de interaccion con un clien")]
+        [Discord.Commands.Summary("un usuario crea el registro de interaccion con un cliente")]
         public async Task ExecuteAsync(string correoUsuario = null, int telefono = 0,string remitente=null ,string fecha = null)
         {
             if (correoUsuario == null || telefono == 0)

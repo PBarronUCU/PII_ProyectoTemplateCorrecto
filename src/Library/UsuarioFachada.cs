@@ -434,6 +434,79 @@ namespace Library
                 Mensaje mensaje = new Mensaje(rem, tema, notas, f, cliente,respondido);
                 user.AgregarInteracion(mensaje);
             }
+            /// <summary>
+            /// Busca los clientes del Usuario especificado por su Nombre y Apellido devolviendo todos los que tengan ese Nombre y Apelledo
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="nombre"></param>
+            /// <param name="apellido"></param>
+            /// <returns></returns>
+            /// <exception cref="ArgumentException"></exception>
+            public List<Cliente> FiltrarClienteNombre(string correouser,string nombre, string apellido)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                return user.FiltrarClienteNom(nombre,apellido);
+            }
+            /// <summary>
+            /// Filtra a los clientes del usuario indicado por su numero de Telefono por lo que devolvera el cliente que tenga ese Telefono
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="telefono"></param>
+            /// <returns></returns>
+            /// <exception cref="ArgumentException"></exception>
+            public Cliente FiltrarClienteTelefono(string correouser, int telefono)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                return user.FiltrarClienteTel(telefono);
+            }
+            /// <summary>
+            /// Busca una interaccion con un Cliente, fecha y tipo de imnteraccion en especifico  para implementarle una nota a la interaccion buscada
+            /// </summary>
+            /// <param name="correouser"></param>
+            /// <param name="telefono"></param>
+            /// <param name="fecha"></param>
+            /// <param name="tipo"></param>
+            /// <param name="nota"></param>
+            /// <exception cref="ArgumentException"></exception>
+            public void AgregarNota(string correouser,int telcliente, string fecha, string tipo, string nota)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouser);
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                DateTime f = DateTime.Parse(fecha);
+                user.AgregarNota(client,f,tipo,nota);
+                
+                
+            }
+            /// <summary>
+            /// Le permite al usuario asignar uno de sus cliente a uno de sus compañeros para que puedo trabajar con el
+            /// el primer correo es el correo del usuario que quiere asignar a alguien.
+            /// El segundo es el correo del usuario que va a ser asignado
+            /// </summary>
+            /// <param name="correouserpropio"></param>
+            /// <param name="correouserobjetivo"></param>
+            /// <param name="telcliente"></param>
+            /// <exception cref="ArgumentException"></exception>
+            public void AsignarCliente(string correouserpropio,string correouserobjetivo, int telcliente)
+            {
+                Usuario user = bd.UsuarioSegunCorreo(correouserpropio);
+                if (user.Suspendido)
+                {
+                    throw new ArgumentException("El usuario esta suspendido");
+                }
+                user.AsignarCliente(telcliente,correouserobjetivo);
+            }
         }
     }
 

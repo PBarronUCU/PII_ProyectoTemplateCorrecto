@@ -178,6 +178,10 @@ namespace Library
                 // Si la interacción existe, agregar la nota
                 interaccion.Notas += $"\n{nota}";
             }
+            else
+            {
+                throw new Exception("No se encontro ninguna interaccion que coincida");
+            }
         }
 
         /// <summary>
@@ -315,6 +319,10 @@ namespace Library
                 }
                 usuario.Cartera.Add(cliente);
                 EliminarTelCartera(cliente.Tel);
+            }
+            else
+            {
+                throw new Exception("No se ha encontrado el cliente o usuario");
             }
         }
         /// <summary>
