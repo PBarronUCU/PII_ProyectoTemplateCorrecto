@@ -26,9 +26,13 @@ namespace Library
         /// </summary>
         public String Notas { get; set; }
         /// <summary>
-        /// Temas tratados en la cotizacion,por ejemplo el producto a cotizar
+        /// Temas tratados en la cotizacion
         /// </summary>
         public string Tema { get; set; } 
+        /// <summary>
+        /// Producto Ofrecido
+        /// </summary>
+        public string Producto { get; set; }
         
         /// <summary>
         /// Constructor de la Clase. Si el cliente es null, tira una exepcion
@@ -38,8 +42,9 @@ namespace Library
         /// <param name="fecha"></param>
         /// <param name="cliente"></param>
         /// <param name="valor"></param>
+        /// <param name="producto"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Cotizacion(string tema, string notas, DateTime fecha, Cliente cliente, Double valor)
+        public Cotizacion(string tema, string notas, DateTime fecha, Cliente cliente, Double valor, string producto)
         {
             if (cliente == null)
             {
@@ -50,6 +55,7 @@ namespace Library
             Notas = notas;
             Tema = tema;
             Valor = valor;
+            Producto = producto;
             
         }
     }

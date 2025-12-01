@@ -6,21 +6,40 @@ using Microsoft.VisualBasic;
 
 namespace Library
 {
-    public class Venta
+    public class Venta : IInteracion
     {
-        public DateTime FechaVenta {get;}
-        public Usuario Usuario { get; }
-        public Cliente Cliente { get;}
+        
+        public Usuario Usuario { get; set; }
+        public Cliente Cliente { get; set; }
+        public DateTime Fecha {get; set; }
+        public double Precio { get; set; }
+        public String Notas { get; set; }
+        public string Tema { get; set; } 
         public string Producto { get;}
-        public double Precio { get;}
 
-        public Venta(Usuario usuario, Cliente cliente, string producto, double precio, DateTime diaVenta)
+        public Venta(Usuario usuario, string tema, string notas, DateTime fecha, Cliente cliente, Double valor, string producto)
         {
+            if (usuario == null && cliente == null)
+            {
+                throw new Exception("Cliente y Usuario no encontrado");
+            }
+            if (cliente == null)
+            {
+                throw new Exception("Cliente no encontrado");
+            }
+            if (usuario == null)
+            {
+                throw new Exception("Usuario no encontrado");
+            }
             Usuario = usuario;
             Cliente = cliente;
+            Fecha = fecha;
+            Notas = notas;
+            Tema = tema;
+            Precio = valor;
             Producto = producto;
-            Precio = precio;
-            FechaVenta = diaVenta;
+            BaseDatosVenta bd1 = BaseDatosVenta.Instance;
+            bd1.AgregarVenta(this);
         }
     }
 }

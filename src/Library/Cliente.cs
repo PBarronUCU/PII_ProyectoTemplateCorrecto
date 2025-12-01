@@ -49,18 +49,14 @@ namespace Library
                 throw new ArgumentException("El correo no es valido");
             }
             BaseDatosCliente bd1 = BaseDatosCliente.Instance;
-            if (!bd1.ExisteCorreo(correo) & !bd1.ExisteTel(tel))
-            {
+            
                 Nombre = nombre;
                 Apellido = apellido;
                 Correo = correo;
                 Tel = tel;
                 bd1.AgregarCliente(this);
-            }
-            else
-            {
-                throw new ArgumentException("Correo o Telefono ya ocupado");
-            }
+            
+            
         }
     }
 }
