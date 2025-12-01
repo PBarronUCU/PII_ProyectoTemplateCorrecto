@@ -52,6 +52,13 @@ namespace Library
             }
             return result;
         }
+
+        public void CrearCliente(string nombre, string apellido, string correo, int tel)
+        {
+            Cliente client = new Cliente(nombre, apellido, correo, tel);
+            BaseDatosCliente.Instance.AgregarCliente(client);
+        }
+        
         /// <summary>
         /// Recorre todos los clientes guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.
         /// </summary>
