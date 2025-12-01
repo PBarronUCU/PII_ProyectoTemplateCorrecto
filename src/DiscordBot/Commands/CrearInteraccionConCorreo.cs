@@ -4,10 +4,10 @@ using Library;
 using Discord.Interactions;
 namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
 {
-    public class CrearInteraccionLlamada : ModuleBase<SocketCommandContext>
+    public class CrearInteraccionCorreo : ModuleBase<SocketCommandContext>
     {
-        [Command("CrearInteraccionLlamada")]
-        [Discord.Commands.Summary("Un usuario crea un registro de llamada con un cliente.")]
+        [Command("CrearInteraccionCorreo")]
+        [Discord.Commands.Summary("Un usuario crea un registro de correo con un cliente.")]
         public async Task ExecuteAsync(
             bool respondido = false,
             string correoUsuario = null,
@@ -23,26 +23,26 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
             if (correoUsuario == null || conversionexitosa == false ||
                 remitente == null || fecha == null || nota == null || tema == null)
             {
-                await ReplyAsync("Uso correcto: !CrearInteraccionLlamada <respondido> <correoUsuario> <telefono> <remitente> <fecha> <nota> <tema>");
+                await ReplyAsync("Uso correcto: !CrearInteraccionCorreo <respondido> <correoUsuario> <telefono> <remitente> <fecha> <nota> <tema>");
                 return;
             }
 
             try
             {
-                UsuarioFachada.Instance.CrearLlamada(correoUsuario, remitente, fecha, tema, telefonoCliente, nota, respondido);
+                UsuarioFachada.Instance.CrearCorreo(correoUsuario, remitente, fecha, tema, telefonoCliente, nota, respondido);
 
                 if (remitente == "Cliente")
                 {
-                    await ReplyAsync($"La llamada del cliente con el número {telefonoCliente}, fue registrada correctamente.");
+                    await ReplyAsync($"El correo del cliente con el número {telefonoCliente}, fue registrado correctamente.");
                 }
                 else
                 {
-                    await ReplyAsync($"La llamada al cliente con el número {telefonoCliente}, fue registrada correctamente.");
+                    await ReplyAsync($"El correo al cliente con el número {telefonoCliente}, fue registrado correctamente.");
                 }
             }
             catch (System.Exception ex)
             {
-                await ReplyAsync($"Error al registrar la interacción Llamada: {ex.Message}");
+                await ReplyAsync($"Error al registrar la interacción Correo: {ex.Message}");
             }
         }
     }
