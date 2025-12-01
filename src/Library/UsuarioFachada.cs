@@ -294,7 +294,10 @@ namespace Library
                 DateTime alta = DateTime.Parse(fechaalta);
                 return bdventa.VentasPeriodo(u, baja, alta);
             }
-
+            /// <summary>
+            /// Elimina de la base de datos a un cliente ya existente
+            /// </summary>
+            /// <param name="telefono"></param>
         
 
             /// <summary>
