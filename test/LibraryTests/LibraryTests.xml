@@ -34,10 +34,12 @@
             Prueba que lanze uan exepcion al suspender un usuario inexistente
             </summary>
         </member>
-        <member name="T:LibraryTests.UsuarioTests">
+        <member name="M:LibraryTests.UsuarioFachadaTests.SetUp">
             <summary>
-            Se validan los principales comportamientos relacionados con
-            clientes, cotizaciones, ventas e interacciones.
+            No funciona, Intente con el profe en clase no pudimos arreglar este error.
+            Los test funcionan individualmente.
+            El error salta en el OneTimeSetUp.
+            
             </summary>
         </member>
     </members>

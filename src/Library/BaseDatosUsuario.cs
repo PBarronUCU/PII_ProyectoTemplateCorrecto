@@ -9,7 +9,7 @@ namespace Library
     /// </summary>
     public sealed class BaseDatosUsuario
     {
-        private static BaseDatosUsuario _instance = new BaseDatosUsuario();
+        private static readonly BaseDatosUsuario _instance = new BaseDatosUsuario();
         /// <summary>
         /// Donde se guardan los Usuarios
         /// </summary>
@@ -27,13 +27,8 @@ namespace Library
             get { return _instance; }
         }
         
-        /// <summary>
-        /// Metodo para poder reiniciar mis singletons despues de cada test
-        /// </summary>
-        public static void ResetInstance()
-        {
-            _instance = new BaseDatosUsuario();
-        }
+        
+        
         
         /// <summary>
         /// Recorre todos los clientes guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.

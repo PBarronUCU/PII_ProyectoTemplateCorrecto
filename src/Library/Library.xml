@@ -45,11 +45,6 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
-        <member name="M:Library.AdminFachada.ResetInstance">
-            <summary>
-            Metodo para poder reiniciar mis singletons despues de cada test
-            </summary>
-        </member>
         <member name="M:Library.AdminFachada.CrearAdmin(System.String)">
             <summary>
             Crea el administrador con el nombre indicado. Si ya existe un admin con ese nombre, tira una excepcion.
@@ -87,11 +82,6 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
-        <member name="M:Library.BaseDatosAdmin.ResetInstance">
-            <summary>
-            Metodo para poder reiniciar mis singletons despues de cada test
-            </summary>
-        </member>
         <member name="M:Library.BaseDatosAdmin.ExisteNombre(System.String)">
             <summary>
             Recorre todos los admins guardados. Compara el nombre de cada uno con el parametro, devuelve true si uno coincide.
@@ -125,11 +115,6 @@
         <member name="P:Library.BaseDatosCliente.Instance">
             <summary>
             Usar este metodo para referirse siempre a la misma instancia de esta clase
-            </summary>
-        </member>
-        <member name="M:Library.BaseDatosCliente.ResetInstance">
-            <summary>
-            Metodo para poder reiniciar mis singletons despues de cada test
             </summary>
         </member>
         <member name="M:Library.BaseDatosCliente.ExisteTel(System.Int32)">
@@ -202,11 +187,6 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
-        <member name="M:Library.BaseDatosUsuario.ResetInstance">
-            <summary>
-            Metodo para poder reiniciar mis singletons despues de cada test
-            </summary>
-        </member>
         <member name="M:Library.BaseDatosUsuario.ExisteCorreoUser(System.String)">
             <summary>
             Recorre todos los clientes guardados. Compara el correo de cada uno con el parametro, devuelve true si uno coincide.
@@ -261,11 +241,6 @@
         <member name="P:Library.BaseDatosVenta.Instance">
             <summary>
             Usar este metodo para referirse siempre a la misma instancia de esta clase
-            </summary>
-        </member>
-        <member name="M:Library.BaseDatosVenta.ResetInstance">
-            <summary>
-            Metodo para poder reiniciar mis singletons despues de cada test
             </summary>
         </member>
         <member name="M:Library.BaseDatosVenta.ExisteVenta(Library.Usuario,System.String,System.String,System.DateTime,Library.Cliente,System.Double,System.String)">
@@ -708,11 +683,6 @@
             Usar este metodo para referirse siempre a la misma instancia de esta clase
             </summary>
         </member>
-        <member name="M:Library.UsuarioFachada.ResetInstance">
-            <summary>
-            Metodo para poder reiniciar mis singletons despues de cada test
-            </summary>
-        </member>
         <member name="M:Library.UsuarioFachada.CrearCliente(System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
              Permite al usuario identificado por su correo crear un nuevo cliente.
@@ -751,7 +721,7 @@
         </member>
         <member name="M:Library.UsuarioFachada.ModificarCliente(System.String,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
-             Modifica los datos de un cliente existente en la cartera del usuario.
+             Modifica los datos de un cliente existente en la cartera del usuario. El telefono es para identificar el Cliente, NO para cambiarlo
             </summary>
             <param name="correoUsuario"></param>
             <param name="nombre"></param>
