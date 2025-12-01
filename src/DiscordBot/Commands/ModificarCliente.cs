@@ -22,8 +22,16 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
 
             try
             {
+                Cliente cliente = BaseDatosCliente.Instance.ClienteSegunTelefono(telCliente);
+                string nombreviejo = cliente.Nombre;
+                string apellidoviejo = cliente.Apellido;
+                string generoviejo = cliente.Genero.ToString();
+                string fechavieja = cliente.FechaNac.ToString();
+                
                 UsuarioFachada.Instance.ModificarCliente(correoUsuario,nombre,appellido,telCliente,genero,fechanac);
-                await ReplyAsync($"El Usuario **{correoUsuario}** Modifico al cliente con numero **{telCliente}**");
+                await ReplyAsync($"El Usuario **{correoUsuario}** Modifico al cliente con numero **{telCliente}**. " +
+                                 $"Modificaciones **{nombreviejo}**-->{nombre}. **{apellidoviejo}**-->{appellido}." +
+                                 $"**{generoviejo}**-->{genero}. **{fechavieja}**-->{fechanac}");
             }
             catch (System.Exception ex)
             {
