@@ -67,6 +67,10 @@ namespace Library
             {
                 ListaUsuario.Add(user);
             }
+            else
+            {
+                throw new ArgumentException("El correo ya esta ocupado");
+            }
             
         }
         /// <summary>

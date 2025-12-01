@@ -45,7 +45,7 @@ namespace Library
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
                 if (u == null)
                 {
-                    throw new ArgumentNullException(nameof(u),"Usuario no encontrado");
+                    throw new Exception("Usuario no encontrado");
                 }
                 if (!u.Suspendido)
                 {
@@ -63,20 +63,24 @@ namespace Library
             ///  Permite al usuario crear una venta asociada a un cliente.
             /// </summary>
             /// <param name="correoUsuario"></param>
-            /// <param name="telcliente"></param>
-            /// <param name="prod"></param>
-            /// <param name="precio"></param>
+            /// <param name="tema"></param>
+            /// <param name="notas"></param>
             /// <param name="fecha"></param>
+            /// <param name="telcliente"></param>
+            /// <param name="precio"></param>
+            /// <param name="producto"></param>
             /// <exception cref="ArgumentException"></exception>
-            public void CrearVenta(string correoUsuario, int telcliente, string prod, double precio, string fecha)
+            public void CrearVenta(string correoUsuario, string tema, string notas, string fecha, int telcliente, Double precio, string producto)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (!u.Suspendido)
                 {
                     if (u != null)
                     {
                         DateTime f = DateTime.Parse(fecha);
-                        u.CrearVentas(telcliente, prod, precio, f);
+                        new Venta(u,tema,notas,f,client,precio,producto);
+                        
                     }
                 }
                 else
@@ -88,13 +92,15 @@ namespace Library
             /// <summary>
             ///  Permite al usuario crear una cotización asociada a un cliente.
             /// </summary>
-            /// <param name="correoUsuario"></param>
-            /// <param name="telcliente"></param>
+            /// <param name="correouser"></param>
+            /// <param name="tema"></param>
+            /// <param name="notas"></param>
             /// <param name="fecha"></param>
+            /// <param name="telcliente"></param>
             /// <param name="valor"></param>
-            /// <param name="imp"></param>
+            /// <param name="producto"></param>
             /// <exception cref="ArgumentException"></exception>
-            public void CrearCoti(string correouser,string tema,string notas,string fecha,int telcliente,double valor)
+            public void CrearCoti(string correouser,string tema,string notas,string fecha,int telcliente,double valor,string producto)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correouser);
                 if (u.Suspendido)
@@ -102,10 +108,12 @@ namespace Library
                     throw new ArgumentException("El usuario esta suspendido");
                 }
 
+                Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
                 if (u != null)
                 {
                     DateTime f = DateTime.Parse(fecha);
-                    u.CrearCoti(tema,notas,f,telcliente,valor);
+                    Cotizacion coti = new Cotizacion(tema,notas,f,client,valor,producto);
+                    u.AgregarCotizacion(coti);
                 }
 
             }

@@ -84,6 +84,10 @@ namespace Library
             {
                 ListaCliente.Add(client);
             }
+            else
+            {
+                throw new ArgumentException("Correo o Telefono ya ocupado");
+            }
         }
         /// <summary>
         /// Toma el telefono y devuelve una instancia de CLiente

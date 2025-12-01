@@ -51,18 +51,14 @@ namespace Library
                 throw new ArgumentException("El correo no es valido");
             }
             BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
-            if (!bd1.ExisteCorreo(correo))
-            {
+            
                 Nombre = nombre;
                 Apellido = apellido;
                 Correo = correo;
                 Suspendido = false;
                 bd1.AgregarUsuario(this);
-            }
-            else
-            {
-                throw new ArgumentException("El correo ya esta ocupado");
-            }
+            
+            
         }
         
         
@@ -82,37 +78,7 @@ namespace Library
             }
             
         }
-        /// <summary>
-        /// Registra una venta hecha entre un Usuario y su Clinte 
-        /// </summary>
-        /// <param name="tel"></param>
-        /// <param name="prod"></param>
-        /// <param name="precio"></param>
-        /// <param name="fecha"></param>
-        public void CrearVentas(int tel,string prod,Double precio,DateTime fecha)
-
-        {
-            BaseDatosVenta bd1 = BaseDatosVenta.Instance;
-            BaseDatosCliente bd2 = BaseDatosCliente.Instance;
-            Cliente client = bd2.ClienteSegunTelefono(tel);
-            if (!bd1.ExisteVenta(this,client, prod, precio, fecha))
-            {
-                if (VerificarTelCartera(tel))
-                {
-                    Venta instancia3 = new Venta(this,client,prod,precio,fecha);
-                    bd1.AgregarVenta(instancia3);
-                }
-                else
-                {
-                    throw new ArgumentException("Telefono no encontrado");
-                }
-                
-            }
-            else
-            {
-                throw new ArgumentException("Venta repetida");
-            }
-        }
+        
         /// <summary>
         /// Verifica si el Cliente esta en la lista a traves de su telefono
         /// </summary>
@@ -146,35 +112,21 @@ namespace Library
         }
         
         /// <summary>
-        /// Crea una Cotizaciun para una futura venta entre Usuario y cliente 
+        /// Registra las cotizaciones tenidas entre Usuario y Cliente. La agrega en ListaInteracciones y OportunidadesVenta
         /// </summary>
-        /// <param name="tema"></param>
-        /// <param name="notas"></param>
-        /// <param name="fecha"></param>
-        /// <param name="telcliente"></param>
-        /// <param name="valor"></param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <param name="cotizacion"></param>
 
         
-        public void CrearCoti(string tema,string notas, DateTime fecha, int telcliente,double valor)
+        public void AgregarCotizacion(Cotizacion cotizacion)
         {
-            BaseDatosCliente bd1 = BaseDatosCliente.Instance;
-            Cliente cliente = bd1.ClienteSegunTelefono(telcliente);
-            if (VerificarTelCartera(telcliente))
-            {
-                Cotizacion instancia2 = new Cotizacion(tema,notas,fecha,cliente,valor);
-                OportunidadesVentas.Add(instancia2);
-                ListaInteracciones.Add(instancia2);
-            }
-            else
-            {
-                throw new ArgumentException("Telefono no encontrado");
-            }
+                OportunidadesVentas.Add(cotizacion);
+                ListaInteracciones.Add(cotizacion);
+            
         }
 
         
         /// <summary>
-        /// Registra las interacciones tenidas entre Usuario y Cliente 
+        /// Registra las interacciones tenidas entre Usuario y Cliente. La agrega en ListaInteraccion
         /// </summary>
         /// <param name="interacion"></param>
         public void AgregarInteracion(IInteracion interacion)

@@ -28,18 +28,20 @@ namespace Library
         /// <summary>
         /// Recorre todos las ventas guardadas. Compara todos los atributos con los parametros recibidos, devuelve true si todos coinciden.
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="cliente"></param>
-        /// <param name="producto"></param>
-        /// <param name="precio"></param>
+        /// <param name="usuario"></param>
+        /// <param name="tema"></param>
+        /// <param name="notas"></param>
         /// <param name="fecha"></param>
+        /// <param name="cliente"></param>
+        /// <param name="valor"></param>
+        /// <param name="producto"></param>
         /// <returns></returns>
-        public bool ExisteVenta(Usuario user, Cliente cliente, string producto, double precio, DateTime fecha)
+        public bool ExisteVenta(Usuario usuario, string tema, string notas, DateTime fecha, Cliente cliente, Double valor, string producto)
         {
             bool resultado = false;
             foreach (Venta venta in ListaVentas)
             {
-                if (venta.Usuario==user & venta.Cliente==cliente & venta.Producto==producto & venta.Precio==precio & venta.FechaVenta==fecha)
+                if (venta.Usuario==usuario && venta.Tema==tema && venta.Notas==notas && venta.Fecha==fecha && venta.Cliente==cliente && venta.Precio==valor && venta.Producto==producto)
                 {
                     resultado =  true;
                 }
@@ -53,13 +55,19 @@ namespace Library
         public void AgregarVenta(Venta venta)
         {
             Usuario usu = venta.Usuario;
-            DateTime fecha = venta.FechaVenta;
+            DateTime fecha = venta.Fecha;
             Cliente cliente = venta.Cliente;
             string producto = venta.Producto;
             double precio = venta.Precio;
-            if (!ExisteVenta(usu,cliente, producto, precio, fecha))
+            string tema = venta.Tema;
+            string notas = venta.Notas;
+            if (!ExisteVenta(usu,tema,notas,fecha,cliente,precio,producto))
             {
                 ListaVentas.Add(venta);
+            }
+            else
+            {
+                throw new ArgumentException("Venta repetida");
             }
         }
         /// <summary>
@@ -72,7 +80,7 @@ namespace Library
         public List<Venta> VentasPeriodo(Usuario user,DateTime fechabaja,DateTime fechaalta)
         { 
             List<Venta> ventasUser = ListaVentas.FindAll(x => x.Usuario == user);
-            return ventasUser.FindAll(i => i.FechaVenta>= fechabaja && i.FechaVenta <= fechaalta);
+            return ventasUser.FindAll(i => i.Fecha>= fechabaja && i.Fecha <= fechaalta);
 
         }
         

@@ -44,7 +44,7 @@ namespace Library
             
             if (cliente == null)
             {
-                throw new ArgumentNullException(nameof(cliente),"Cliente no encontrado");
+                throw new Exception("Cliente no encontrado");
             }
             Respondida = respondida;
             Remitente = remitente;
