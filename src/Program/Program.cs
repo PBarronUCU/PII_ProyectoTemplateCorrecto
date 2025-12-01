@@ -5,6 +5,7 @@
 //--------------------------------------------------------------------------------
 
 using System;
+using Library;
 using Ucu.Poo.DiscordDemo.DiscordBot.Services;
 
 namespace ConsoleApplication
@@ -20,6 +21,14 @@ namespace ConsoleApplication
         public static void Main()
         {
             BotLoader.LoadAsync().GetAwaiter().GetResult();
+           AdminFachada fachaadmin = AdminFachada.Instance;
+            fachaadmin.CrearAdmin("Admin2");
+            AdminFachada fachadaadmin = AdminFachada.Instance;
+            fachaadmin.CrearUsuario("Admin2","rodrigo","montiel","r@");
+            UsuarioFachada fachausuario = UsuarioFachada.Instance;
+            fachausuario.CrearCliente("r@","esteban","quito",099,"eq@");
+            
+            
         }
     }
 }
