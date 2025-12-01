@@ -6,17 +6,14 @@ namespace LibraryTests
     [TestFixture]
     public class Adminfachada_test
     {
-        private AdminFachada fachada;   
-        [SetUp]
+        private AdminFachada fachada;
+        private String nameAdmin = "AdminOriginal";
+        [OneTimeSetUp]
         public void SetUp()
         {
-            AdminFachada.ResetInstance();
-            UsuarioFachada.ResetInstance();
-            BaseDatosCliente.ResetInstance();
-            BaseDatosUsuario.ResetInstance();
-            BaseDatosAdmin.ResetInstance();
-            BaseDatosVenta.ResetInstance();
             fachada= AdminFachada.Instance;
+            fachada.CrearAdmin(nameAdmin);
+            
         }
         
         /// <summary>
@@ -25,9 +22,9 @@ namespace LibraryTests
         [Test]
         public void CrearUsuariyAgregarUsuarioEnBaseDatos()
         {
-            fachada.CrearAdmin("Admin1");
+            fachada.CrearAdmin("Admin1_1");
             BaseDatosUsuario bdUser = BaseDatosUsuario.Instance;
-            fachada.CrearUsuario("Admin1","Juan", "Pérez", "juan@ucu.edu.uy");
+            fachada.CrearUsuario("Admin1_1","Juan", "Pérez", "juan@ucu.edu.uy");
 
             Usuario usuario = bdUser.UsuarioSegunCorreo("juan@ucu.edu.uy");
 
@@ -40,13 +37,12 @@ namespace LibraryTests
         [Test]
         public void CrearUsuariRepetido()
         {
-            Exception ex = Assert.Throws<Exception>(() =>
+            Exception ex = Assert.Throws<ArgumentException>(() =>
             {
-                fachada.CrearAdmin("Admin1");
-                fachada.CrearUsuario("Admin1","Juan", "Pérez", "juan@ucu.edu.uy");
-                fachada.CrearUsuario("Admin1","Patri", "Soto", "juan@ucu.edu.uy");
+                fachada.CrearUsuario(nameAdmin,"Juan", "Pérez", "juanrepe1@ucu.edu.uy");
+                fachada.CrearUsuario(nameAdmin,"Patri", "Soto", "juanrepe1@ucu.edu.uy");
             });
-            Assert.That("Este correo ya esta en uso",Is.EqualTo(ex.Message));
+            Assert.That("El correo ya esta ocupado",Is.EqualTo(ex.Message));
 
         }
         
@@ -58,8 +54,8 @@ namespace LibraryTests
         {
             Exception ex = Assert.Throws<Exception>(() =>
             {
-                fachada.CrearAdmin("Admin1");
-                fachada.CrearAdmin("Admin1");
+                fachada.CrearAdmin("Admin1_2");
+                fachada.CrearAdmin("Admin1_2");
             });
             Assert.That("El Admin ya existe",Is.EqualTo(ex.Message));
         }
@@ -72,7 +68,7 @@ namespace LibraryTests
         {
             Exception ex = Assert.Throws<Exception>(() =>
             {
-                fachada.CrearUsuario("Admin1","Juan", "Pérez", "juan@ucu.edu.uy");
+                fachada.CrearUsuario("Admin","Juan", "Pérez", "juan@ucu.edu.uy");
             });
             Assert.That("Admin no encontrado.",Is.EqualTo(ex.Message));
 
@@ -85,13 +81,12 @@ namespace LibraryTests
         public void SuspenderUsuarioyDeberiaMarcarUsuarioComoSuspendido()
         {
             
-            fachada.CrearAdmin("Admin1");
-            fachada.CrearUsuario("Admin1", "Ana", "López", "ana@ucu.edu.uy");
+            fachada.CrearUsuario(nameAdmin, "Ana", "López", "anasusp1@ucu.edu.uy");
 
-            fachada.SuspenderUsuario("Admin1", "ana@ucu.edu.uy");
+            fachada.SuspenderUsuario(nameAdmin, "anasusp1@ucu.edu.uy");
 
             var bd = BaseDatosUsuario.Instance;
-            var usuario = bd.UsuarioSegunCorreo("ana@ucu.edu.uy");
+            var usuario = bd.UsuarioSegunCorreo("anasusp1@ucu.edu.uy");
 
             Assert.That(usuario.Suspendido, Is.True);
 
@@ -104,8 +99,8 @@ namespace LibraryTests
         {
             Exception ex = Assert.Throws<Exception>(() =>
             {
-                fachada.CrearAdmin("Admin1");
-                fachada.SuspenderUsuario("Admin1", "ana@ucu.edu.uy");
+                
+                fachada.SuspenderUsuario(nameAdmin, "anasuspnoexiste@ucu.edu.uy");
             });
             Assert.That("No se ha encontrado el usuario",Is.EqualTo(ex.Message));
 

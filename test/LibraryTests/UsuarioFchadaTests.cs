@@ -15,9 +15,14 @@ namespace LibraryTests
         private BaseDatosUsuario BDUsuario;
         private BaseDatosVenta BDVenta;
         private string correoUser = "correouser@";
-        private string nombreAdmin = "Admin1";
+        private string nombreAdmin = "Administrador2";
         
-
+        /// <summary>
+        /// No funciona, Intente con el profe en clase no pudimos arreglar este error.
+        /// Los test funcionan individualmente.
+        /// El error salta en el OneTimeSetUp.
+        /// 
+        /// </summary>
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -74,17 +79,15 @@ namespace LibraryTests
         public void CrearVenta_Success_AddsVentaToBase()
         {
             // Arrange
-            var correoUser = "vendedor@ucu.edu.uy";
-            var user = new Usuario("Vendedor", "V", correoUser);
             // Crear cliente (se agrega a BD y a cartera del usuario con CrearCliente)
-            UserFachada.CrearCliente(correoUser, "Cliente", "Uno", 33333, "cli@c.com");
+            UserFachada.CrearCliente(correoUser, "Cliente", "Uno", 3, "c3@c.com");
 
             // Act
             string fecha = "2025-01-01";
-            UserFachada.CrearVenta(correoUser, "TemaVenta", "Notas", fecha, 33333, 1500.0, "ProductoX");
+            UserFachada.CrearVenta(correoUser, "TemaVenta1", "Notas1", fecha, 3, 1500.0, "ProductoX");
 
             // Assert
-            var ventas = BaseDatosVenta.Instance.ListaVentas;
+            var ventas = BDVenta.ListaVentas;
             Assert.That(ventas.Count, Is.EqualTo(1));
             var venta = ventas.First();
             Assert.That(venta.Usuario.Correo, Is.EqualTo(correoUser));
@@ -95,14 +98,12 @@ namespace LibraryTests
         [Test]
         public void CrearVenta_UsuarioSuspendido_ThrowsArgumentException()
         {
-            var correoUser = "vendedor2@ucu.edu.uy";
-            var user = new Usuario("V", "Dos", correoUser);
-            UserFachada.CrearCliente(correoUser, "Cliente", "A", 44444, "a@c.com");
-            user.Suspender();
-
+            AdminFachada.CrearUsuario(nombreAdmin,"Patri","Barr","susp1@");
+            UserFachada.CrearCliente("susp1@", "Cliente5", "A", 5, "a5@c.com");
+            AdminFachada.SuspenderUsuario(nombreAdmin,"susp1@");
             var ex = Assert.Throws<ArgumentException>(() =>
             {
-                UserFachada.CrearVenta(correoUser, "T", "N", "2025-02-02", 44444, 100.0, "P");
+                UserFachada.CrearVenta("susp1@","T", "N", "2025-02-02", 5, 100.0, "P");
             });
 
             Assert.That(ex.Message, Is.EqualTo("El usuario esta suspendido"));
@@ -111,11 +112,9 @@ namespace LibraryTests
         [Test]
         public void CrearCoti_AddsCotizacionToUsuarioOportunidades()
         {
-            var correoUser = "cot@ucu.edu.uy";
-            var user = new Usuario("Coti", "Uno", correoUser);
-            UserFachada.CrearCliente(correoUser, "Cliente", "C", 55555, "cc@c.com");
-
-            UserFachada.CrearCoti(correoUser, "CotiTema", "CotiNotas", "2025-03-03", 55555, 999.99, "ProdC");
+            
+            UserFachada.CrearCliente(correoUser, "Cliente", "C", 6, "c6@c.com");
+            UserFachada.CrearCoti(correoUser, "CotiTema", "CotiNotas", "2025-03-03", 6, 999.99, "ProdC");
 
             var usu = BaseDatosUsuario.Instance.UsuarioSegunCorreo(correoUser);
             Assert.That(usu.OportunidadesVentas.Count, Is.EqualTo(1));
@@ -127,15 +126,14 @@ namespace LibraryTests
         [Test]
         public void ModificarCliente_ChangesClientPropertiesInBase()
         {
-            var correoUser = "mod@ucu.edu.uy";
-            var user = new Usuario("Mod", "Uno", correoUser);
             // crear cliente y agregar al user
-            UserFachada.CrearCliente(correoUser, "Antes", "Apellido", 66666, "antes@c.com");
-
+            UserFachada.CrearCliente(correoUser, "Antes", "Apellido", 7, "cliant7@c.com");
+            
+            
             // Act: modificar
-            UserFachada.ModificarCliente(correoUser, "Nuevo", "ApellidoN", 66666, "OTRO", "2000-05-05");
+            UserFachada.ModificarCliente(correoUser, "Nuevo", "ApellidoN", 7, "Otro", "2000-05-05");
 
-            var client = BaseDatosCliente.Instance.ClienteSegunTelefono(66666);
+            var client = BaseDatosCliente.Instance.ClienteSegunTelefono(7);
             Assert.That(client.Nombre, Is.EqualTo("Nuevo"));
             Assert.That(client.Apellido, Is.EqualTo("ApellidoN"));
             Assert.That(client.Genero, Is.EqualTo(Genero.Otro));
@@ -145,25 +143,23 @@ namespace LibraryTests
         [Test]
         public void FiltarClienteCorreo_ReturnsClientFromUserCartera()
         {
-            var correoUser = "filt@ucu.edu.uy";
-            var user = new Usuario("F", "Uno", correoUser);
-            UserFachada.CrearCliente(correoUser, "Fil", "T", 77777, "fil@c.com");
+            AdminFachada.CrearUsuario(nombreAdmin,"Enzo","Olivera","Filtro1@");
+            UserFachada.CrearCliente("Filtro1@", "Fil", "T", 8, "filc8@c.com");
 
-            var result = UserFachada.FiltarClienteCorreo(correoUser, "fil@c.com");
+            var result = UserFachada.FiltarClienteCorreo("Filtro1@", "filc8@c.com");
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Tel, Is.EqualTo(77777));
+            Assert.That(result.Tel, Is.EqualTo(8));
         }
 
         [Test]
         public void InteracionClienteSinFiltro_ReturnsCreatedInteractions()
         {
-            var correoUser = "inter@ucu.edu.uy";
-            var user = new Usuario("I", "Uno", correoUser);
-            UserFachada.CrearCliente(correoUser, "Cli", "One", 88888, "one@c.com");
+            AdminFachada.CrearUsuario(nombreAdmin,"Enzo1","Olivera1","Filtro2@");
+            UserFachada.CrearCliente("Filtro2@", "Cli", "One", 9, "one9@c.com");
 
-            UserFachada.CrearReunion(correoUser, "2025-04-04", "Reu", "NotasReu", 88888, "Oficina");
+            UserFachada.CrearReunion("Filtro2@", "2025-04-04", "Reu", "NotasReu", 9, "Oficina");
 
-            var inters = UserFachada.InteracionClienteSinFiltro(correoUser, 88888);
+            var inters = UserFachada.InteracionClienteSinFiltro("Filtro2@", 9);
             Assert.That(inters, Is.Not.Null);
             Assert.That(inters.Count, Is.EqualTo(1));
             Assert.That(inters.First().GetType().Name, Is.EqualTo("Reunion"));
@@ -174,18 +170,17 @@ namespace LibraryTests
         [Test]
         public void AgregarNota_AppendsNoteToExistingInteraction()
         {
-            var correoUser = "nota@ucu.edu.uy";
-            var user = new Usuario("N", "Uno", correoUser);
-            UserFachada.CrearCliente(correoUser, "Cli", "Note", 99999, "note@c.com");
+            AdminFachada.CrearUsuario(nombreAdmin,"Enzo2","Olivera2","Filtro3@");
+            UserFachada.CrearCliente("Filtro3@", "Cli", "Note", 10, "note10@c.com");
 
             // crear un mensaje (tipo "Mensaje") en esa fecha
             string fecha = "2025-05-05";
-            UserFachada.CrearMensaje(correoUser, "USUARIO", fecha, "TemaMsg", 99999, "NotasIniciales", false);
+            UserFachada.CrearMensaje("Filtro3@", "Usuario", fecha, "TemaMsg", 10, "NotasIniciales", false);
 
             // agregar nota
-            UserFachada.AgregarNota(correoUser, 99999, fecha, "Mensaje", "Nota añadida");
+            UserFachada.AgregarNota("Filtro3@", 10, fecha, "Mensaje", "Nota añadida");
 
-            var usu = BaseDatosUsuario.Instance.UsuarioSegunCorreo(correoUser);
+            var usu = BaseDatosUsuario.Instance.UsuarioSegunCorreo("Filtro3@");
             var msg = usu.ListaInteracciones.Find(i => i.GetType().Name == "Mensaje");
             Assert.That(msg, Is.Not.Null);
             Assert.That(msg.Notas.Contains("Nota añadida"), Is.True);
@@ -194,17 +189,17 @@ namespace LibraryTests
         [Test]
         public void FiltrarClienteNombreAndTelefono_WorkAsExpected()
         {
-            var correoUser = "fil2@ucu.edu.uy";
-            var user = new Usuario("FN", "Uno", correoUser);
-            UserFachada.CrearCliente(correoUser, "Nombre", "Apellido", 101010, "n@c.com");
+            
+            AdminFachada.CrearUsuario(nombreAdmin,"Enzo3","Olivera3","Filtro45@");
+            UserFachada.CrearCliente("Filtro45@", "Nombre", "Apellido", 11, "n11@c.com");
 
-            var lista = UserFachada.FiltrarClienteNombre(correoUser, "Nombre", "Apellido");
+            var lista = UserFachada.FiltrarClienteNombre("Filtro45@", "Nombre", "Apellido");
             Assert.That(lista.Count, Is.EqualTo(1));
-            Assert.That(lista.First().Correo, Is.EqualTo("n@c.com"));
+            Assert.That(lista.First().Correo, Is.EqualTo("n11@c.com"));
 
-            var byTel = UserFachada.FiltrarClienteTelefono(correoUser, 101010);
+            var byTel = UserFachada.FiltrarClienteTelefono("Filtro45@", 11);
             Assert.That(byTel, Is.Not.Null);
-            Assert.That(byTel.Correo, Is.EqualTo("n@c.com"));
+            Assert.That(byTel.Correo, Is.EqualTo("n11@c.com"));
         }
 
         [Test]
@@ -213,42 +208,45 @@ namespace LibraryTests
             // Arrange two users
             var correoFrom = "from@ucu.edu.uy";
             var correoTo = "to@ucu.edu.uy";
-            var userFrom = new Usuario("From", "User", correoFrom);
-            var userTo = new Usuario("To", "User", correoTo);
+            AdminFachada.CrearUsuario(nombreAdmin,"Tizi","Soto","Mover1@");
+            AdminFachada.CrearUsuario(nombreAdmin,"Tizi1","Soto1","Mover2@");
+            var userFrom = BDUsuario.UsuarioSegunCorreo("Mover1@");
+            var userTo = BDUsuario.UsuarioSegunCorreo("Mover2@");
 
             // create client on userFrom
-            UserFachada.CrearCliente(correoFrom, "Mover", "Cli", 121212, "mov@c.com");
+            UserFachada.CrearCliente("Mover1@", "Mover", "Cli", 14, "mov14@c.com");
 
             // preconditions
-            Assert.That(userFrom.Cartera.Any(c => c.Tel == 121212), Is.True);
-            Assert.That(userTo.Cartera.Any(c => c.Tel == 121212), Is.False);
+            Assert.That(userFrom.Cartera.Any(c => c.Tel == 14), Is.True);
+            Assert.That(userTo.Cartera.Any(c => c.Tel == 14), Is.False);
 
             // Act
-            UserFachada.AsignarCliente(correoFrom, correoTo, 121212);
+            UserFachada.AsignarCliente("Mover1@", "Mover2@", 14);
 
             // Assert client moved
-            var from = BaseDatosUsuario.Instance.UsuarioSegunCorreo(correoFrom);
-            var to = BaseDatosUsuario.Instance.UsuarioSegunCorreo(correoTo);
+            var from = BDUsuario.UsuarioSegunCorreo("Mover1@");
+            var to = BDUsuario.UsuarioSegunCorreo("Mover2@");
 
-            Assert.That(to.Cartera.Any(c => c.Tel == 121212), Is.True);
-            Assert.That(from.Cartera.Any(c => c.Tel == 121212), Is.False);
+            Assert.That(to.Cartera.Any(c => c.Tel == 14), Is.True);
+            Assert.That(from.Cartera.Any(c => c.Tel == 14), Is.False);
         }
 
         [Test]
         public void PanelCliente_Returns_StringRepresentationOrNotFound()
         {
             var correoUser = "panel@ucu.edu.uy";
-            var user = new Usuario("P", "Uno", correoUser);
+            AdminFachada.CrearUsuario(nombreAdmin,"Tizi2","Soto2","Panel@");
+            ;
 
             // no clients -> empty panel
-            var empty = UserFachada.PanelCliente(correoUser);
+            var empty = UserFachada.PanelCliente("Panel@");
             Assert.That(empty, Is.Empty.Or.EqualTo(string.Empty));
 
             // add client and interaction to produce some output
-            UserFachada.CrearCliente(correoUser, "Panel", "C", 131313, "pc@c.com");
-            UserFachada.CrearMensaje(correoUser, "USUARIO", "2025-06-06", "t", 131313, "nota", false);
+            UserFachada.CrearCliente("Panel@", "Panel", "C", 15, "p5c1@c.com");
+            UserFachada.CrearMensaje("Panel@", "Usuario", "2025-06-06", "t", 15, "nota", false);
 
-            var panel = UserFachada.PanelCliente(correoUser);
+            var panel = UserFachada.PanelCliente("Panel@");
             Assert.That(panel, Is.Not.Null.And.Not.Empty);
         }
 

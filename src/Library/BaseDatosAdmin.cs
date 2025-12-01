@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public sealed class BaseDatosAdmin
     {
-        private static BaseDatosAdmin _instance = new BaseDatosAdmin();
+        private static readonly BaseDatosAdmin _instance = new BaseDatosAdmin();
         /// <summary>
         /// Donde se guardan los admins
         /// </summary>
@@ -23,13 +23,8 @@ namespace Library
         {
             get { return _instance; }
         }
-        /// <summary>
-        /// Metodo para poder reiniciar mis singletons despues de cada test
-        /// </summary>
-        public static void ResetInstance()
-        {
-            _instance = new BaseDatosAdmin();
-        }
+        
+        
         
         /// <summary>
         /// Recorre todos los admins guardados. Compara el nombre de cada uno con el parametro, devuelve true si uno coincide.

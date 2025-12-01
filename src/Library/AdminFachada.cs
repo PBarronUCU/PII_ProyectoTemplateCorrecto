@@ -8,7 +8,7 @@ namespace Library
     /// </summary>
     public sealed class AdminFachada
     {
-        private static AdminFachada _instance = new AdminFachada();
+        private static readonly AdminFachada _instance = new AdminFachada();
         BaseDatosAdmin _bd = BaseDatosAdmin.Instance;
         
         private AdminFachada()
@@ -21,13 +21,6 @@ namespace Library
         public static AdminFachada Instance
         {
             get { return _instance; }
-        }
-        /// <summary>
-        /// Metodo para poder reiniciar mis singletons despues de cada test
-        /// </summary>
-        public static void ResetInstance()
-        {
-            _instance = new AdminFachada();
         }
         
         

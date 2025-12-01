@@ -13,7 +13,7 @@ namespace Library
         /// </summary>
         
         
-            private static UsuarioFachada _instance = new UsuarioFachada();
+            private static readonly UsuarioFachada _instance = new UsuarioFachada();
 
             BaseDatosUsuario bd = BaseDatosUsuario.Instance;
             BaseDatosVenta bdventa = BaseDatosVenta.Instance;
@@ -32,13 +32,7 @@ namespace Library
                 get { return _instance; }
             }
 
-            /// <summary>
-            /// Metodo para poder reiniciar mis singletons despues de cada test
-            /// </summary>
-            public static void ResetInstance()
-            {
-                _instance = new UsuarioFachada();
-            }
+            
             
             /// <summary>
             ///  Permite al usuario identificado por su correo crear un nuevo cliente.
@@ -83,14 +77,17 @@ namespace Library
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
                 Cliente client = bdcliente.ClienteSegunTelefono(telcliente);
+                if (u == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
                 if (!u.Suspendido)
                 {
-                    if (u != null)
-                    {
+                    
                         DateTime f = DateTime.Parse(fecha);
                         BaseDatosVenta.Instance.CrearVentas(u,tema,notas,f,client,precio,producto);
                         
-                    }
+                    
                 }
                 else
                 {
@@ -128,7 +125,7 @@ namespace Library
             }
 
             /// <summary>
-            ///  Modifica los datos de un cliente existente en la cartera del usuario.
+            ///  Modifica los datos de un cliente existente en la cartera del usuario. El telefono es para identificar el Cliente, NO para cambiarlo
             /// </summary>
             /// <param name="correoUsuario"></param>
             /// <param name="nombre"></param>

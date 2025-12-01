@@ -9,7 +9,7 @@ namespace Library
     /// </summary>
     public sealed class BaseDatosCliente
     {
-        private static BaseDatosCliente _instance = new BaseDatosCliente();
+        private static readonly BaseDatosCliente _instance = new BaseDatosCliente();
         /// <summary>
         /// Donde se guardan los clientes
         /// </summary>
@@ -27,13 +27,8 @@ namespace Library
             get { return _instance; }
         }
         
-        /// <summary>
-        /// Metodo para poder reiniciar mis singletons despues de cada test
-        /// </summary>
-        public static void ResetInstance()
-        {
-            _instance = new BaseDatosCliente();
-        }
+        
+        
         
         /// <summary>
         /// Recorre todos los clientes guardados. Compara el telefonos de cada uno con el parametro, devuelve true si uno coincide.
