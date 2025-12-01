@@ -44,7 +44,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
             string userName =
                 displayName ?? CommandHelper.GetDisplayName(Context);
 
-            string result = "124";
+            string result = "123";
 
             await ReplyAsync(result);
         }

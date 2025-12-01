@@ -43,6 +43,10 @@ namespace Library
             public void CrearCliente(string correoUsuario, string nombre, string apellido, int tel, string correo)
             {
                 Usuario u = bd.UsuarioSegunCorreo(correoUsuario);
+                if (u == null)
+                {
+                    throw new ArgumentNullException(nameof(u),"Usuario no encontrado");
+                }
                 if (!u.Suspendido)
                 {
                     Cliente client = new Cliente(nombre, apellido, correo, tel);
