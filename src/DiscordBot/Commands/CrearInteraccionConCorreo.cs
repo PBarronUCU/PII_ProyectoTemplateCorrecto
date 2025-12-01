@@ -9,13 +9,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
         [Command("CrearInteraccionCorreo")]
         [Discord.Commands.Summary("Un usuario crea un registro de correo con un cliente.")]
         public async Task ExecuteAsync(
-            bool respondido = false,
-            string correoUsuario = null,
-            string telefono = null,
-            string remitente = null,
-            string fecha = null,
-            string nota = null,
-            string tema = null)
+            bool respondido = false, string correoUsuario = null, string telefono = null, string remitente = null, string fecha = null, string nota = null, string tema = null)
         {
             int telefonoCliente;
             bool conversionexitosa = int.TryParse(telefono, out telefonoCliente);
