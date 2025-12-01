@@ -313,7 +313,12 @@ namespace Library
 
                 return u != null ? u.PanelCliente() : "Usuario no encontrado";
             }
-
+            
+            /// <summary>
+            /// Elimina un cliente de la lista. Tambien busca en la base de datos de usuario
+            /// para eliminar al cliente de la cartera del usuario que lo tenga guardado
+            /// </summary>
+            /// <param name="telefono"></param>
             public void EliminarCliente(int telefono)
             {
                 BaseDatosCliente bd = BaseDatosCliente.Instance;
