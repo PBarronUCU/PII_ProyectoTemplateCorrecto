@@ -50,13 +50,12 @@ namespace Library
             {
                 throw new ArgumentException("El correo no es valido");
             }
-            BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
             
                 Nombre = nombre;
                 Apellido = apellido;
                 Correo = correo;
                 Suspendido = false;
-                bd1.AgregarUsuario(this);
+                
             
             
         }

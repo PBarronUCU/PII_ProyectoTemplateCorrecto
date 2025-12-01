@@ -22,7 +22,7 @@ namespace Library
             Nombre = nombre;
         }
         /// <summary>
-        /// Agrega usuario a la base de datos. Si el correo ya existe lanza una excepcion
+        /// Agrega usuario a la base de datos. 
         /// </summary>
         /// <param name="name"></param>
         /// <param name="apell"></param>
@@ -31,15 +31,7 @@ namespace Library
         public void AgregarUsuario(string name, string apell, string correo)
         {
             BaseDatosUsuario bd2 = BaseDatosUsuario.Instance;
-            if (!bd2.ExisteCorreo(correo))
-            {
-                    new Usuario(name, apell, correo);
-                    
-            }
-            else
-            {
-                throw new Exception("Este correo ya esta en uso");
-            }
+            bd2.CrearUsuario(name, apell, correo);
             
             
         }

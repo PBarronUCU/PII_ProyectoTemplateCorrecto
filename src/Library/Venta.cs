@@ -38,8 +38,7 @@ namespace Library
             Tema = tema;
             Precio = valor;
             Producto = producto;
-            BaseDatosVenta bd1 = BaseDatosVenta.Instance;
-            bd1.AgregarVenta(this);
+            
         }
     }
 }

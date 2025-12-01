@@ -36,7 +36,7 @@ namespace Library
         
         
         /// <summary>
-        /// Constructor de clase cliente. Si el correo o telefono ya existe, tira un excepcion.
+        /// Constructor de clase cliente.
         /// </summary>
         /// <param name="nombre"></param>
         /// <param name="apellido"></param>

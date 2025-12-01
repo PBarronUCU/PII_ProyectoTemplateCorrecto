@@ -92,6 +92,12 @@ namespace Library
             return ventasUser.FindAll(i => i.Fecha>= fechabaja && i.Fecha <= fechaalta);
 
         }
+
+        public void CrearVentas(Usuario usuario,string tema,string notas,DateTime fecha,Cliente cliente,Double valor,string producto)
+        {
+            Venta venta = new Venta(usuario,tema,notas,fecha,cliente,valor,producto);
+            Instance.AgregarVenta(venta);
+        }
         
         
     }

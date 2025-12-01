@@ -52,7 +52,13 @@ namespace Library
             }
             return result;
         }
-
+        /// <summary>
+        /// Metodo para crear el Cliente, Si ya esixte el correo o telefono salta exepcion.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="correo"></param>
+        /// <param name="tel"></param>
         public void CrearCliente(string nombre, string apellido, string correo, int tel)
         {
             Cliente client = new Cliente(nombre, apellido, correo, tel);
