@@ -57,7 +57,8 @@ namespace Library
                 }
                 if (!u.Suspendido)
                 {
-                    Cliente client = new Cliente(nombre, apellido, correo, tel);
+                    BaseDatosCliente.Instance.CrearCliente(nombre, apellido, correo, tel);
+                    Cliente client = BaseDatosCliente.Instance.ClienteSegunTelefono(tel);
                     u.AgregarClienteACartera(client);
                 }
                 else
@@ -87,7 +88,7 @@ namespace Library
                     if (u != null)
                     {
                         DateTime f = DateTime.Parse(fecha);
-                        new Venta(u,tema,notas,f,client,precio,producto);
+                        BaseDatosVenta.Instance.CrearVentas(u,tema,notas,f,client,precio,producto);
                         
                     }
                 }

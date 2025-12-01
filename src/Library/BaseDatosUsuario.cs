@@ -101,6 +101,18 @@ namespace Library
             Usuario usu = UsuarioSegunCorreo(correo);
             ListaUsuario.Remove(usu);
         }
+        /// <summary>
+        /// Metodo para crear usuario. Si ya existe el correo salta exepcion
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="correo"></param>
+        public void CrearUsuario(string nombre,string apellido, string correo)
+        {
+            Usuario user = new Usuario(nombre, apellido, correo);
+            Instance.AgregarUsuario(user);
+        }
+        
     }
 
 }
