@@ -14,7 +14,13 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
             string telefonoCliente = null)
         {
             int telclient;
-            int.TryParse(telefonoCliente, out telclient);
+            //Me funciona, me convierte de una el numero
+            if (int.TryParse(telefonoCliente, out telclient))
+            {
+                //Simplemente para que telefonocliente no sea null.
+                telefonoCliente = "Recivi un numero";
+                //Si la conversion falla esto sigue null
+            }
 
             if (correoUsuario == null || telefonoCliente == null)
             {
