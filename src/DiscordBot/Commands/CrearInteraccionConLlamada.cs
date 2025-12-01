@@ -8,14 +8,7 @@ namespace Ucu.Poo.DiscordDemo.DiscordBot.Commands
     {
         [Command("CrearInteraccionLlamada")]
         [Discord.Commands.Summary("Un usuario crea un registro de llamada con un cliente.")]
-        public async Task ExecuteAsync(
-            bool respondido = false,
-            string correoUsuario = null,
-            string telefono = null,
-            string remitente = null,
-            string fecha = null,
-            string nota = null,
-            string tema = null)
+        public async Task ExecuteAsync(bool respondido = false, string correoUsuario = null, string telefono = null, string remitente = null, string fecha = null, string nota = null, string tema = null)
         {
             int telefonoCliente;
             bool conversionexitosa = int.TryParse(telefono, out telefonoCliente);
