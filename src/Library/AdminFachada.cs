@@ -2,7 +2,33 @@ using System;
 
 namespace Library
 
-{
+{ // -----------------------------------------------------------------------------
+// GRASP UTILIZADOS:
+// • Controller: Esta clase actúa como punto de entrada para las operaciones del 
+//   administrador, coordinando acciones sin ejecutar la lógica interna.
+//
+// • Low Coupling: La fachada solo interactúa con BaseDatosAdmin y Admin, evitando 
+//   dependencias innecesarias.
+//
+// • High Cohesion: La responsabilidad de la clase está muy clara: servir como 
+//   intermediario para operaciones administrativas.
+//
+// • Information Expert: La lógica de búsqueda y verificación sigue estando en la 
+//   base de datos, no aquí.
+
+// SOLID UTILIZADOS:
+// • SRP: La clase solo se encarga de coordinar operaciones de Admin.
+//
+// • OCP: Puede ampliarse con nuevas operaciones de fachada sin modificar las existentes.
+//
+// PATRONES:
+// • Singleton: Usado. La clase expone Instance para una única fachada global.
+//
+// • Facade: Usado fuertemente. Centraliza y simplifica accesos a las operaciones de Admin.
+//
+// • Iterator: Usado implícitamente dentro de las bases de datos cuando recorren listas.
+// -----------------------------------------------------------------------------
+    
     /// <summary>
     /// Esta clase se encarga de ejecturar los metodos de admin
     /// </summary>

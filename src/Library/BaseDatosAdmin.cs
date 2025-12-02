@@ -2,6 +2,40 @@ using System.Collections.Generic;
 
 namespace Library
 {
+    
+    // ============================================================
+    // GRASP Y SOLID UTILIZADOS EN ESTA CLASE
+    //
+    // ► GRASP
+    // • Singleton: La clase garantiza una única instancia accesible por Instance.
+    // • Information Expert: Es la experta en manejar objetos Admin
+    //   (buscar, agregar, verificar existencia).
+
+    // • Low Coupling: Solo depende del tipo Admin, sin otras dependencias fuertes.
+
+    // • High Cohesion: Todas sus operaciones son coherentes con su única
+    //   responsabilidad: administrar administradores.
+    //
+    // ► SOLID
+    // • S — Single Responsibility Principle:
+    //   La clase solo gestiona admins, cumple con SRP.
+    //
+    // • O — Open/Closed Principle:
+    //   Parcialmente cumplido; es extensible pero agregar nuevas reglas requiere 
+    //   modificar la clase.
+    //
+    // • D — Dependency Inversion Principle:
+    //   Tiene dependencia concreta hacia Admin, no viola DIP pero tampoco lo aplica
+    //   explícitamente.
+    //
+    // ============================================================
+    // PATRONES
+    //
+    // ► Singleton
+    //   Implementado con constructor privado + instancia estática + propiedad Instance.
+    //
+    // ============================================================
+    
     /// <summary>
     /// Base de datos para los Admins
     /// </summary>

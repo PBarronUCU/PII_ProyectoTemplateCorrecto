@@ -3,6 +3,38 @@ using System.Collections.Generic;
 
 namespace Library
 
+// ============================================================
+    // GRASP Y SOLID UTILIZADOS EN ESTA CLASE
+    //
+    // ► GRASP
+    // • Singleton: La clase crea una única instancia accesible via Instance.
+    // • Information Expert: La clase es experta en usuarios; por eso 
+    //   implementa búsqueda, creación, eliminación, verificación.
+    // • Low Coupling: Tiene una mínima dependencia hacia BaseDatosCliente.
+    // • High Cohesion: Todas sus operaciones se centran en gestionar usuarios.
+    //
+    // ► SOLID
+    // • S — Single Responsibility Principle:
+    //   Administra exclusivamente Usuarios.
+    //
+    // • O — Open/Closed Principle:
+    //   Parcialmente cumplido. Puede extenderse, pero requiere modificaciones internas.
+    //
+    // ============================================================
+    // PATRONES
+    //
+    // ► Singleton (APLICA)
+    //   Implementado: constructor privado + instancia estática + propiedad Instance.
+    //
+    // ► Facade (APLICA parcialmente)
+    //   La clase sirve como una interfaz simple para gestionar usuarios,
+    //   ocultando detalles de almacenamiento interno.
+    //
+    // ► Iterator 
+    //   El foreach sobre ListaUsuario utiliza iteradores de C#.
+    //
+    // ============================================================
+
 {
     /// <summary>
     /// Base de datos para los Usuarios

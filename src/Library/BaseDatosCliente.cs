@@ -2,7 +2,36 @@ using System;
 using System.Collections.Generic;
 
 namespace Library
-
+    // ============================================================
+    // GRASP Y SOLID UTILIZADOS EN ESTA CLASE
+    //
+    // ► GRASP
+    // • Singleton: La clase usa instancia única con constructor privado 
+    //   y propiedad estática Instance.
+    // • Information Expert: La clase conoce los datos de los clientes,
+    //   por eso centraliza agregar, buscar, modificar y eliminar.
+    // • Low Coupling: Mantiene bajo acoplamiento, aunque depende de
+    //   BaseDatosUsuario.
+    // • High Cohesion: Su responsabilidad es administrar clientes.
+    //
+    // ► SOLID
+    // • S — Single Responsibility Principle:
+    //   Administra clientes y solo clientes.
+    //
+    // • O — Open/Closed Principle (parcial):
+    //   Es extensible, pero aún requiere modificaciones internas.
+    //
+    // ============================================================
+    // PATRONES
+    //
+    // ► Singleton
+    //   Implementado explícitamente: instancia única, constructor privado.
+    //
+    // ► Facade (APLICA parcialmente)
+    //   La clase actúa un poco como fachada simplificada hacia el manejo
+    //   de clientes, ocultando los detalles internos de listas y búsquedas.
+    //
+    // ============================================================
 {
     /// <summary>
     /// Base de datos para los Clientes

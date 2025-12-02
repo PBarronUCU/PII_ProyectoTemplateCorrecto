@@ -4,6 +4,34 @@ using System.Collections.ObjectModel;
 
 namespace Library
 {
+    // -----------------------------------------------------------------------------
+// GRASP UTILIZADOS:
+// • High Cohesion: La clase administra solo acciones propias de un administrador 
+//   (agregar usuario, suspender usuario).
+//
+// • Low Coupling: La clase delega la persistencia a BaseDatosUsuario; no almacena 
+//   colecciones ni gestiona listas por sí misma.
+//
+// • Controller: Admin actúa como controlador para las operaciones sobre usuarios 
+//   que requieren permisos administrativos.
+//
+// • Information Expert: Delegación correcta: la lógica de persistencia y búsqueda 
+//   queda en BaseDatosUsuario, el experto en esos datos.
+//
+// SOLID UTILIZADOS:
+// • SRP: La clase tiene una única responsabilidad: gestionar usuarios como admin.
+//
+// • OCP: No hace branching complejo; puede ampliarse con nuevas funciones sin alterar las existentes.
+//
+// PATRONES:
+// • Singleton: Usado indirectamente: accede a BaseDatosUsuario.Instance.
+//
+// • Iterator: Usado indirectamente cuando BaseDatosUsuario recorre su lista.
+//
+// • State: Usado indirectamente en Usuario.Suspender(),cambia el estado interno.
+//
+// -----------------------------------------------------------------------------
+    
     /// <summary>
     /// Se encarga de Agregar usuarios a la base de datos y si es necesario, suspenderlos
     /// </summary>

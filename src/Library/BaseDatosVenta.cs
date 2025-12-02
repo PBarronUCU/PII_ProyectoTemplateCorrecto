@@ -3,6 +3,35 @@ using System;
 
 namespace Library
 
+// -----------------------------------------------------------------------------
+// GRASP UTILIZADOS:
+// • Information Expert: La clase gestiona y conoce todas las ventas, por lo que 
+//   es experta en determinar si una venta existe, agregarlas y filtrarlas.
+//
+// • Creator: La clase crea objetos Venta dentro de CrearVentas porque almacena 
+//   y administra la colección de ventas.
+//
+// • Low Coupling: La clase solo se relaciona con Venta, Usuario y Cliente, sin 
+//   depender de módulos externos innecesarios.
+//
+// • High Cohesion: La clase mantiene una única responsabilidad: administrar ventas.
+
+// SOLID UTILIZADOS:
+// • SRP: La clase solo maneja almacenamiento y consultas sobre ventas.
+//
+// • OCP: Puede ampliarse agregando nuevos filtros sin modificar los métodos 
+//   centrales.
+
+// PATRONES :
+// • Factory Method: Usado indirectamente en CrearVentas, que centraliza la creación 
+//   de objetos Venta.
+//
+// • Singleton: Usado. La clase garantiza una única instancia global para manejar ventas.
+//
+// • Iterator: Usado implícitamente mediante FindAll y foreach para recorrer colecciones.
+// -----------------------------------------------------------------------------
+
+
 {
     /// <summary>
     /// Base de datos para las Ventas
