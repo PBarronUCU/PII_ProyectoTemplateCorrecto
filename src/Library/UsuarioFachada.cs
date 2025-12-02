@@ -3,6 +3,44 @@ using System.Collections.Generic;
 
 namespace Library
 {
+    
+    
+    /// PATRONES GRASP:
+    /// • Controller: Esta clase centraliza todas las operaciones del sistema relacionadas al usuario,
+    ///   actuando como punto de entrada para peticiones externas.
+    ///
+    /// • Information Expert: La fachada usa a las clases BaseDatosUsuario, BaseDatosCliente y BaseDatosVenta
+    ///   porque ellas son expertas en sus respectivos datos.
+    ///
+    /// • Low Coupling: El acoplamiento se reduce porque el resto del sistema interactúa solo con la fachada.
+    ///
+    /// • High Cohesion: La clase reúne únicamente funcionalidades relacionadas a coordinar acciones del usuario.
+    ///
+    ///
+    /// PRINCIPIOS SOLID:
+    /// • SRP (Responsabilidad Única): La responsabilidad de la clase es actuar como interfaz simplificada
+    ///   hacia operaciones de usuario. No gestiona almacenamiento ni reglas de negocio internas.
+    ///
+    /// • OCP (Open/Closed): Podría expandirse con nuevos métodos sin modificar internamente la lógica ya existente.
+    ///
+    /// • LSP: Cumple mientras no se creen subclases (es sealed).
+    ///
+    /// • ISP: Los usuarios externos no dependen de detalles de múltiples bases de datos; solo usan esta interfaz.
+    ///
+    /// • DIP (Dependency Inversion): Depende de abstracciones (interfaces implícitas de las bases), no de implementaciones
+    ///   concretas. La obtención vía Singleton reduce acoplamiento directo.
+    ///
+    ///
+    /// PATRONES:
+    /// • Facade: Es una fachada que simplifica múltiples operaciones complejas.
+    ///
+    /// • Singleton: Implementado para garantizar una sola instancia global.
+    ///
+    /// • Command: Cada método podría considerarse un comando de acción.
+    ///
+    /// • Template Method : Muchos métodos repiten pasos comunes como verificar usuario → verificar suspensión → ejecutar acción.
+    /// 
+    
 
     public sealed class UsuarioFachada
     {

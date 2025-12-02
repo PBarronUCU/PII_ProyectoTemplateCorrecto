@@ -3,6 +3,39 @@ using System.Collections.Generic;using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Library
+    /*
+    ///
+    /// PATRONES GRASP:
+    /// • Information Expert: El Usuario conoce sus clientes, interacciones y cotizaciones, por eso
+    ///   esta clase concentra las operaciones sobre esos datos.
+    ///
+    /// • High Cohesion: Mantiene todas las responsabilidades ligadas a la gestión de un usuario:
+    ///   cartera, interacciones, cotizaciones, suspensión, etc.
+    ///
+    /// • Low Coupling: Solo interactúa con bases de datos cuando es estrictamente necesario
+    ///   (AsignarCliente). No depende directamente de implementaciones externas complejas.
+    ///
+    /// PRINCIPIOS SOLID:
+    /// • SRP: Su responsabilidad es modelar el comportamiento y estado de un Usuario.
+    ///   No realiza persistencia ni tareas administrativas externas.
+    ///
+    /// • LSP: Cumplido al no tener subclases que alteren comportamiento.
+    ///
+    /// • ISP: Los consumidores no dependen de métodos innecesarios (la interfaz de Usuario es simple).
+    ///
+    /// • DIP: Se apoya en abstracciones como IInteracion y IInteracionDialogo, no en clases concretas.
+    ///
+    ///
+    /// PATRONES:
+    /// • Composite : Las interacciones y cotizaciones se tratan uniformemente mediante interfaces.
+    ///
+    /// • Iterator : El uso de FindAll/Listas para recorrer interacciones sigue este estilo.
+    ///
+    /// • Command (Podría): Cada acción del usuario (suspender, asignar cliente, agregar interacción)
+    ///   puede pensarse como comandos independientes.
+    ///
+    /// • Template Method (Podría): Muchos métodos siguen el patrón: "buscar entidad → validar → actualizar".
+    /// */
 
 
 {/// <summary>

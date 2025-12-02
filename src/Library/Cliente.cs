@@ -2,6 +2,39 @@ using System;
 
 namespace Library
 
+    // ============================================================
+    // GRASP Y SOLID UTILIZADOS EN ESTA CLASE
+    //
+    // ► GRASP
+    // • Information Expert:
+    //   La clase Cliente es la experta en almacenar su propia 
+    //   información (nombre, apellido, correo, etc.).
+    //
+    // • Creator:
+    //   Se aplica parcialmente: Cliente inicializa su propio estado
+    //   cuando se lo construye.
+    //
+    // • Low Coupling:
+    //   La clase tiene bajo acoplamiento, excepto por una dependencia
+    //   hacia BaseDatosCliente.
+    //
+    // • High Cohesion:
+    //   La clase solo representa datos de un cliente, tiene una única 
+    //   responsabilidad clara.
+    //
+    // ► SOLID
+    // • S — Single Responsibility Principle:
+    //   Cliente solo representa los datos y validaciones básicas
+    //   relacionadas a un cliente.
+    //
+    // • O — Open/Closed:
+    //   Podría extenderse, pero no está totalmente cerrada a cambios.
+    //
+    // ============================================================
+
+
+
+
 {
     /// <summary>
     /// Clase cliente
