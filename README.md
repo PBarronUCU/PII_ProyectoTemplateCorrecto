@@ -1,43 +1,11 @@
-# Qué hay configurado en esta plantilla
+Reflexión:
 
-1. Un proyecto de biblioteca (creado con [`dotnet new classlib --name Library`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore22)) en la carpeta `src\Library`
-2. Un proyecto de aplicación de consola (creado con [`dotnet new console --name Program`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore22)) en la carpeta `src\Program`
-3. Un proyecto de prueba en [NUnit](https://nunit.org/) (creado con [`dotnet new nunit --name LibraryTests`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore22)) en la carpeta `test\LibraryTests`
-4. Un proyecto de [Doxygen](https://www.doxygen.nl/index.html) para generación de sitio web de documentación en la carpeta `docs`
-5. Análisis estático con [Roslyn analyzers](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview) en los proyectos de biblioteca y de aplicación
-6. Análisis de estilo con [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/README.md) en los proyectos de biblioteca y de aplicación
-7. Una solución `ProjectTemplate.sln` que referencia todos los proyectos de C# y facilita la compilación con [`dotnet build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build).
-8. Tareas preconfiguradas para compilar y ejecutar los proyectos, ejecutar las pruebas, y generar documentación desde VSCode en la carpeta `.vscode`
-9. Análisis de cobertura de los casos de prueba mediante []() que aparece en los márgenes con el complemento de VS Code [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters).
-10. Ejecución automática de compilación y prueba mediante [GitHub Actions](https://docs.github.com/en/actions) configuradas en el repositorio al hacer [push](https://github.com/git-guides/git-push) o [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests).
+Nuestro mayor problema a lo largo del año fue utilizar Git correctamente. Para la mayoría del grupo era el primer encuentro con Git y GitHub. Nos ha pasado alguna que otra vez que alguien, intentando solucionar un conflicto, haya borrado algo que no tenía que borrar. Gracias a eso aprendimos a usar el control de versiones de Git. Al principio teníamos problemas hasta para las operaciones más básicas: commit, push, etc. En alguna que otra ocasión vuelven a aparecer esos errores, pero por lo menos ahora sabemos cómo solucionarlos.
 
-Vean este 🎥 [video](https://web.microsoftstream.com/video/55c6a06c-07dc-4f95-a96d-768f198c9044) que explica el funcionamiento de la plantilla.
+Otro grave problema que tuvimos fue con los Unit Tests. Muchas veces estos funcionaban de forma individual, pero cuando tratábamos de correrlos todos a la vez, se rompían porque permanecía información de un test al otro. Al principio intentamos hacer que los tests sean absolutamente aislados, pero al final vimos que nos era imposible, por lo que diseñamos tests que tengan en cuenta la información de los demás. Sin embargo, nada de esto fue rápido ni sencillo; nos tomó hasta la tercera entrega tener tests funcionales.
 
-## Convenciones
+También luchamos un poco al intentar respetar los principios SOLID y GRASP. Muchas veces la primera solución que se nos ocurría era la más simple y directa, pero terminaba violando los principios. Al comienzo esto nos dificultó avanzar, pero a lo largo del proyecto quedó muy claro por qué existen esos principios y estamos agradecidos de haber hecho un esfuerzo por mantenerlos en la medida de lo posible.
 
-[Convenciones de código en C#](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions)
+Aprendimos a dividirnos la carga de trabajo para aumentar la eficiencia. Sin embargo, esto no nos salió natural, por lo que tuvimos que ir mejorando a lo largo del semestre. También mejoramos nuestra habilidad para depurar código, especialmente en la última entrega, que fue donde realmente nos dimos cuenta de todos los errores que fuimos cometiendo a lo largo del semestre. Incluso descubrimos que algunas herramientas que utilizamos de forma regular (bots de Discord) no están tan alejadas como pensábamos originalmente. Incluso a alguno que otro le dieron ganas de hacer su propio bot.
 
-[Convenciones de nombres en C#](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines)
-
-## Dónde encontrar información sobre los errores/avisos al compilar
-
-[C# Compiler Errors (CS*)](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/)
-
-[Roslyn Analyzer Warnings (CA*)](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/categories)
-
-[StyleCop Analyzer Warnings (SA*)](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/DOCUMENTATION.md)
-
-# Cómo deshabilitar temporalmente los avisos al compilar
-
-## Roslyn Analyzer
-
-Comentar las siguientes líneas en los archivos de proyecto (`*.csproj`)
-```
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-```
-
-## StyleCop Analyzer
-
-Comentar la línea `<PackageReference Include="StyleCop.Analyzers" Version="1.1.118"/>` en los archivos de proyecto (`*.csproj`)
+Una cosa que nos gustaría recalcar es que experimentamos en primera persona la importancia del bajo acoplamiento. Cada vez que teníamos que corregir después de haber recibido una calificación, notábamos cómo en nuestro código muchas veces cambiar una clase más abajo no afectaba lo demás. Lo mismo ocurrió durante la tercera entrega: un compañero trabajó en la Library para corregir y mejorar lo que teníamos, mientras que otros dos trabajaban en los comandos de Discord. El que trabajaba en Library no necesitaba tener miedo de cambiar nada, porque sabía que, siempre y cuando siguiese los principios y patrones, los otros dos ni siquiera deberían darse cuenta de que algo cambió.
