@@ -81,5 +81,55 @@ namespace Library
                 throw new Exception("No se ha encontrado el usuario");
             }
         }
+
+       
+        public string VerUsuarioconmasVentas()
+        {
+            BaseDatosUsuario bdUsuario = BaseDatosUsuario.Instance;
+            BaseDatosVenta bdVenta = BaseDatosVenta.Instance;
+
+            if (bdUsuario.ListaUsuario.Count == 0)
+            {
+                throw new Exception("No hay usuarios registrados en el sistema");
+            }
+
+            if (bdVenta.ListaVentas.Count == 0)
+            {
+                throw new Exception("No hay ventas registradas en el sistema");
+            }
+
+            Dictionary<Usuario, int> ventasPorUsuario = new Dictionary<Usuario, int>();
+
+            foreach (Usuario usuario in bdUsuario.ListaUsuario)
+            {
+                ventasPorUsuario[usuario] = 0;
+            }
+
+            foreach (Venta venta in bdVenta.ListaVentas)
+            {
+                if (ventasPorUsuario.ContainsKey(venta.Usuario))
+                {
+                    ventasPorUsuario[venta.Usuario]++;
+                }
+            }
+
+            Usuario vendedorTop = null;
+            int maxVentas = 0;
+
+            foreach (var kvp in ventasPorUsuario)
+            {
+                if (kvp.Value > maxVentas)
+                {
+                    maxVentas = kvp.Value;
+                    vendedorTop = kvp.Key;
+                }
+            }
+
+            string resultdo = vendedorTop.Nombre;
+            return resultdo;
+
+        }
+
     }
-}
+    }
+    

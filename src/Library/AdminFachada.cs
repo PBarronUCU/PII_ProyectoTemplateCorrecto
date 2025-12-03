@@ -102,5 +102,17 @@ namespace Library
             }
             admin.SuspenderUsuario(correo);
         }
+
+        public string VeralmejotVendedor(string nombreAdmin)
+        {
+            Admin admin = _bd.AdminSegunNombre(nombreAdmin);
+            if (admin == null)
+            {
+                throw new Exception("Admin no encontrado.");
+            }
+            admin.VerUsuarioconmasVentas();
+            return admin.VerUsuarioconmasVentas();
+            
+        }
     }
 }
