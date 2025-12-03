@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace Library
 
@@ -139,7 +141,42 @@ namespace Library
             Usuario user = new Usuario(nombre, apellido, correo);
             Instance.AgregarUsuario(user);
         }
+
+
+        public CantidadDeVentasUsuario UsuarioConMasVentas()
+        {
+            if (ListaUsuario.Count == 0)
+            {
+                throw new Exception("No hay usuarios registrados");
+            }
+            List<CantidadDeVentasUsuario> result = new List<CantidadDeVentasUsuario>();
+            foreach (Usuario usuario in ListaUsuario)
+            {
+                int ventasuser = BaseDatosVenta.Instance.CantidadDeVentasSegunUsuario(usuario);
+                CantidadDeVentasUsuario cantidad = new CantidadDeVentasUsuario(usuario, ventasuser*100);
+                result.Add(cantidad);
+            }
+            //Ordeno de forma manual porque no se como decirle a c# que ordene mi clase custom
+            // segun un atributo. Entiendo que se puede definir un comparador para mi clase, pero no se como y estoy
+            // limitado de tiempo. Tambien intente usar el OrderBy pero me genero un problema con los tipo de variable.
+            //Si estuviese en un ambiente mas tranquilo averiguaria como arreglarlo pero preferi asegurarme de poder entregar.
+            
+            CantidadDeVentasUsuario final = result[0];
+            foreach (CantidadDeVentasUsuario cant in result)
+            {
+                if (cant.CantidadVentaBono > final.CantidadVentaBono)
+                {
+                    final = cant;
+                }
+            }
+
+            return final;
+
+
+        }
         
     }
-
+    
+    
+    
 }

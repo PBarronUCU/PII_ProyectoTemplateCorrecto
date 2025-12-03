@@ -122,7 +122,24 @@ namespace Library
             Venta venta = new Venta(usuario,tema,notas,fecha,cliente,valor,producto);
             Instance.AgregarVenta(venta);
         }
-        
+        /// <summary>
+        /// DEFENSAPROYECTO: toma un usuario y devuelve la cantidad de ventas que realizo
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public int CantidadDeVentasSegunUsuario(Usuario usuario)
+        {
+            int count = 0;
+            foreach (Venta venta in ListaVentas)
+            {
+                if (venta.Usuario == usuario)
+                {
+                    count++;
+                }
+            }
+            
+            return count;
+        }
         
     }
 }

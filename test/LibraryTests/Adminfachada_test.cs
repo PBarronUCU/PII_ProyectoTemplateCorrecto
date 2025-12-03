@@ -105,5 +105,55 @@ namespace LibraryTests
             Assert.That("No se ha encontrado el usuario",Is.EqualTo(ex.Message));
 
         }
+
+        /// <summary>
+        /// DEFENSAPROYECTO: testea la nueva historia de usuario
+        /// tambien testea que en caso repetido salga el primero que fue registrado
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public void UsuarioConMasVentas()
+        {
+            AdminFachada.Instance.CrearAdmin("AdminDEFENSA");
+            AdminFachada.Instance.CrearUsuario("AdminDEFENSA","Patricio","Barron","DEFENSA1USER@");
+            AdminFachada.Instance.CrearUsuario("AdminDEFENSA","Enzo","Olivera","DEFENSA2USER@");
+            AdminFachada.Instance.CrearUsuario("AdminDEFENSA","Tiziano","Soto","DEFENSA3USER@");
+            AdminFachada.Instance.CrearUsuario("AdminDEFENSA","Emmanuel","MeOlvidePerdonEmma","DEFENSA4USER@");
+            
+            UsuarioFachada.Instance.CrearCliente("DEFENSA1USER@","test","test",1241,"DEFENSA1CLIENTE@");
+            UsuarioFachada.Instance.CrearCliente("DEFENSA2USER@","test","test",1242,"DEFENSA2CLIENTE@@");
+            UsuarioFachada.Instance.CrearCliente("DEFENSA3USER@","test","test",1243,"DEFENSA3CLIENTE@");
+            UsuarioFachada.Instance.CrearCliente("DEFENSA4USER@","test","test",1244,"DEFENSA4CLIENTE@");
+            
+            UsuarioFachada.Instance.CrearVenta("DEFENSA1USER@","Prueba","Prueba","1/2/2025",1241,13,"PruebaP1");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA1USER@","Prueba","Prueba","1/2/2025",1241,13,"PruebaP2");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA1USER@","Prueba","Prueba","1/2/2025",1241,13,"PruebaP3");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA1USER@","Prueba","Prueba","1/2/2025",1241,13,"PruebaP4");
+            
+            UsuarioFachada.Instance.CrearVenta("DEFENSA2USER@","Prueba","Prueba","1/2/2025",1242,13,"PruebaE1");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA2USER@","Prueba","Prueba","1/2/2025",1242,13,"PruebaE2");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA2USER@","Prueba","Prueba","1/2/2025",1242,13,"PruebaE3");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA2USER@","Prueba","Prueba","1/2/2025",1242,13,"PruebaE4");
+            
+            UsuarioFachada.Instance.CrearVenta("DEFENSA3USER@","Prueba","Prueba","1/2/2025",1243,13,"PruebaT1");
+            UsuarioFachada.Instance.CrearVenta("DEFENSA3USER@","Prueba","Prueba","1/2/2025",1243,13,"PruebaT2");
+            
+            UsuarioFachada.Instance.CrearVenta("DEFENSA4USER@","Prueba","Prueba","1/2/2025",1244,13,"PruebaEm1");
+
+
+            CantidadDeVentasUsuario test = AdminFachada.Instance.VendedorConMasVentas();
+            Assert.That(test.Usuario.Nombre, Is.EqualTo("Patricio"));
+            Assert.That(test.CantidadVentaBono, Is.EqualTo(400));
+
+
+
+
+
+
+
+
+
+
+        }
     }
 }

@@ -67,6 +67,15 @@
             <param name="nombreAdmin"></param>
             <param name="correo"></param>
         </member>
+        <member name="M:Library.AdminFachada.VendedorConMasVentas">
+            <summary>
+            DEFENSAPROYECTO: Como no hace falta saber que administrador tira el comando decidi no poner un atributo
+            nombreAdmin.
+            Devuelve el bendedor con mas ventas realizadas y con la cantidad de ventas. En el caso de que haya mas de un vendedor con el
+            maximo de ventas. Devuelve el que fue registrado primero
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Library.BaseDatosAdmin">
             <summary>
             Base de datos para los Admins
@@ -270,6 +279,29 @@
             <param name="fechaalta"></param>
             <param name="user"></param>
             <returns></returns>
+        </member>
+        <member name="M:Library.BaseDatosVenta.CantidadDeVentasSegunUsuario(Library.Usuario)">
+            <summary>
+            DEFENSAPROYECTO: toma un usuario y devuelve la cantidad de ventas que realizo
+            </summary>
+            <param name="usuario"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Library.CantidadDeVentasUsuario">
+            <summary>
+            DEFENSA PROYECTO: cree esta clase para poer guardan en un mismo objeto un usuario y un numero que
+            representa la cantidad de bono. Lo hice asi porque no se como hacer lo que seria en python una matrix de dimension 2 con dos
+            tipos de datos diferentes y como estoy limitado por el tiempo tome la opcion mas facil que se me occurio.
+            </summary>
+        </member>
+        <member name="P:Library.CantidadDeVentasUsuario.CantidadVentaBono">
+            <summary>
+            El bono que va a recivir el usuario
+            Podria haber representado la cantidad de ventas tambien, pero como era para la defense
+            decidi hacer asi.
+            Si hubiese sido el proyecto este argumento hubiese representado la cantidad de ventas y luego otras
+            partes del codigo se hubiese encargado de multiplicar para conseguir el bono.
+            </summary>
         </member>
         <member name="T:Library.Cliente">
             <summary>
@@ -672,6 +704,43 @@
             Metodo para que la fachada pueda agregar un cliente a la Cartera del usuario.
             </summary>
             <param name="cliente"></param>
+        </member>
+        <member name="T:Library.UsuarioFachada">
+             PATRONES GRASP:
+             • Controller: Esta clase centraliza todas las operaciones del sistema relacionadas al usuario,
+               actuando como punto de entrada para peticiones externas.
+            
+             • Information Expert: La fachada usa a las clases BaseDatosUsuario, BaseDatosCliente y BaseDatosVenta
+               porque ellas son expertas en sus respectivos datos.
+            
+             • Low Coupling: El acoplamiento se reduce porque el resto del sistema interactúa solo con la fachada.
+            
+             • High Cohesion: La clase reúne únicamente funcionalidades relacionadas a coordinar acciones del usuario.
+            
+            
+             PRINCIPIOS SOLID:
+             • SRP (Responsabilidad Única): La responsabilidad de la clase es actuar como interfaz simplificada
+               hacia operaciones de usuario. No gestiona almacenamiento ni reglas de negocio internas.
+            
+             • OCP (Open/Closed): Podría expandirse con nuevos métodos sin modificar internamente la lógica ya existente.
+            
+             • LSP: Cumple mientras no se creen subclases (es sealed).
+            
+             • ISP: Los usuarios externos no dependen de detalles de múltiples bases de datos; solo usan esta interfaz.
+            
+             • DIP (Dependency Inversion): Depende de abstracciones (interfaces implícitas de las bases), no de implementaciones
+               concretas. La obtención vía Singleton reduce acoplamiento directo.
+            
+            
+             PATRONES:
+             • Facade: Es una fachada que simplifica múltiples operaciones complejas.
+            
+             • Singleton: Implementado para garantizar una sola instancia global.
+            
+             • Command: Cada método podría considerarse un comando de acción.
+            
+             • Template Method : Muchos métodos repiten pasos comunes como verificar usuario → verificar suspensión → ejecutar acción.
+             
         </member>
         <member name="F:Library.UsuarioFachada._instance">
             <summary>

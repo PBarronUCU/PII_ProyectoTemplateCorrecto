@@ -34,6 +34,13 @@
             Prueba que lanze uan exepcion al suspender un usuario inexistente
             </summary>
         </member>
+        <member name="M:LibraryTests.Adminfachada_test.UsuarioConMasVentas">
+            <summary>
+            DEFENSAPROYECTO: testea la nueva historia de usuario
+            tambien testea que en caso repetido salga el primero que fue registrado
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:LibraryTests.UsuarioFachadaTests.SetUp">
             <summary>
             No funciona, Intente con el profe en clase no pudimos arreglar este error.

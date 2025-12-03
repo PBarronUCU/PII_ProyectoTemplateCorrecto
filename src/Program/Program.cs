@@ -20,12 +20,7 @@ namespace ConsoleApplication
         /// </summary>
         public static void Main()
         {
-            AdminFachada fachaadmin = AdminFachada.Instance;
-            fachaadmin.CrearAdmin("Admin2");
-            AdminFachada fachadaadmin = AdminFachada.Instance;
-            fachaadmin.CrearUsuario("Admin2","rodrigo","montiel","r@");
-            UsuarioFachada fachausuario = UsuarioFachada.Instance;
-            fachausuario.CrearCliente("r@","esteban","quito",099,"eq@");
+
             BotLoader.LoadAsync().GetAwaiter().GetResult();
           
             

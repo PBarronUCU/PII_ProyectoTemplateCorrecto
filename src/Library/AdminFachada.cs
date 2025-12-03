@@ -102,5 +102,18 @@ namespace Library
             }
             admin.SuspenderUsuario(correo);
         }
+        /// <summary>
+        /// DEFENSAPROYECTO: Como no hace falta saber que administrador tira el comando decidi no poner un atributo
+        /// nombreAdmin.
+        /// Devuelve el bendedor con mas ventas realizadas y con la cantidad de ventas. En el caso de que haya mas de un vendedor con el
+        /// maximo de ventas. Devuelve el que fue registrado primero.
+        /// </summary>
+        /// <returns></returns>
+        public CantidadDeVentasUsuario VendedorConMasVentas()
+        {
+            return BaseDatosUsuario.Instance.UsuarioConMasVentas();
+        }
+        
     }
+    
 }
