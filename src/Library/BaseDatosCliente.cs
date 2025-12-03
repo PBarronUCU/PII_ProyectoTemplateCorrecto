@@ -177,5 +177,9 @@ namespace Library
             client.FechaNac =  fecha;
             
         }
+        public void Reset()
+        {
+            ListaCliente.Clear();
+        }
     }
 }

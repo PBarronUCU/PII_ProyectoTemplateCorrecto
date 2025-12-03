@@ -31,7 +31,7 @@ namespace Library
 // • State: Usado indirectamente en Usuario.Suspender(),cambia el estado interno.
 //
 // -----------------------------------------------------------------------------
-    
+
     /// <summary>
     /// Se encarga de Agregar usuarios a la base de datos y si es necesario, suspenderlos
     /// </summary>
@@ -41,6 +41,7 @@ namespace Library
         /// Nombre del Admin
         /// </summary>
         public string Nombre { get; set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -49,6 +50,7 @@ namespace Library
         {
             Nombre = nombre;
         }
+
         /// <summary>
         /// Agrega usuario a la base de datos. 
         /// </summary>
@@ -60,16 +62,17 @@ namespace Library
         {
             BaseDatosUsuario bd2 = BaseDatosUsuario.Instance;
             bd2.CrearUsuario(name, apell, correo);
-            
-            
+
+
         }
+
         /// <summary>
         /// Suspende un usuario. Los usuarios suspendido no pueden relizar sus funciones.
         /// </summary>
         /// <param name="correo"></param>
         public void SuspenderUsuario(string correo)
         {
-        
+
             BaseDatosUsuario bd1 = BaseDatosUsuario.Instance;
             Usuario u = bd1.UsuarioSegunCorreo(correo);
             if (bd1.ExisteCorreoUser(correo))
@@ -80,6 +83,14 @@ namespace Library
             {
                 throw new Exception("No se ha encontrado el usuario");
             }
+            
         }
+
+        
+        ///Como administrador quiero obtener el vendedor con mayor cantidad de ventas
+        /// para así poder otorgarle un bono proporcional a la cantidad de ventas.
+        ///Criterios de aceptación: Se debe agregar un nuevo comando que permita obtener
+        /// la cantidad de las ventas de cada vendedor.
+        /// El vendedor con mayor cantidad, obtiene un bono equivalente a $100 por cada venta.
     }
 }

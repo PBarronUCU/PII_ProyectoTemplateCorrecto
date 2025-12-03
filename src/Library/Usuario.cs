@@ -63,6 +63,7 @@ namespace Library
         /// Guarda las Oportunidades de Venta que realisa el Usuario
         /// </summary>
         public List<Cotizacion> OportunidadesVentas = new List<Cotizacion>();
+        
         /// <summary>
         /// Guarda las Interacioones del Usuario
         /// </summary>
@@ -155,6 +156,7 @@ namespace Library
                 ListaInteracciones.Add(cotizacion);
             
         }
+        
 
         
         /// <summary>

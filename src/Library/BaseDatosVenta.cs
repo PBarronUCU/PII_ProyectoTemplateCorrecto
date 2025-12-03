@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 
+
 namespace Library
 
 // -----------------------------------------------------------------------------
@@ -122,7 +123,9 @@ namespace Library
             Venta venta = new Venta(usuario,tema,notas,fecha,cliente,valor,producto);
             Instance.AgregarVenta(venta);
         }
-        
-        
+        public void Reset()
+        {
+            ListaVentas.Clear();
+        }
     }
 }

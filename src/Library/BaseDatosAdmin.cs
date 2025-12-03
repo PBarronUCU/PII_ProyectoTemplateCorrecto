@@ -99,5 +99,9 @@ namespace Library
             Admin admin = ListaAdmin.Find(x => x.Nombre == nombre);
             return admin;
         }
+        public void Reset()
+        {
+            ListaAdmin.Clear();
+        }
     }
 }

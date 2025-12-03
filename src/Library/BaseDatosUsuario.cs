@@ -140,6 +140,10 @@ namespace Library
             Instance.AgregarUsuario(user);
         }
         
+        public void Reset()
+        {
+            ListaUsuario.Clear();
+        }
     }
 
 }

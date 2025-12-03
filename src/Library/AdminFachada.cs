@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Library
 
@@ -102,5 +103,50 @@ namespace Library
             }
             admin.SuspenderUsuario(correo);
         }
+        public MejorVendedorResultado VendedorConMasVentas()
+        {
+            var ventas = BaseDatosVenta.Instance.ObtenerTodasLasVentas();
+
+            if (ventas.Count == 0)
+                throw new Exception("No hay ventas registradas.");
+
+            Dictionary<Usuario, int> contador = new Dictionary<Usuario, int>();
+
+            // Contar ventas manualmente
+            foreach (var venta in ventas)
+            {
+                if (!contador.ContainsKey(venta.Usuario))
+                    contador[venta.Usuario] = 0;
+
+                contador[venta.Usuario]++;
+            }
+
+            Usuario mejorVendedor = null;
+            int maxVentas = 0;
+
+            // Buscar el máximo manualmente
+            foreach (var item in contador)
+            {
+                if (item.Value > maxVentas)
+                {
+                    maxVentas = item.Value;
+                    mejorVendedor = item.Key;
+                }
+            }
+
+            // Crear el resultado sin tuplas
+            MejorVendedorResultado resultado = new MejorVendedorResultado
+            {
+                Vendedor = mejorVendedor,
+                CantidadVentas = maxVentas,
+                Bono = maxVentas * 100
+            };
+
+            return resultado;
+        }
+
+
+        }
+
     }
-}
+
